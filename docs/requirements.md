@@ -13,5 +13,5 @@ Should Have
 - Users can remove currently listed offers from their organisational unit.
 - The system prevents the listing of offers that would put an organisational unit into debt, i.e., BUY offers or SELL offers that exceed the organisational unit’s number of credits or number of assets.
 
-Could Have
+Nice to Have
 ---------------
