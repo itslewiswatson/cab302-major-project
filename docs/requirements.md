@@ -1,7 +1,7 @@
 Requirements
-===============
+============
 Must Have
----------------
+---------
 - A ***server*** which keeps track of all system data.
   - Data is stored in a database (MariaDB, PostgreSQL or SQLite3). Data includes: 
     - User information (username, password, account type, organisational unit)
@@ -24,7 +24,7 @@ Must Have
     - Modify an organisational unit’s number of credits and assets.
 
 Should Have
----------------
+-----------
 - Server
     - Port number is retrieved from a configuration file.
 - Client
@@ -33,7 +33,7 @@ Should Have
   - Users can change their own password.
 
 Nice to Have
----------------
+------------
 - Client
   - Users:
     - Can see the graphical price history (date on the X axis and price on the Y axis) of an asset when they go to list a BUY or SELL offer.
