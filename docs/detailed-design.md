@@ -23,18 +23,18 @@ Database Schema
   - name – {PK} CHAR(255)
   - credits – BIGINT
 - UnitUsers
-  - username – {PK} CHAR(255) 
-  - unitName – {PK} CHAR(255)
+  - username – {PK} {FK} CHAR(255) 
+  - unitName – {PK} {FK} CHAR(255)
 - Asset
   - name – {PK} CHAR(255)
 - UnitAssets
-  - unitName – {PK} CHAR(255)
-  - assetName – {PK} CHAR(255)
+  - unitName – {PK} {FK} CHAR(255)
+  - assetName – {PK} {FK} CHAR(255)
   - quantity – BIGINT 
 - Trade
   - ID – {PK} BIGINT
-  - unitName – CHAR(255)
-  - assetName – CHAR(255)
+  - unitName – {FK} CHAR(255)
+  - assetName – {FK} CHAR(255)
   - date – DATE 
   - type – CHAR(4)
   - quantity – BIGINT 
