@@ -13,9 +13,13 @@ Must Have
     - E.g., there is a BUY offer for 100 CPU hours at 10 credits each and a SELL offer for 500 CPU hours at 10 credits each. Once reconciled, the BUY offer will be fulfilled, and the sell offer will be updated to 400 CPU hours at 10 credits each. Reconciling will only proceed if the selling price is less than or equal to the buying price (buyer pays the lower price).
   - Offers that would put an organisational unit into debt are prevented from being listed.
     - I.e., BUY offers or SELL offers that exceed the organisational unit’s number of credits or number of assets, respectively.
+  - Support for an artificially limitless number of commodities, users and trades.
+  - Support for zero or many concurrent clients using the platform and making trades.
 - A ***client*** for users to interface with the server through.
   - User-friendly GUI.
+  - A login screen that authenticates a user's credentials before allowing them in the system in the form of a username + password combination.
   - Users can:
+    - View a list of all available assets to make BUY offers on.
     - View currently listed BUY and SELL offers.
     - List offers using the credit balance and assets of their organisational unit.
     - Remove currently listed offers from their organisational unit.
@@ -31,11 +35,13 @@ Should Have
   - The server’s IP address and port number are retrieved from a configuration file.
   - Passwords are hashed before being sent to the server.
   - Users can change their own password.
+  - Users are presented with helpful and informative error messages when the system is unable to perform their desired action.
 
 Nice to Have
 ------------
 - Client
   - Users:
     - Can see the graphical price history (date on the X axis and price on the Y axis) of an asset when they go to list a BUY or SELL offer.
-    - Are notified when a trade involving their organisational unit is fulfilled. 
+    - Are immediately notified when a trade involving their organisational unit is fulfilled. 
+    - Ability to sort current trades by total worth, unit price, 
 
