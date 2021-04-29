@@ -3,6 +3,7 @@ Detailed Design
 
 Java Classes
 ------------
+[JavaDoc](/docs/JavaDoc/index.html)
 
 Class Diagram
 -------------
