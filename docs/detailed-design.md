@@ -3,7 +3,7 @@ Detailed Design
 
 Java Classes
 ------------
-[JavaDoc](/docs/JavaDoc/index.html)
+[JavaDoc](https://mitchelljqegan.github.io/cab302-major-project-javadoc/)
 
 Class Diagram
 -------------
