@@ -4,62 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/allclasses-index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/allpackages-index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/client/Client.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/client/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/client/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/common/User.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/common/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/common/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/constant-values.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/deprecated-list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/element-list" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/help-doc.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/index-files/index-1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/index-files/index-2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/index-files/index-3.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/index-files/index-4.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/index-files/index-5.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/jquery-ui.overrides.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/member-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/module-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/overview-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/overview-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/package-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/resources/glass.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/resources/x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-bg_glass_55_fbf9ee_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-bg_glass_65_dadada_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-bg_glass_75_dadada_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-bg_glass_75_e6e6e6_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-bg_glass_95_fef1ec_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-bg_highlight-soft_75_cccccc_1x100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-icons_222222_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-icons_2e83ff_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-icons_454545_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-icons_888888_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/images/ui-icons_cd0a0a_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/jquery-3.5.1.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/jquery-ui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/jquery-ui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script-dir/jquery-ui.structure.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/search.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/server/Server.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/server/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/server/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/stylesheet.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/tag-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/JavaDoc/type-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/common/User.java" afterDir="false" />
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create initial JavaDoc">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +24,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1rpNDRNARQXx2akqqK6HpGWdbiM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -134,6 +91,14 @@
       <option name="presentableId" value="Default" />
       <updated>1619668951275</updated>
     </task>
+    <task id="LOCAL-00001" summary="Create initial JavaDoc">
+      <created>1619672578251</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1619672578251</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,5 +111,10 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Create initial JavaDoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create initial JavaDoc" />
   </component>
 </project>
