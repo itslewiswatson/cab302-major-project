@@ -1,5 +1,4 @@
 package common;
-
 import java.time.LocalDate;
 
 /**
@@ -30,14 +29,14 @@ public class Trade implements java.io.Serializable {
     private int quantity;
 
     /**
-     * The asset offered in the trade.
-     */
-    private String asset;
-
-    /**
      * A trade's list date.
      */
     private LocalDate date;
+
+    /**
+     * The asset offered in the trade.
+     */
+    private String asset;
 
     /**
      * The type of trade (BUY or SELL).
