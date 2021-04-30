@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Begin implementing User class">
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Begin implementing and documenting Trade class">
+      <change afterPath="$PROJECT_DIR$/src/main/java/common/Trade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/common/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/User.java" afterDir="false" />
     </list>
@@ -110,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619680076449</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Continue implementing and documenting User class">
+      <created>1619753405979</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1619753405979</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -129,6 +137,8 @@
     <MESSAGE value="Create initial JavaDoc" />
     <MESSAGE value="Add dependency jbcrypt" />
     <MESSAGE value="Begin implementing User class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Begin implementing User class" />
+    <MESSAGE value="Continue implementing and documenting User class" />
+    <MESSAGE value="Begin implementing and documenting Trade class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Begin implementing and documenting Trade class" />
   </component>
 </project>

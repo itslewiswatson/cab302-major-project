@@ -29,14 +29,14 @@ public class User implements java.io.Serializable {
     private boolean updatePassword;
 
     /**
-     * A user's username.
-     */
-    private String username;
-
-    /**
      * A user's hashed password.
      */
     private String password;
+
+    /**
+     * A user's username.
+     */
+    private String username;
 
     /**
      * The units that a user belongs to.
@@ -52,7 +52,7 @@ public class User implements java.io.Serializable {
      * @param username A user's username.
      * @param password A user's plaintext password.
      */
-    public User(String username, String password) {
+    public User(String password, String username) {
         admin = false;
         loggedIn = false;
         updatePassword = false;
