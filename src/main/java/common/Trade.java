@@ -15,6 +15,11 @@ public class Trade implements java.io.Serializable {
     private static final long serialVersionUID = 0;
 
     /**
+     * An indication that the trade is to be removed from the database.
+     */
+    private boolean remove;
+
+    /**
      * A trade's total price.
      */
     private int price;
@@ -44,6 +49,7 @@ public class Trade implements java.io.Serializable {
      */
     private String unit;
 
+
     /* Constructors */
 
     /**
@@ -56,6 +62,7 @@ public class Trade implements java.io.Serializable {
      * @param unit The unit offering the trade.
      */
     public Trade(int price, int quantity, String asset, String type, String unit) {
+        this.remove = false;
         this.price = price;
         this.quantity = quantity;
         this.asset = asset;
@@ -75,6 +82,7 @@ public class Trade implements java.io.Serializable {
      * @param unit The unit offering the trade.
      */
     public Trade(int price, int quantity, String asset, LocalDate date, String type, String unit) {
+        this.remove = false;
         this.price = price;
         this.quantity = quantity;
         this.asset = asset;
@@ -83,5 +91,15 @@ public class Trade implements java.io.Serializable {
         this.unit = unit;
     }
 
+
     /* Methods */
+
+    /**
+     * Set trade's remove field.
+     *
+     * @param remove An indication that the trade is to be removed.
+     */
+    public void setRemove(boolean remove) {
+        this.remove = remove;
+    }
 }
