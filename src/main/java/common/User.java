@@ -14,6 +14,11 @@ public class User implements java.io.Serializable {
     private static final long serialVersionUID = 0;
 
     /**
+     * An indication that the user is to be added to the database.
+     */
+    private boolean add;
+
+    /**
      * An indication of whether the user has administrative privileges.
      */
     private boolean admin;
@@ -47,21 +52,48 @@ public class User implements java.io.Serializable {
     /* Constructors */
 
     /**
-     * Constructor to create a user object when a login is attempted.
+     * Client-side constructor to create a user object when a login is attempted.
      *
      * @param username A user's username.
      * @param password A user's plaintext password.
      */
     public User(String password, String username) {
+        add = false;
         admin = false;
         loggedIn = false;
         updatePassword = false;
-        this.username = username;
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.username = username;
+        units = new String[0];
     }
 
+    /**
+     * Client-side constructor to create a user object when a new user account is created.
+     *
+     * @param admin An indication of whether the user has administrative privileges.
+     * @param username A user's username.
+     * @param password A user's plaintext password.
+     */
+    public User(boolean admin, String username, String password) {
+        add = true;
+        this.admin = admin;
+        loggedIn = false;
+        updatePassword = false;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.username = username;
+        units = new String[0];
+    }
 
     /* Methods */
+
+    /**
+     * Set user's add field.
+     *
+     * @param add An indication that the user is to be added to the database.
+     */
+    public void setAdd(boolean add) {
+        this.add = add;
+    }
 
     /**
      * Set user's admin field.
@@ -82,15 +114,6 @@ public class User implements java.io.Serializable {
     }
 
     /**
-     * Set user's updatePassword field.
-     *
-     * @param updatePassword An indication of whether the user is wanting to update their password.
-     */
-    public void setUpdatePassword(boolean updatePassword) {
-        this.updatePassword = updatePassword;
-    }
-
-    /**
      * Hash and set user's password field.
      *
      * @param password A user's plaintext password.
@@ -106,5 +129,14 @@ public class User implements java.io.Serializable {
      */
     public void setUnits(String[] units) {
         this.units = units;
+    }
+
+    /**
+     * Set user's updatePassword field.
+     *
+     * @param updatePassword An indication of whether the user is wanting to update their password.
+     */
+    public void setUpdatePassword(boolean updatePassword) {
+        this.updatePassword = updatePassword;
     }
 }
