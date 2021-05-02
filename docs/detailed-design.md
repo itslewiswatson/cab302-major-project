@@ -46,10 +46,3 @@ Database Schema
 Network Protocol
 ----------------
 - All communication facilitated by sockets and serialisation.
-- Client &rarr; Server
-  - Credentials class (login)
-  - Empty trade class (request trades)
-  - Trade class (new trade)
-  - Existing user class (change password)
-  - Unit class (new unit)
-- Server &rarr; Client
