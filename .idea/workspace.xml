@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Continue implementing and documenting Trade class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/common/Asset.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/common/Unit.java" afterDir="false" />
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Begin implementing and documenting TradesRequest class">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/Trade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Trade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Unit.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +133,63 @@
       <option name="project" value="LOCAL" />
       <updated>1619781436266</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Implement add flag">
+      <created>1619789446600</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1619789446600</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Reorder field declarations">
+      <created>1619789484144</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619789484144</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Begin implementing and documenting Unit class">
+      <created>1619789507223</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619789507223</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Begin implementing and documenting Asset class">
+      <created>1619789521610</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619789521610</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Begin implementing and documenting Asset class">
+      <created>1619789530033</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619789530033</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Delete User class to implement inheritance">
+      <created>1619879071350</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1619879071350</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Create user account superclass">
+      <created>1619879100919</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1619879100919</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Create user account subclasses">
+      <created>1619879114211</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1619879114211</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -156,6 +211,14 @@
     <MESSAGE value="Continue implementing and documenting User class" />
     <MESSAGE value="Begin implementing and documenting Trade class" />
     <MESSAGE value="Continue implementing and documenting Trade class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Continue implementing and documenting Trade class" />
+    <MESSAGE value="Implement add flag" />
+    <MESSAGE value="Reorder field declarations" />
+    <MESSAGE value="Begin implementing and documenting Unit class" />
+    <MESSAGE value="Begin implementing and documenting Asset class" />
+    <MESSAGE value="Delete User class to implement inheritance" />
+    <MESSAGE value="Create user account superclass" />
+    <MESSAGE value="Create user account subclasses" />
+    <MESSAGE value="Begin implementing and documenting TradesRequest class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Begin implementing and documenting TradesRequest class" />
   </component>
 </project>
