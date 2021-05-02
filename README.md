@@ -1,4 +1,4 @@
-cab302-major-project
+CAB302 Major Project
 ====================
 Documentation
 -------------

@@ -3,7 +3,7 @@ Requirements
 Must Have
 ---------
 - A ***server*** which keeps track of all system data.
-  - Data is stored in a database (MariaDB, PostgreSQL or SQLite3). Data includes: 
+  - Data is stored in a database (MariaDB). Data includes: 
     - User information (username, password, account type, organisational unit).
     - Organisational unit information (organisational unit name, credits, assets, and the quantity of each asset).
     - Asset types (asset names).
@@ -19,9 +19,9 @@ Must Have
   - User-friendly GUI.
   - A login screen that authenticates a user's credentials before allowing them in the system in the form of a username + password combination.
   - Users can:
-    - View a list of all available assets to make BUY offers on.
     - View currently listed BUY and SELL offers.
     - List offers using the credit balance and assets of their organisational unit.
+    - When listing an offer, be able to view all available assets.
     - Remove currently listed offers from their organisational unit.
   - Administrators can:
     - Add new organisational units, asset types and users (including administrators). 
@@ -43,5 +43,5 @@ Nice to Have
   - Users:
     - Can see the graphical price history (date on the X axis and price on the Y axis) of an asset when they go to list a BUY or SELL offer.
     - Are immediately notified when a trade involving their organisational unit is fulfilled. 
-    - Ability to sort current trades by total worth, unit price, 
+    - Ability to filter and sort currently listed trades.
 
