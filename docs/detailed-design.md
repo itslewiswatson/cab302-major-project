@@ -18,11 +18,11 @@ Database Schema
 ### Tables & Columns
 - User 
   - username – {PK} CHAR(255)
-  - password – TINYBLOB 
+  - password – CHAR(255)
   - admin – BOOL 
 - Unit
   - name – {PK} CHAR(255)
-  - credits – BIGINT
+  - credits – INT
 - UnitUsers
   - username – {PK} {FK} CHAR(255) 
   - unitName – {PK} {FK} CHAR(255)
@@ -31,15 +31,15 @@ Database Schema
 - UnitAssets
   - unitName – {PK} {FK} CHAR(255)
   - assetName – {PK} {FK} CHAR(255)
-  - quantity – BIGINT 
+  - quantity – INT 
 - Trade
-  - ID – {PK} BIGINT
+  - ID – {PK} INT
   - unitName – {FK} CHAR(255)
   - assetName – {FK} CHAR(255)
   - date – DATE 
   - type – CHAR(4)
-  - quantity – BIGINT 
-  - price – BIGINT 
+  - quantity – INT 
+  - price – INT 
   - completed – BOOL
 
 Network Protocol
