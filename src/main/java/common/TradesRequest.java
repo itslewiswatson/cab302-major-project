@@ -18,6 +18,11 @@ public class TradesRequest implements java.io.Serializable {
     private final boolean completed;
 
     /**
+     * The name of the asset that the trades are being requested for.
+     */
+    private final String asset;
+
+    /**
      * The name of the organisational unit that the trades are being requested for.
      */
     private final String unit;
@@ -27,6 +32,7 @@ public class TradesRequest implements java.io.Serializable {
      */
     public TradesRequest() {
         completed = false;
+        asset = "";
         unit = "";
     }
 
@@ -34,10 +40,12 @@ public class TradesRequest implements java.io.Serializable {
      * Creates a TradesRequest object when all completed trades are to be requested.
      *
      * @param completed An indication that the request is for completed trades.
+     * @param asset The name of the asset that the trades are being requested for.
      */
-    public TradesRequest(boolean completed)
+    public TradesRequest(boolean completed, String asset)
     {
         this.completed = completed;
+        this.asset = asset;
         unit = "";
     }
 
@@ -47,6 +55,7 @@ public class TradesRequest implements java.io.Serializable {
      * @param unit The name of the organisational unit that the trades are being requested for.
      */
     public TradesRequest(String unit) {
+        asset = "";
         completed = false;
         this.unit = unit;
     }
@@ -58,6 +67,15 @@ public class TradesRequest implements java.io.Serializable {
      */
     public boolean isCompleted() {
         return completed;
+    }
+
+    /**
+     * Get the trades request's asset field.
+     *
+     * @return The name of the asset that the trades are being requested for.
+     */
+    public String getAsset() {
+        return asset;
     }
 
     /**
