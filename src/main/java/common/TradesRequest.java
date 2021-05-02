@@ -8,7 +8,7 @@ package common;
 public class TradesRequest implements java.io.Serializable {
 
     /**
-     * The Class' version number.
+     * The class' version number.
      */
     private static final long serialVersionUID = 0;
 

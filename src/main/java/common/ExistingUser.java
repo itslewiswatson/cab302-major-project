@@ -6,7 +6,7 @@ package common;
 public class ExistingUser extends NewUser implements java.io.Serializable {
 
     /**
-     * The Class' version number.
+     * The class' version number.
      */
     private static final long serialVersionUID = 0;
 

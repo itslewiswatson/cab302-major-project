@@ -10,7 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class Credentials implements java.io.Serializable {
 
     /**
-     * The Class' version number.
+     * The class' version number.
      */
     private static final long serialVersionUID = 0;
 

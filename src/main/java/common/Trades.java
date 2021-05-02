@@ -5,11 +5,13 @@ import java.util.List;
 
 /**
  * This class represents a collection of trade offers.
+ *
+ * @author Mitchell Egan
  */
 public class Trades implements java.io.Serializable {
 
     /**
-     * The Class' version number.
+     * The class' version number.
      */
     private static final long serialVersionUID = 0;
 
