@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create uiDesigner.xml">
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Update workspace.xml">
+      <change afterPath="$PROJECT_DIR$/src/main/java/common/Trades.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/Trade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Trade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Unit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/Asset.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/Unit.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +203,28 @@
       <option name="project" value="LOCAL" />
       <updated>1619936487425</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Add asset field">
+      <created>1619945404726</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1619945404726</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Redesign class">
+      <created>1619945432849</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1619945432849</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Update workspace.xml">
+      <created>1619945460490</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1619945460490</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -234,6 +255,9 @@
     <MESSAGE value="Create user account subclasses" />
     <MESSAGE value="Begin implementing and documenting TradesRequest class" />
     <MESSAGE value="Create uiDesigner.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create uiDesigner.xml" />
+    <MESSAGE value="Add asset field" />
+    <MESSAGE value="Redesign class" />
+    <MESSAGE value="Update workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update workspace.xml" />
   </component>
 </project>
