@@ -1,104 +1,169 @@
 package common;
+
 import java.time.LocalDate;
 
 /**
- * This class implements a trade offer.
+ * This class represents a trade offer.
+ *
+ * @author Mitchell Egan
  */
 public class Trade implements java.io.Serializable {
 
-    /* Fields */
-
     /**
-     * Class version number.
+     * The Class' version number.
      */
     private static final long serialVersionUID = 0;
 
     /**
-     * An indication that the trade is to be removed from the database.
+     * The trade offer's identifier.
      */
-    private boolean remove;
+    private final int id;
 
     /**
-     * A trade's total price.
+     * The organisational unit that listed the trade offer.
      */
-    private int price;
+    private final String unit;
 
     /**
-     * The number of assets offered in the trade.
+     * The asset being listed in the trade offer.
      */
-    private int quantity;
+    private final String asset;
 
     /**
-     * A trade's list date.
+     * The date the trade offer was listed.
      */
-    private LocalDate date;
+    private final LocalDate date;
 
     /**
-     * The asset offered in the trade.
+     * The trade offer's type.
      */
-    private String asset;
+    private final String type;
 
     /**
-     * The type of trade (BUY or SELL).
+     * The quantity of the asset being listed in the trade offer.
      */
-    private String type;
+    private final int quantity;
 
     /**
-     * The unit offering the trade.
+     * The trade offer's price.
      */
-    private String unit;
-
-
-    /* Constructors */
+    private final int price;
 
     /**
-     * Client-side constructor to create a trade object when a new trade is listed.
+     * Creates a Trade object when a trade offer is to be removed.
      *
-     * @param price A trade's total price.
-     * @param quantity The number of assets offered in the trade.
-     * @param asset The asset offered in the trade.
-     * @param type The type of trade (BUY or SELL).
-     * @param unit The unit offering the trade.
+     * @param id The trade offer's identifier.
      */
-    public Trade(int price, int quantity, String asset, String type, String unit) {
-        this.remove = false;
-        this.price = price;
-        this.quantity = quantity;
+    public Trade(int id) {
+        this.id = id;
+        unit = "";
+        asset = "";
+        date = null;
+        this.type = "";
+        this.quantity = 0;
+        this.price = 0;
+    }
+
+    /**
+     * Creates a Trade object when a new trade offer is listed.
+     *
+     * @param unit The organisational unit that listed the trade offer.
+     * @param asset The asset being listed in the trade offer.
+     * @param type The trade offer's type.
+     * @param quantity The quantity of the asset being listed in the trade offer.
+     * @param price The trade offer's price.
+     */
+    public Trade(String unit, String asset, String type, int quantity, int price) {
+        id = 0;
+        this.unit = unit;
         this.asset = asset;
         date = LocalDate.now();
         this.type = type;
-        this.unit = unit;
+        this.quantity = quantity;
+        this.price = price;
     }
 
     /**
-     * Server-side constructor to create a trade object when a trade is retrieved from the database.
+     * Creates a Trade object when a trade offer is retrieved from the database.
      *
-     * @param price A trade's total price.
-     * @param quantity The number of assets offered in the trade.
-     * @param asset The asset offered in the trade.
-     * @param date A trade's list date.
-     * @param type The type of trade (BUY or SELL).
-     * @param unit The unit offering the trade.
+     * @param id The trade offer's identifier.
+     * @param unit The organisational unit that listed the trade offer.
+     * @param asset The asset being listed in the trade offer.
+     * @param date The date the trade offer was listed.
+     * @param type The trade offer's type.
+     * @param quantity The quantity of the asset being listed in the trade offer.
+     * @param price The trade offer's price.
      */
-    public Trade(int price, int quantity, String asset, LocalDate date, String type, String unit) {
-        this.remove = false;
-        this.price = price;
-        this.quantity = quantity;
+    public Trade(int id, String unit, String asset, LocalDate date, String type, int quantity, int price) {
+        this.id = id;
+        this.unit = unit;
         this.asset = asset;
         this.date = date;
         this.type = type;
-        this.unit = unit;
+        this.quantity = quantity;
+        this.price = price;
     }
 
-
-    /* Methods */
+    /**
+     * Gets the trade offer's id field.
+     *
+     * @return The trade offer's identifier.
+     */
+    public int getId() {
+        return id;
+    }
 
     /**
-     * Set trade's remove field.
+     * Gets the trade offer's unit field.
      *
-     * @param remove An indication that the trade is to be removed.
+     * @return The organisational unit that listed the trade offer.
      */
-    public void setRemove(boolean remove) {
-        this.remove = remove;
+    public String getUnit() {
+        return unit;
+    }
+
+    /**
+     * Gets the trade offer's asset field.
+     *
+     * @return The asset being listed in the trade offer.
+     */
+    public String getAsset() {
+        return asset;
+    }
+
+    /**
+     * Gets the trade offer's date field.
+     *
+     * @return The date the trade offer was listed.
+     */
+    public LocalDate getDate() {
+        return date;
+    }
+
+    /**
+     * Gets the trade offer's type field.
+     *
+     * @return The trade offer's type.
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Gets the trade offer's quantity field.
+     *
+     * @return The quantity of the asset being listed in the trade offer.
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * Gets the trade offer's price field.
+     *
+     * @return The trade offer's price.
+     */
+    public int getPrice() {
+        return price;
     }
 }
