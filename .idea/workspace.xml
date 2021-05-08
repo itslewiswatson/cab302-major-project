@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Fixed documentation grammar">
-      <change afterPath="$PROJECT_DIR$/docs/milestone-one/detailed-design.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/milestone-one/requirements.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/milestone-one/sprint-planning.md" afterDir="false" />
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create and populate milestone-one directory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,9 +43,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/milestone-one" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -56,6 +56,19 @@
   <component name="RunManager" selected="Application.Server">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.App" />
+      <module name="cab302-major-project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="cab302-major-project" />
       <extension name="coverage">
         <pattern>
@@ -83,6 +96,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Client" />
         <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
@@ -257,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619951884939</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Create and populate milestone-one directory">
+      <created>1620433372849</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1620433372849</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,6 +316,7 @@
     <MESSAGE value="Generate JavaDoc" />
     <MESSAGE value="Begin implementing and documenting Trades class" />
     <MESSAGE value="Fixed documentation grammar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed documentation grammar" />
+    <MESSAGE value="Create and populate milestone-one directory" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create and populate milestone-one directory" />
   </component>
 </project>
