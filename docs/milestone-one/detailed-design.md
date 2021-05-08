@@ -5,9 +5,6 @@ Java Classes
 ------------
 [JavaDoc](https://mitchelljqegan.github.io/cab302-major-project-javadoc/)
 
-Class Diagram
--------------
-
 GUI Design
 ----------
 [Fluid UI](https://www.fluidui.com/editor/live/preview/cF9KRlduQ2xMSEoxREpxdHZUNm9wV3N5S3ZwT2MydFJHNQ==)
