@@ -14,8 +14,3 @@ Sprint Planning
   - Develop database-server communication
   - Develop client-server communication
   - Begin developing reconciliation 
-
-17 May &rarr; 6 June
---------------
-- Lewis
-- Mitchell
