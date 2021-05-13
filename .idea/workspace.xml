@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create database property file">
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" afterDir="false" />
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create DBStatements class and implement initial SQL statements">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/ExistingUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/ExistingUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -349,7 +349,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620909743355</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Remove unused constructor">
+      <created>1620909820873</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1620909820873</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Create DBStatements class and implement initial SQL statements">
+      <created>1620909873122</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1620909873122</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -380,8 +394,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reorder field declarations" />
-    <MESSAGE value="Begin implementing and documenting Unit class" />
     <MESSAGE value="Begin implementing and documenting Asset class" />
     <MESSAGE value="Delete User class to implement inheritance" />
     <MESSAGE value="Create user account superclass" />
@@ -405,7 +417,9 @@
     <MESSAGE value="Implement run until Enter pressed" />
     <MESSAGE value="Create database initialiser" />
     <MESSAGE value="Create database property file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create database property file" />
+    <MESSAGE value="Remove unused constructor" />
+    <MESSAGE value="Create DBStatements class and implement initial SQL statements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create DBStatements class and implement initial SQL statements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
