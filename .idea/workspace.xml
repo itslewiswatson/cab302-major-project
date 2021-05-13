@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create DBStatements class and implement initial SQL statements">
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Add JavaDoc comments">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/Credentials.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Credentials.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -363,7 +365,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620909873122</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Add JavaDoc comments">
+      <created>1620910879002</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1620910879002</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Add construction of DBStatements and database closing">
+      <created>1620910931025</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1620910931025</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -394,8 +410,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Begin implementing and documenting Asset class" />
-    <MESSAGE value="Delete User class to implement inheritance" />
     <MESSAGE value="Create user account superclass" />
     <MESSAGE value="Create user account subclasses" />
     <MESSAGE value="Begin implementing and documenting TradesRequest class" />
@@ -419,7 +433,9 @@
     <MESSAGE value="Create database property file" />
     <MESSAGE value="Remove unused constructor" />
     <MESSAGE value="Create DBStatements class and implement initial SQL statements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create DBStatements class and implement initial SQL statements" />
+    <MESSAGE value="Add construction of DBStatements and database closing" />
+    <MESSAGE value="Add JavaDoc comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add JavaDoc comments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

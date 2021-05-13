@@ -53,6 +53,11 @@ public class Credentials implements java.io.Serializable {
         return password;
     }
 
+    /**
+     * Sets the existing user's username field.
+     *
+     * @param username A username.
+     */
     public void setUsername(String username) {
         this.username = username;
     }

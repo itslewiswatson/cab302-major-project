@@ -1,12 +1,14 @@
 package client;
 
 /**
- *
+ * The system client.
  */
 public class Client
 {
     /**
+     * Main method.
      *
+     * @param args Command line arguments.
      */
     public static void main(String[] args)
     {
