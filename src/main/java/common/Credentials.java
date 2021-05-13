@@ -17,10 +17,10 @@ public class Credentials implements java.io.Serializable {
     /**
      * The credentials' username.
      */
-    private final String username;
+    private String username;
 
     /**
-     * The credentials' hashed password.
+     * The credentials' plaintext password.
      */
     private String password;
 
@@ -32,7 +32,7 @@ public class Credentials implements java.io.Serializable {
      */
     public Credentials(String username, String password) {
         this.username = username;
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = password;
     }
 
     /**
@@ -47,10 +47,19 @@ public class Credentials implements java.io.Serializable {
     /**
      * Gets the credentials' password field.
      *
-     * @return The credentials' hashed password.
+     * @return The credentials' plaintext password.
      */
     public String getPassword() {
         return password;
+    }
+
+    /**
+     * Sets the existing user's username field.
+     *
+     * @param username A username.
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -59,6 +68,15 @@ public class Credentials implements java.io.Serializable {
      * @param password A plaintext password.
      */
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password ;
+    }
+
+    /**
+     * Changes the existing user's password.
+     *
+     * @param password A plaintext password.
+     */
+    public void changePassword(String password) {
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }

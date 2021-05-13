@@ -17,16 +17,10 @@ public class ExistingUser extends NewUser implements java.io.Serializable {
 
     /**
      * Creates an ExistingUser object when a user account is retrieved from the database.
-     *
-     * @param username A user's username.
-     * @param password A user's hashed password.
-     * @param admin An indication of whether the user has administrative privileges.
-     * @param units The existing user's organisational unit names.
      */
-    public ExistingUser(String username, String password, boolean admin, String[] units) {
-        super(username, password, admin);
-        this.setPassword(password);
-        this.units = units;
+    public ExistingUser() {
+        super("", "", false);
+        units = null;
     }
 
     /**
