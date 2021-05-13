@@ -15,7 +15,7 @@ Then enter the following (where `sql_file` is the absolute file path to the `db.
 
     mysql -u root -p db < sql_file
     
-And press `Enter` when prompted for a password.
+And press `Enter` when prompted for the password.
     
 Documentation
 -------------
