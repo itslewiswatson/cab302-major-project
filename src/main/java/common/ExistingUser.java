@@ -15,6 +15,11 @@ public class ExistingUser extends NewUser implements java.io.Serializable {
      */
     private String[] units;
 
+    public ExistingUser() {
+        super("", "", false);
+        units = null;
+    }
+
     /**
      * Creates an ExistingUser object when a user account is retrieved from the database.
      *
@@ -25,7 +30,6 @@ public class ExistingUser extends NewUser implements java.io.Serializable {
      */
     public ExistingUser(String username, String password, boolean admin, String[] units) {
         super(username, password, admin);
-        this.setPassword(password);
         this.units = units;
     }
 
