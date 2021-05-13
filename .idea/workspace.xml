@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Implement and document DBConnection class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/DBConnection.java" afterDir="false" />
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create database property file">
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/ExistingUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/ExistingUser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +47,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/lec07-dataconn/src/week7/DBConnection.java" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/prac07-master/solution/dataExercise/JDBCAddressBookDataSource.java" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -55,6 +56,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Mitch\OneDrive - Queensland University of Technology\CAB302\Assignment\cab302-major-project\docs\milestone-one" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Mitch\OneDrive - Queensland University of Technology\CAB302\Assignment\cab302-major-project" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Server">
@@ -296,8 +300,60 @@
       <option name="project" value="LOCAL" />
       <updated>1620478499795</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Implement and document DBConnection class">
+      <created>1620482213078</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1620482213078</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Implement username setter and changePassword method">
+      <created>1620909530049</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1620909530049</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Implement admin getter and setter">
+      <created>1620909632991</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1620909632991</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Implement empty constructor">
+      <created>1620909662915</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1620909662915</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Implement run until Enter pressed">
+      <created>1620909699359</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1620909699359</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Create database initialiser">
+      <created>1620909730899</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1620909730899</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Create database property file">
+      <created>1620909743355</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1620909743355</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.props" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -324,12 +380,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add dependency jbcrypt" />
-    <MESSAGE value="Begin implementing User class" />
-    <MESSAGE value="Continue implementing and documenting User class" />
-    <MESSAGE value="Begin implementing and documenting Trade class" />
-    <MESSAGE value="Continue implementing and documenting Trade class" />
-    <MESSAGE value="Implement add flag" />
     <MESSAGE value="Reorder field declarations" />
     <MESSAGE value="Begin implementing and documenting Unit class" />
     <MESSAGE value="Begin implementing and documenting Asset class" />
@@ -349,6 +399,22 @@
     <MESSAGE value="Add arguments to main methods" />
     <MESSAGE value="Add dependency mariadb-java-client" />
     <MESSAGE value="Implement and document DBConnection class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement and document DBConnection class" />
+    <MESSAGE value="Implement username setter and changePassword method" />
+    <MESSAGE value="Implement admin getter and setter" />
+    <MESSAGE value="Implement empty constructor" />
+    <MESSAGE value="Implement run until Enter pressed" />
+    <MESSAGE value="Create database initialiser" />
+    <MESSAGE value="Create database property file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create database property file" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLSyntaxErrorException" package="java.sql" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
