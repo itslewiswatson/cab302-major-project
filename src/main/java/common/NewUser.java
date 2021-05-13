@@ -1,5 +1,7 @@
 package common;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 /**
  * This class represents a new user account.
  *
@@ -15,7 +17,7 @@ public class NewUser extends Credentials implements java.io.Serializable {
     /**
      * An indication of whether the new user account has administrative privileges.
      */
-    private final boolean admin;
+    private boolean admin;
 
     /**
      * Creates a NewUser object when a new user account is created.
@@ -25,7 +27,7 @@ public class NewUser extends Credentials implements java.io.Serializable {
      * @param admin An indication of whether the user account has administrative privileges.
      */
     public NewUser(String username, String password, boolean admin) {
-        super(username, password);
+        super(username, BCrypt.hashpw(password, BCrypt.gensalt()));
         this.admin = admin;
     }
 
@@ -34,7 +36,16 @@ public class NewUser extends Credentials implements java.io.Serializable {
      *
      * @return An indication of whether the user account has administrative privileges.
      */
-    public boolean isAdmin() {
-        return admin;
+    public String getAdmin() {
+        return admin ? "1" : "0";
+    }
+
+    /**
+     * Sets the new user's admin field.
+     *
+     * @param admin An indication of whether the user account has administrative privileges.
+     */
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }
