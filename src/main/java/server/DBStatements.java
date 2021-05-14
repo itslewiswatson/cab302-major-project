@@ -1,9 +1,11 @@
 package server;
 
-import common.Credentials;
+import common.Username;
 import common.ExistingUser;
 import common.NewUser;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * This class controls database access and contains its required statements.
@@ -13,6 +15,11 @@ public class DBStatements {
      * SQL statement to retrieve a given user.
      */
     private static final String GET_USER = "SELECT * FROM user WHERE username = ?";
+
+    /**
+     * SQL statement to retrieve the organisation units of a given user.
+     */
+    private static final String GET_USER_UNITS = "SELECT unitName FROM unitusers WHERE username = ?";
 
     /**
      * SQL statement to insert a user.
@@ -40,6 +47,11 @@ public class DBStatements {
     private PreparedStatement getUser;
 
     /**
+     * A precompiled SQL statement to retrieve the organisation units of a given user.
+     */
+    private PreparedStatement getUserUnits;
+
+    /**
      * A precompiled SQL statement to update a given user's password.
      */
     private PreparedStatement updatePassword;
@@ -53,10 +65,11 @@ public class DBStatements {
         try {
             insertUser = connection.prepareStatement(INSERT_USER);
             getUser = connection.prepareStatement(GET_USER);
+            getUserUnits = connection.prepareStatement(GET_USER_UNITS);
             updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
         }
         catch (SQLException exception) {
-            exception.printStackTrace();
+            System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
     }
 
@@ -81,25 +94,42 @@ public class DBStatements {
     /**
      * Retrieves the existing user's details from the database that correspond to the provided credential's username.
      *
-     * @param credentials A set of login credentials.
+     * @param username A set of login credentials.
      * @return An existing user account.
      */
-    public ExistingUser getExistingUser(Credentials credentials) {
-        ExistingUser existingUser = new ExistingUser();
-        ResultSet resultSet;
+    public ExistingUser getExistingUser(Username username) {
+        ExistingUser existingUser = null;
+        ResultSet userResultSet;
+        ResultSet unitResultSet;
+        ArrayList<String> unitsList = new ArrayList<>();
 
         try {
-            getUser.setString(1, credentials.getUsername());
+            getUser.setString(1, username.getUsername());
+            getUserUnits.setString(1, username.getUsername());
 
-            resultSet = getUser.executeQuery();
-            resultSet.next();
+            userResultSet = getUser.executeQuery();
 
-            existingUser.setUsername(resultSet.getString("username"));
-            existingUser.setPassword(resultSet.getString("password"));
-            existingUser.setAdmin(resultSet.getBoolean("admin"));
+            if (userResultSet.isBeforeFirst()) {
+                userResultSet.next();
+
+                unitResultSet = getUserUnits.executeQuery();
+                while (unitResultSet.next()) {
+                    unitsList.add(unitResultSet.getString(1));
+                }
+                String[] units = new String[unitsList.size()];
+                units = unitsList.toArray(units);
+
+                existingUser = new ExistingUser(userResultSet.getString("username"), userResultSet.getString("password"), userResultSet.getBoolean("admin"), units);
+            }
+            else
+            {
+                existingUser = new ExistingUser(null, null, false, null);
+            }
         }
         catch (SQLException exception) {
-            exception.printStackTrace();
+            System.err.println("Access to the database was denied. Ensure MySQL server is running.");
+        }
+        catch (Exception ignored) {
         }
 
         return existingUser;
@@ -117,17 +147,6 @@ public class DBStatements {
             updatePassword.execute();
         }
         catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    /**
-     * Closes the database connection.
-     */
-    public void close() {
-        try {
-            connection.close();
-        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
