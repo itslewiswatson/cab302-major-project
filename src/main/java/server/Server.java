@@ -1,22 +1,44 @@
 package server;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
- * The system server.
+ * This class is the server application.
  */
-public class Server {
+public class Server  {
+
     /**
      * Main method.
      *
      * @param args Command line arguments.
-     * @throws IOException Input read failed.
      */
-    public static void main(String[] args) throws IOException {
-        DBStatements dbStatements = new DBStatements();
+    public static void main(String[] args) {
+        int portNumber = 1234;
 
-        System.in.read();
+        try {
+            ServerSocket serverSocket = new ServerSocket(portNumber);
+            DBStatements dbStatements = new DBStatements();
 
-        dbStatements.close();
+            System.out.println("Server started.\n");
+
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Connection received.");
+
+                ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
+                ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+
+                Thread thread = new RequestHandler(clientSocket, inputStream, outputStream, dbStatements);
+
+                System.out.println("\tConnection sent to thread.");
+                thread.start();
+            }
+        } catch (IOException exception) {
+            System.err.println("An error occurred while starting or during execution of the server. Try restarting the server or rebuilding the program.");
+        }
     }
 }
