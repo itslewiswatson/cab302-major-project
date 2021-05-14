@@ -1,6 +1,7 @@
 package server;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +18,7 @@ public final class DBConnection {
     /**
      * The database connection.
      */
-    private static Connection connection = null;
+    private static Connection connection;
 
     /**
      * Creates a DBConnection object.
@@ -28,7 +29,7 @@ public final class DBConnection {
         FileInputStream fileInputStream;
 
         try {
-            fileInputStream = new FileInputStream("./db.props");
+            fileInputStream = new FileInputStream("./src/main/resources/db.props");
             properties.load(fileInputStream);
             fileInputStream.close();
 
@@ -39,8 +40,14 @@ public final class DBConnection {
 
             connection = DriverManager.getConnection(url + "/" + schema, username, password);
         }
-        catch (SQLException | IOException exception) {
-            exception.printStackTrace();
+        catch (FileNotFoundException exception) {
+            System.err.println("db.props is not where it is expected to be. Rebuild the program and ensure db.props is in /src/main/resources.");
+        }
+        catch (IOException exception) {
+            System.err.println("db.props has become corrupted. Rebuild the program.");
+        }
+        catch (SQLException exception) {
+            System.err.println("Could not connect to SQL database. Ensure MySQL server is running and database instructions in README.md have been followed.");
         }
     }
 

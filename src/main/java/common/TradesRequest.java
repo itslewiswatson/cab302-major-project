@@ -2,8 +2,6 @@ package common;
 
 /**
  * This class represents a request for trades.
- *
- * @author Mitchell Egan
  */
 public class TradesRequest implements java.io.Serializable {
 
