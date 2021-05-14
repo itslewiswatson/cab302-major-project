@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Add JavaDoc comments">
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create and implement server request handler">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/Trade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Trade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/Trades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Trades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +20,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -51,14 +55,22 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Mitch\OneDrive - Queensland University of Technology\CAB302\Assignment\cab302-major-project\docs\milestone-one" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Mitch\OneDrive - Queensland University of Technology\CAB302\Assignment\cab302-major-project\src\main\resources" />
+      <recent name="C:\Users\Mitch\OneDrive - Queensland University of Technology\CAB302\Assignment\cab302-major-project\src\main\resources\fxml" />
+      <recent name="C:\Users\Mitch\OneDrive - Queensland University of Technology\CAB302\Assignment\cab302-major-project\src\main\java\client" />
+      <recent name="C:\Users\Mitch\OneDrive - Queensland University of Technology\CAB302\Assignment\cab302-major-project\src\main\recources" />
+      <recent name="C:\Users\Mitch\OneDrive - Queensland University of Technology\CAB302\Assignment\cab302-major-project" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="cab302-major-project" />
@@ -91,8 +103,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Client" />
       </list>
     </recent_temporary>
   </component>
@@ -280,7 +292,105 @@
       <option name="project" value="LOCAL" />
       <updated>1620435009372</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Add JavaFX dependencies">
+      <created>1620959686529</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1620959686529</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Implement basic GUI window">
+      <created>1620959706368</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1620959706368</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Implement GUI">
+      <created>1621009090696</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009090696</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Move db.props to resources folder">
+      <created>1621009113176</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009113176</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Implement exception handling">
+      <created>1621009171098</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009171098</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Implement SQL statement to get user units">
+      <created>1621009222749</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009222749</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Rename and restructure Credientials class">
+      <created>1621009262900</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009262900</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Update constructor">
+      <created>1621009282042</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009282042</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Create login fxml file">
+      <created>1621009312181</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009312181</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Create and implement login controller">
+      <created>1621009333292</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009333292</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Create My Account fxml file">
+      <created>1621009361788</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009361788</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Create My Account controller">
+      <created>1621009377707</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009377707</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Implemented password length exception">
+      <created>1621009414180</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009414180</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Create and implement server request handler">
+      <created>1621009455586</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1621009455586</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,19 +406,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create initial JavaDoc" />
-    <MESSAGE value="Add dependency jbcrypt" />
-    <MESSAGE value="Begin implementing User class" />
-    <MESSAGE value="Continue implementing and documenting User class" />
-    <MESSAGE value="Begin implementing and documenting Trade class" />
-    <MESSAGE value="Continue implementing and documenting Trade class" />
-    <MESSAGE value="Implement add flag" />
-    <MESSAGE value="Reorder field declarations" />
-    <MESSAGE value="Begin implementing and documenting Unit class" />
-    <MESSAGE value="Begin implementing and documenting Asset class" />
-    <MESSAGE value="Delete User class to implement inheritance" />
-    <MESSAGE value="Create user account superclass" />
-    <MESSAGE value="Create user account subclasses" />
     <MESSAGE value="Begin implementing and documenting TradesRequest class" />
     <MESSAGE value="Create uiDesigner.xml" />
     <MESSAGE value="Add asset field" />
@@ -320,6 +417,34 @@
     <MESSAGE value="Fixed documentation grammar" />
     <MESSAGE value="Create and populate milestone-one directory" />
     <MESSAGE value="Add arguments to main methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add arguments to main methods" />
+    <MESSAGE value="Add JavaFX dependencies" />
+    <MESSAGE value="Implement basic GUI window" />
+    <MESSAGE value="Implement GUI" />
+    <MESSAGE value="Move db.props to resources folder" />
+    <MESSAGE value="Implement exception handling" />
+    <MESSAGE value="Implement SQL statement to get user units" />
+    <MESSAGE value="Rename and restructure Credientials class" />
+    <MESSAGE value="Update constructor" />
+    <MESSAGE value="Create login fxml file" />
+    <MESSAGE value="Create and implement login controller" />
+    <MESSAGE value="Create My Account fxml file" />
+    <MESSAGE value="Create My Account controller" />
+    <MESSAGE value="Implemented password length exception" />
+    <MESSAGE value="Create and implement server request handler" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create and implement server request handler" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.net.SocketException" package="java.net" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

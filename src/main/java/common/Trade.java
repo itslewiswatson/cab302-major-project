@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 /**
  * This class represents a trade offer.
- *
- * @author Mitchell Egan
  */
 public class Trade implements java.io.Serializable {
 
