@@ -72,7 +72,7 @@ INSERT INTO user (username, password, admin)
 VALUES ('Mitchell', '$2a$10$eQFfKOvSyJk4BXSxeC3kpu0e6pi7au8zv4zodPkHweLUBLrAAMWrO', 0);
 
 INSERT INTO user (username, password, admin)
-VALUES ('Lewis', '$2a$10$066D/ddR1OayyPI.Lwmt1eoydW1UBOmQgRN52CGYDnZtNq2IlfXf2', 0);
+VALUES ('Lewis', '$2a$10$VvUx/7wDYSJ0yeX.6xwUZuPczqBJlsnEpuCATDfGLsupr0k3W6VG6', 0);
 
 INSERT INTO unit (name, credits)
 VALUES ('Animation', 10000);
