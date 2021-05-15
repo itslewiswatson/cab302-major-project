@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create and implement server request handler">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/common/Trade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Trade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/common/Trades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Trades.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" afterDir="false" />
@@ -28,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="login-gui" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
