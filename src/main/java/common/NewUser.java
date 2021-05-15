@@ -37,17 +37,15 @@ public class NewUser extends Username implements java.io.Serializable {
      *
      * @param username A new user account's username.
      * @param password A new user account's plaintext password.
-     * @param admin An indication of whether the new user account has administrative privileges.
+     * @param admin    An indication of whether the new user account has administrative privileges.
      * @throws Exception Incorrect username or password length.
      */
     public NewUser(String username, String password, boolean admin) throws Exception {
         super(username);
 
-        if (password == null || password.length() >= minLength && password.length() <= maxLength)
-        {
+        if (password == null || password.length() >= minLength && password.length() <= maxLength) {
             this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-        }
-        else {
+        } else {
             throw new Exception();
         }
 

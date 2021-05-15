@@ -65,11 +65,11 @@ public class Trade implements java.io.Serializable {
     /**
      * Creates a Trade object when a new trade offer is listed.
      *
-     * @param unit The organisational unit that listed the trade offer.
-     * @param asset The asset being listed in the trade offer.
-     * @param type The trade offer's type.
+     * @param unit     The organisational unit that listed the trade offer.
+     * @param asset    The asset being listed in the trade offer.
+     * @param type     The trade offer's type.
      * @param quantity The quantity of the asset being listed in the trade offer.
-     * @param price The trade offer's price.
+     * @param price    The trade offer's price.
      */
     public Trade(String unit, String asset, String type, int quantity, int price) {
         id = 0;
@@ -84,13 +84,13 @@ public class Trade implements java.io.Serializable {
     /**
      * Creates a Trade object when a trade offer is retrieved from the database.
      *
-     * @param id The trade offer's identifier.
-     * @param unit The organisational unit that listed the trade offer.
-     * @param asset The asset being listed in the trade offer.
-     * @param date The date the trade offer was listed.
-     * @param type The trade offer's type.
+     * @param id       The trade offer's identifier.
+     * @param unit     The organisational unit that listed the trade offer.
+     * @param asset    The asset being listed in the trade offer.
+     * @param date     The date the trade offer was listed.
+     * @param type     The trade offer's type.
      * @param quantity The quantity of the asset being listed in the trade offer.
-     * @param price The trade offer's price.
+     * @param price    The trade offer's price.
      */
     public Trade(int id, String unit, String asset, LocalDate date, String type, int quantity, int price) {
         this.id = id;

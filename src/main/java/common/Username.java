@@ -5,6 +5,9 @@ package common;
  */
 public class Username implements java.io.Serializable {
 
+    public static final int USERNAME_MIN_LENGTH = 1;
+    public static final int USERNAME_MAX_LENGTH = 255;
+
     /**
      * The class' version number.
      */
@@ -21,17 +24,9 @@ public class Username implements java.io.Serializable {
      * @param username A username.
      * @throws Exception Incorrect username length.
      */
-    public Username(String username) throws Exception{
-        int minLength = 1;
-        int maxLength = 255;
-
-        if (username == null || username.length() >= minLength && username.length() <= maxLength)
-        {
-            this.username = username;
-        }
-        else {
-            throw new Exception();
-        }
+    public Username(String username) throws Exception {
+        this.assertUsernameCorrect(username);
+        this.username = username;
     }
 
     /**
@@ -41,5 +36,17 @@ public class Username implements java.io.Serializable {
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Asserts a username is correct when constructing an instance
+     *
+     * @param username A username.
+     * @throws Exception Incorrect username length.
+     */
+    private void assertUsernameCorrect(String username) throws Exception {
+        if (username.length() < USERNAME_MIN_LENGTH || username.length() > USERNAME_MAX_LENGTH) {
+            throw new Exception();
+        }
     }
 }

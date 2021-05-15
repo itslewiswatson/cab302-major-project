@@ -20,8 +20,8 @@ public class ExistingUser extends NewUser implements java.io.Serializable {
      *
      * @param username An existing user account's username.
      * @param password An existing user account's plaintext password.
-     * @param admin An indication of whether the existing user account has administrative privileges.
-     * @param units The existing user's organisational unit names.
+     * @param admin    An indication of whether the existing user account has administrative privileges.
+     * @param units    The existing user's organisational unit names.
      * @throws Exception Incorrect username or password length.
      */
     public ExistingUser(String username, String password, boolean admin, String[] units) throws Exception {

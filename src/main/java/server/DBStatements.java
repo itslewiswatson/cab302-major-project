@@ -62,8 +62,7 @@ public class DBStatements {
             getUser = connection.prepareStatement(GET_USER);
             getUserUnits = connection.prepareStatement(GET_USER_UNITS);
             updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
-        }
-        catch (SQLException exception) {
+        } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
     }
@@ -80,8 +79,7 @@ public class DBStatements {
             insertUser.setString(3, newUser.getAdmin());
 
             insertUser.execute();
-        }
-        catch (SQLException exception) {
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
@@ -115,16 +113,12 @@ public class DBStatements {
                 units = unitsList.toArray(units);
 
                 existingUser = new ExistingUser(userResultSet.getString("username"), userResultSet.getString("password"), userResultSet.getBoolean("admin"), units);
-            }
-            else
-            {
+            } else {
                 existingUser = new ExistingUser(null, null, false, null);
             }
-        }
-        catch (SQLException exception) {
+        } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
-        }
-        catch (Exception ignored) {
+        } catch (Exception ignored) {
         }
 
         return existingUser;
@@ -140,8 +134,7 @@ public class DBStatements {
             updatePassword.setString(1, existingUser.getPassword());
             updatePassword.setString(2, existingUser.getUsername());
             updatePassword.execute();
-        }
-        catch (SQLException exception) {
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }

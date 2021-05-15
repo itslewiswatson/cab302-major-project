@@ -75,14 +75,11 @@ public class LoginController {
      * @param event Event action.
      */
     public void submitLogin(ActionEvent event) {
-        int minLength = 1;
-        int maxLength = 255;
-
         try {
             Username username = new Username(usernameField.getText());
             String password = passwordField.getText();
 
-            if (password.length() >= minLength && password.length() <= maxLength)
+            if (password.length() >= Username.USERNAME_MIN_LENGTH && password.length() <= Username.USERNAME_MAX_LENGTH)
             {
                 outputStream.writeObject(username);
                 outputStream.flush();

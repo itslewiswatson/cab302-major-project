@@ -38,10 +38,9 @@ public class TradesRequest implements java.io.Serializable {
      * Creates a TradesRequest object when all completed trades are to be requested.
      *
      * @param completed An indication that the request is for completed trades.
-     * @param asset The name of the asset that the trades are being requested for.
+     * @param asset     The name of the asset that the trades are being requested for.
      */
-    public TradesRequest(boolean completed, String asset)
-    {
+    public TradesRequest(boolean completed, String asset) {
         this.completed = completed;
         this.asset = asset;
         unit = "";

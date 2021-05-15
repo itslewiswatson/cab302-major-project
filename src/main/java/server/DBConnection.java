@@ -10,7 +10,7 @@ import java.util.Properties;
 
 /**
  * This class represents a database connection.
- *
+ * <p>
  * Adapted from https://github.com/qut-cab302/prac07/blob/master/solution/dataExercise/DBConnection.java
  */
 public final class DBConnection {
@@ -39,14 +39,11 @@ public final class DBConnection {
             String password = properties.getProperty("jdbc.password");
 
             connection = DriverManager.getConnection(url + "/" + schema, username, password);
-        }
-        catch (FileNotFoundException exception) {
+        } catch (FileNotFoundException exception) {
             System.err.println("db.props is not where it is expected to be. Rebuild the program and ensure db.props is in /src/main/resources.");
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             System.err.println("db.props has become corrupted. Rebuild the program.");
-        }
-        catch (SQLException exception) {
+        } catch (SQLException exception) {
             System.err.println("Could not connect to SQL database. Ensure MySQL server is running and database instructions in README.md have been followed.");
         }
     }
