@@ -1,0 +1,20 @@
+version: "3"
+services:
+  # DB
+  db:
+    image: mariadb
+    container_name: cab203-db
+    ports:
+      - 3306:3306
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./database/volume:/var/lib/mysql
+    networks:
+      - cab203
+
+networks:
+    cab203:
+        driver: bridge
+      
