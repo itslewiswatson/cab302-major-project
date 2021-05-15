@@ -34,6 +34,7 @@ public class RequestHandler extends Thread {
     private final DBStatements dbStatements;
 
     /**
+     * Creates a RequestHandler object when a new thread is created.
      *
      * @param clientSocket The client socket.
      * @param inputStream The server socket input stream.
@@ -51,23 +52,15 @@ public class RequestHandler extends Thread {
      * The request handler's execution method.
      */
     @Override
+    @SuppressWarnings("InfiniteLoopStatement")
     public void run()
     {
         try {
             while (true) {
-
                 Object object = inputStream.readObject();
+
                 System.out.println("\t\tRequest received.");
-
-                if (object instanceof Username)
-                {
-                    Username username = (Username) object;
-
-                    ExistingUser existingUser = dbStatements.getExistingUser(username);
-
-                    outputStream.writeObject(existingUser);
-                }
-
+                handleRequest(object);
                 System.out.println("\t\tResponse sent.");
             }
         }
@@ -82,10 +75,23 @@ public class RequestHandler extends Thread {
 
                 System.out.println("Connection closed.\n");
             }
-            catch (Exception ignored) {
-            }
+            catch (IOException ignored) {}
         }
     }
 
-
+    /**
+     * Handles the request according to the object provided.
+     *
+     * @param object The object received by the server.
+     * @throws IOException An error occurred when writing the object to the stream.
+     */
+    private void handleRequest(Object object) throws IOException {
+        if (object instanceof Username)
+        {
+            Username username = (Username) object;
+            ExistingUser existingUser = dbStatements.getExistingUser(username);
+            outputStream.writeObject(existingUser);
+            outputStream.flush();
+        }
+    }
 }

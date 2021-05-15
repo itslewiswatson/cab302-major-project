@@ -16,6 +16,7 @@ public class Server  {
      *
      * @param args Command line arguments.
      */
+    @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args) {
         int portNumber = 1234;
 

@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Create and implement server request handler">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/Trade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Trade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/Trades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/Trades.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/TradesRequest.java" afterDir="false" />
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Add initial DB entries">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/milestone-one/requirements.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/milestone-one/requirements.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/requirements.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/requirements.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/RequestHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="login-gui" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,6 +42,12 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/server/DBConnection.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="3" />
   </component>
   <component name="ProjectId" id="1rpNDRNARQXx2akqqK6HpGWdbiM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -390,7 +398,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621009455586</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Add initial DB entries">
+      <created>1621048570482</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1621048570482</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -406,7 +421,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Begin implementing and documenting TradesRequest class" />
     <MESSAGE value="Create uiDesigner.xml" />
     <MESSAGE value="Add asset field" />
     <MESSAGE value="Redesign class" />
@@ -431,7 +445,8 @@
     <MESSAGE value="Create My Account controller" />
     <MESSAGE value="Implemented password length exception" />
     <MESSAGE value="Create and implement server request handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create and implement server request handler" />
+    <MESSAGE value="Add initial DB entries" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add initial DB entries" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

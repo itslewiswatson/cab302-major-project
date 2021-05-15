@@ -78,11 +78,9 @@ public class LoginController {
         int minLength = 1;
         int maxLength = 255;
 
-        String enteredUsername = usernameField.getText();
-        String password = passwordField.getText();
-
         try {
-            Username username = new Username(enteredUsername);
+            Username username = new Username(usernameField.getText());
+            String password = passwordField.getText();
 
             if (password.length() >= minLength && password.length() <= maxLength)
             {

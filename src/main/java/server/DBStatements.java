@@ -32,11 +32,6 @@ public class DBStatements {
     private static final String UPDATE_PASSWORD = "UPDATE user SET password = ? WHERE username = ?";
 
     /**
-     * A database connection.
-     */
-    private final Connection connection;
-
-    /**
      * A precompiled SQL statement to insert a user.
      */
     private PreparedStatement insertUser;
@@ -60,7 +55,7 @@ public class DBStatements {
      * Creates a DBStatements object.
      */
     public DBStatements() {
-        connection = DBConnection.getConnection();
+        Connection connection = DBConnection.getConnection();
 
         try {
             insertUser = connection.prepareStatement(INSERT_USER);
