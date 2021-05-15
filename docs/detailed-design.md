@@ -34,7 +34,7 @@ Database Schema
   - assetName – {PK} {FK} CHAR(255)
   - quantity – INT 
 - Trade
-  - ID – {PK} INT
+  - id – {PK} INT
   - unitName – {FK} CHAR(255)
   - assetName – {FK} CHAR(255)
   - date – DATE 

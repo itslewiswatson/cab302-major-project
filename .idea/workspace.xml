@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Add initial DB entries">
+    <list default="true" id="044c23b7-df8a-4aa2-8d84-bcb12d46b364" name="Default Changelist" comment="Grammar fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/milestone-one/requirements.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/milestone-one/requirements.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/requirements.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/requirements.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/DBStatements.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/RequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/detailed-design.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/detailed-design.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -405,7 +399,21 @@
       <option name="project" value="LOCAL" />
       <updated>1621048570482</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Code tidy up">
+      <created>1621053901370</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1621053901370</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Grammar fixes">
+      <created>1621053917359</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1621053917359</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -421,8 +429,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create uiDesigner.xml" />
-    <MESSAGE value="Add asset field" />
     <MESSAGE value="Redesign class" />
     <MESSAGE value="Update workspace.xml" />
     <MESSAGE value="Delete asset and unit class" />
@@ -446,7 +452,9 @@
     <MESSAGE value="Implemented password length exception" />
     <MESSAGE value="Create and implement server request handler" />
     <MESSAGE value="Add initial DB entries" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add initial DB entries" />
+    <MESSAGE value="Code tidy up" />
+    <MESSAGE value="Grammar fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Grammar fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
