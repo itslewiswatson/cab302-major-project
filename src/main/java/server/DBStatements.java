@@ -1,10 +1,11 @@
 package server;
 
-import common.Username;
-import common.ExistingUser;
-import common.NewUser;
+import common.entities.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -70,13 +71,13 @@ public class DBStatements {
     /**
      * Adds the provided new user to the database.
      *
-     * @param newUser A new user account.
+     * @param user A new user account.
      */
-    public void addNewUser(NewUser newUser) {
+    public void addNewUser(User user) {
         try {
-            insertUser.setString(1, newUser.getUsername());
-            insertUser.setString(2, newUser.getPassword());
-            insertUser.setString(3, newUser.getAdmin());
+            insertUser.setString(1, user.getUsername());
+            insertUser.setString(2, user.getPassword());
+            insertUser.setString(3, user.getAdmin());
 
             insertUser.execute();
         } catch (SQLException exception) {
@@ -90,15 +91,15 @@ public class DBStatements {
      * @param username A set of login credentials.
      * @return An existing user account.
      */
-    public ExistingUser getExistingUser(Username username) {
-        ExistingUser existingUser = null;
+    public User getExistingUser(String username) {
+        User user = null;
         ResultSet userResultSet;
         ResultSet unitResultSet;
         ArrayList<String> unitsList = new ArrayList<>();
 
         try {
-            getUser.setString(1, username.getUsername());
-            getUserUnits.setString(1, username.getUsername());
+            getUser.setString(1, username);
+            getUserUnits.setString(1, username);
 
             userResultSet = getUser.executeQuery();
 
@@ -112,27 +113,32 @@ public class DBStatements {
                 String[] units = new String[unitsList.size()];
                 units = unitsList.toArray(units);
 
-                existingUser = new ExistingUser(userResultSet.getString("username"), userResultSet.getString("password"), userResultSet.getBoolean("admin"), units);
+                user = new User(
+                        userResultSet.getString("username"),
+                        userResultSet.getString("password"),
+                        userResultSet.getBoolean("admin"),
+                        units
+                );
             } else {
-                existingUser = new ExistingUser(null, null, false, null);
+                user = new User(null, null, false, null);
             }
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         } catch (Exception ignored) {
         }
 
-        return existingUser;
+        return user;
     }
 
     /**
      * Changes the provided existing user's password in the database.
      *
-     * @param existingUser An existing user account.
+     * @param user An existing user account.
      */
-    public void changePassword(ExistingUser existingUser) {
+    public void changePassword(User user) {
         try {
-            updatePassword.setString(1, existingUser.getPassword());
-            updatePassword.setString(2, existingUser.getUsername());
+            updatePassword.setString(1, user.getPassword());
+            updatePassword.setString(2, user.getUsername());
             updatePassword.execute();
         } catch (SQLException exception) {
             exception.printStackTrace();

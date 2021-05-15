@@ -1,7 +1,7 @@
 package server;
 
-import common.ExistingUser;
-import common.Username;
+import common.entities.User;
+import common.entities.Username;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -85,7 +85,7 @@ public class RequestHandler extends Thread {
     private void handleRequest(Object object) throws IOException {
         if (object instanceof Username) {
             Username username = (Username) object;
-            ExistingUser existingUser = dbStatements.getExistingUser(username);
+            User existingUser = dbStatements.getExistingUser(username);
             outputStream.writeObject(existingUser);
             outputStream.flush();
         }

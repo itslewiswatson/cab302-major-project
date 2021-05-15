@@ -1,7 +1,7 @@
 package client;
 
-import common.ExistingUser;
-import common.Username;
+import common.entities.User;
+import common.entities.Username;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,8 +86,8 @@ public class LoginController {
 
                 Object object = inputStream.readObject();
 
-                if (object instanceof ExistingUser) {
-                    ExistingUser existingUser = (ExistingUser) object;
+                if (object instanceof User) {
+                    User existingUser = (User) object;
 
                     if (existingUser.getUsername() != null && BCrypt.checkpw(password, existingUser.getPassword()))
                     {

@@ -1,5 +1,7 @@
 package common;
 
+import common.dataTypes.TradeType;
+
 import java.time.LocalDate;
 
 /**
@@ -35,7 +37,7 @@ public class Trade implements java.io.Serializable {
     /**
      * The trade offer's type.
      */
-    private final String type;
+    private final TradeType type;
 
     /**
      * The quantity of the asset being listed in the trade offer.
@@ -52,12 +54,12 @@ public class Trade implements java.io.Serializable {
      *
      * @param id The trade offer's identifier.
      */
-    public Trade(int id) {
+    public Trade(int id, TradeType type) {
         this.id = id;
         unit = "";
         asset = "";
         date = null;
-        this.type = "";
+        this.type = type;
         this.quantity = 0;
         this.price = 0;
     }
@@ -71,7 +73,7 @@ public class Trade implements java.io.Serializable {
      * @param quantity The quantity of the asset being listed in the trade offer.
      * @param price    The trade offer's price.
      */
-    public Trade(String unit, String asset, String type, int quantity, int price) {
+    public Trade(String unit, String asset, TradeType type, int quantity, int price) {
         id = 0;
         this.unit = unit;
         this.asset = asset;
@@ -92,7 +94,7 @@ public class Trade implements java.io.Serializable {
      * @param quantity The quantity of the asset being listed in the trade offer.
      * @param price    The trade offer's price.
      */
-    public Trade(int id, String unit, String asset, LocalDate date, String type, int quantity, int price) {
+    public Trade(int id, String unit, String asset, LocalDate date, TradeType type, int quantity, int price) {
         this.id = id;
         this.unit = unit;
         this.asset = asset;
@@ -143,7 +145,7 @@ public class Trade implements java.io.Serializable {
      *
      * @return The trade offer's type.
      */
-    public String getType() {
+    public TradeType getType() {
         return type;
     }
 
