@@ -1,3 +1,8 @@
+-- Use database
+
+CREATE DATABASE IF NOT EXISTS db;
+USE db;
+
 -- Delete tables if already exist.
 
 DROP TABLE IF EXISTS db.unitusers;
