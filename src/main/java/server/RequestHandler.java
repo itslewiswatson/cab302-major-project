@@ -1,7 +1,6 @@
 package server;
 
 import common.entities.User;
-import common.entities.Username;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -83,8 +82,8 @@ public class RequestHandler extends Thread {
      * @throws IOException An error occurred when writing the object to the stream.
      */
     private void handleRequest(Object object) throws IOException {
-        if (object instanceof Username) {
-            Username username = (Username) object;
+        if (object instanceof String) {
+            String username = (String) object;
             User existingUser = dbStatements.getExistingUser(username);
             outputStream.writeObject(existingUser);
             outputStream.flush();
