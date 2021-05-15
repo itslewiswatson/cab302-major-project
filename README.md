@@ -15,13 +15,13 @@ Then enter the following (where `sql_file` is the absolute file path to the `db.
 
     mysql -u root -p db < sql_file
     
-And press `Enter` when prompted for the password.
+Press `Enter` when prompted for the password.
     
 ### Server
 To run the server, open the project in IntelliJ and go to `Run` &rarr; `Run 'Server'`.
 
 ### Client
-To run the client, open the project in IntelliJ and go to the `Maven Tool Window` on the right hand side. If it's not open, go to `View` &rarr; `Tool Windows` &rarr; `Maven`. Within the `Maven Tool Window` open the `cab302-major-project` dropdown, go to `Lifecycle` &rarr; `compile`. Once compilation is complete, click on `Reload All Maven Projects` at the top left of the window. Then go to `Plugins` &rarr; `javafx` &rarr; `javafx:run`.
+To run the client, open the project in IntelliJ and go to the `Maven Tool Window` on the right-hand side. If it's not open, go to `View` &rarr; `Tool Windows` &rarr; `Maven`. Within the `Maven Tool Window` open the `cab302-major-project` dropdown, go to `Lifecycle` &rarr; `compile`. Once compilation is complete, click on `Reload All Maven Projects` at the top left of the window. Then go to `Plugins` &rarr; `javafx` &rarr; `javafx:run`.
 
 Documentation
 -------------
