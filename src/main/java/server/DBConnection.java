@@ -13,7 +13,7 @@ import java.util.Properties;
  * <p>
  * Adapted from https://github.com/qut-cab302/prac07/blob/master/solution/dataExercise/DBConnection.java
  */
-public final class DBConnection {
+final class DBConnection {
 
     /**
      * The database connection.

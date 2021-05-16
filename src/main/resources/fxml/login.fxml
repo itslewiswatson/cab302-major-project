@@ -23,7 +23,7 @@
             <Font size="18.0" />
          </font>
       </PasswordField>
-      <Button alignment="CENTER" layoutX="260.0" layoutY="277.0" mnemonicParsing="false" onAction="#submitLogin" text="Log In">
+      <Button alignment="CENTER" layoutX="260.0" layoutY="277.0" mnemonicParsing="false" onAction="#login" text="Log In">
          <font>
             <Font size="18.0" />
          </font>

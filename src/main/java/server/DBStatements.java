@@ -11,9 +11,9 @@ import java.util.ArrayList;
  */
 public class DBStatements {
     /**
-     * SQL statement to retrieve a given user.
+     * SQL statement to retrieve a given user.®
      */
-    private static final String GET_USER = "SELECT * FROM user WHERE username = ?";
+    private static final String GET_USER = "SELECT * FROM users WHERE username = ?";
 
     /**
      * SQL statement to retrieve the organisation units of a given user.
@@ -23,12 +23,12 @@ public class DBStatements {
     /**
      * SQL statement to insert a user.
      */
-    private static final String INSERT_USER = "INSERT INTO user (username, password, admin) VALUES (?, ?, ?);";
+    private static final String INSERT_USER = "INSERT INTO users (username, password, admin) VALUES (?, ?, ?);";
 
     /**
      * SQL statement to update a given user's password.
      */
-    private static final String UPDATE_PASSWORD = "UPDATE user SET password = ? WHERE username = ?";
+    private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE username = ?";
 
     /**
      * SQL statement to insert a new trade.
@@ -73,7 +73,6 @@ public class DBStatements {
             getUser = connection.prepareStatement(GET_USER);
             getUserUnits = connection.prepareStatement(GET_USER_UNITS);
             updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
-            newTrade = connection.prepareStatement(NEW_TRADE);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -130,22 +129,23 @@ public class DBStatements {
 
         try {
             getUser.setString(1, username);
-            getUserUnits.setString(1, username);
+            // getUserUnits.setString(1, username);
 
             userResultSet = getUser.executeQuery();
 
             if (userResultSet.isBeforeFirst()) {
                 userResultSet.next();
 
-                unitResultSet = getUserUnits.executeQuery();
-                while (unitResultSet.next()) {
-                    unitsList.add(unitResultSet.getString(1));
-                }
-                String[] units = new String[unitsList.size()];
-                units = unitsList.toArray(units);
+//                unitResultSet = getUserUnits.executeQuery();
+//                while (unitResultSet.next()) {®
+//                    unitsList.add(unitResultSet.getString(1));
+//                }
+//                String[] units = new String[unitsList.size()];
+//                units = unitsList.toArray(units);
+                String[] units = {};
 
                 user = new User(
-                        userResultSet.getString("userId"),
+                        userResultSet.getString("id"),
                         userResultSet.getString("username"),
                         userResultSet.getString("password"),
                         userResultSet.getBoolean("admin"),
