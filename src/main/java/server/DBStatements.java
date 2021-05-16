@@ -11,9 +11,14 @@ import java.util.ArrayList;
  */
 public class DBStatements {
     /**
-     * SQL statement to retrieve a given user.®
+     * SQL statement to retrieve a user by their username
      */
     private static final String GET_USER = "SELECT * FROM users WHERE username = ?";
+
+    /**
+     * SQL statement to retrive a user by their ID
+     */
+    private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
 
     /**
      * SQL statement to retrieve the organisation units of a given user.
@@ -48,6 +53,11 @@ public class DBStatements {
     private PreparedStatement getUser;
 
     /**
+     * A precompiled SQL statement to retrieve a given user.
+     */
+    private PreparedStatement getUserById;
+
+    /**
      * A precompiled SQL statement to retrieve the organisation units of a given user.
      */
     private PreparedStatement getUserUnits;
@@ -73,6 +83,7 @@ public class DBStatements {
             getUser = connection.prepareStatement(GET_USER);
             getUserUnits = connection.prepareStatement(GET_USER_UNITS);
             updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
+            getUserById = connection.prepareStatement(FIND_USER_BY_ID);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -115,13 +126,41 @@ public class DBStatements {
         }
     }
 
+    public User findUserById(String userId) {
+        User user = null;
+        ResultSet userResultSet;
+
+        try {
+            getUserById.setString(1, userId);
+            userResultSet = getUserById.executeQuery();
+            if (userResultSet.isBeforeFirst()) {
+                userResultSet.next();
+
+                String[] units = {};
+
+                user = new User(
+                        userResultSet.getString("id"),
+                        userResultSet.getString("username"),
+                        userResultSet.getString("password"),
+                        userResultSet.getBoolean("admin"),
+                        units
+                );
+            }
+        } catch (SQLException exception) {
+            System.err.println("Access to the database was denied. Ensure MySQL server is running.");
+        } catch (Exception ignored) {
+        }
+
+        return user;
+    }
+
     /**
      * Retrieves the existing user's details from the database that correspond to the provided credential's username.
      *
      * @param username A set of login credentials.
      * @return An existing user account.
      */
-    public User getExistingUser(String username) {
+    public User getUserByUsername(String username) {
         User user = null;
         ResultSet userResultSet;
         ResultSet unitResultSet;

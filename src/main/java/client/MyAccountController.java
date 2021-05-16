@@ -1,7 +1,7 @@
 package client;
 
 import common.domain.User;
-import common.exceptions.NullResultException;
+import common.dto.UpdatePasswordDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,10 +37,18 @@ public class MyAccountController extends Controller {
                 if (BCrypt.checkpw(currentPassword, getUser().getPassword())) {
                     if (!currentPassword.equals(newPassword)) {
                         User newPasswordUser = getUser();
-                        newPasswordUser.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+                        String newPasswordHashed = BCrypt.hashpw(newPassword, BCrypt.gensalt());
 
-                        sendObject(newPasswordUser);
+                        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO(
+                                newPasswordUser.getUserId(),
+                                newPasswordUser.getPassword(),
+                                newPasswordHashed
+                        );
+
+                        sendObject(updatePasswordDTO);
                         User existingUser = (User) readObject();
+
+                        newPasswordUser.setPassword(existingUser.getPassword());
 
                         if (BCrypt.checkpw(newPassword, existingUser.getPassword())) {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
@@ -67,6 +75,7 @@ public class MyAccountController extends Controller {
                 alert.showAndWait();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
             alert.setHeaderText("Cannot communicate with server.");
             alert.showAndWait();
@@ -103,5 +112,4 @@ public class MyAccountController extends Controller {
             unitsComboBox.setValue("None");
         }
     }
-
 }

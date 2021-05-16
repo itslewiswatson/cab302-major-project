@@ -5,9 +5,11 @@ import common.domain.User;
 import common.dto.CreateAccountDTO;
 import common.dto.LoginDTO;
 import common.dto.NewTradeDTO;
+import common.dto.UpdatePasswordDTO;
 import server.handlers.CreateAccountHandler;
 import server.handlers.LoginHandler;
 import server.handlers.NewTradeHandler;
+import server.handlers.UpdatePasswordHandler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -112,6 +114,15 @@ public class RequestHandler extends Thread {
             NewTradeHandler newTradeHandler = new NewTradeHandler(dbStatements);
             Trade newTrade = newTradeHandler.handle(newTradeDTO);
             outputStream.writeObject(newTrade);
+            outputStream.flush();
+            return;
+        }
+
+        if (object instanceof UpdatePasswordDTO) {
+            UpdatePasswordDTO updatePasswordDTO = (UpdatePasswordDTO) object;
+            UpdatePasswordHandler updatePasswordHandler = new UpdatePasswordHandler(dbStatements);
+            User user = updatePasswordHandler.handle(updatePasswordDTO);
+            outputStream.writeObject(user);
             outputStream.flush();
             return;
         }

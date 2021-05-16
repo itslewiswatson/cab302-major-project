@@ -11,6 +11,6 @@ public class LoginHandler extends Handler<User, LoginDTO> {
     }
 
     public User handle(LoginDTO dto) {
-        return dbStatements.getExistingUser(dto.getUsername());
+        return dbStatements.getUserByUsername(dto.getUsername());
     }
 }
