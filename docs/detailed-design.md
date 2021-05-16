@@ -46,4 +46,26 @@ Database Schema
 
 Network Protocol
 ----------------
-- All communication facilitated by sockets and serialisation.
+- Server
+  - Create socket at startup.
+  - Listen and accept incoming connections.
+- Client
+  - Create socket at startup.
+- Login
+  - Client sends Username object.
+  - Server returns ExistingUser object.
+- View all trades & my unit's trades
+  - Client sends TradesRequest object.
+  - Server returns Trades object.
+- New trade
+  - Client sends Trade object.
+  - Server returns Trade object.
+- Change password
+  - Client sends ExistingUser object.
+  - Server returns ExistingUser object.
+- Add to database
+  - Client sends String or NewUser object.
+  - Server returns String or NewUser object accordingly.
+- Edit database
+  - Client sends Unit or ExistingUser object.
+  - Server returns Unit or ExistingUser object accordingly.
