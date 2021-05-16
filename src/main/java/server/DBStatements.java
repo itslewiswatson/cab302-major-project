@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * This class controls database access and contains its required statements.
  */
-public class DBStatements {
+class DBStatements {
     /**
      * SQL statement to retrieve a given user.
      */
