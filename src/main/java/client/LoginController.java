@@ -38,35 +38,28 @@ public class LoginController extends Controller {
             String username = usernameField.getText();
             String password = passwordField.getText();
 
-            if (password.length() >= User.USERNAME_MIN_LENGTH && password.length() <= User.USERNAME_MAX_LENGTH) {
-                LoginDTO loginDTO = new LoginDTO(username);
+            LoginDTO loginDTO = new LoginDTO(username);
 
-                outputStream.writeObject(loginDTO);
-                outputStream.flush();
+            outputStream.writeObject(loginDTO);
+            outputStream.flush();
 
-                Object object = inputStream.readObject();
+            Object object = inputStream.readObject();
 
-                if (object instanceof User) {
-                    User user = (User) object;
+            if (object instanceof User) {
+                User user = (User) object;
 
-                    if (user.getUsername() != null && BCrypt.checkpw(password, user.getPassword())) {
-                        switchToMyAccount(event);
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
-                        alert.setHeaderText("Incorrect Username or Password.");
-                        alert.showAndWait();
-                    }
+                if (user.getUsername() != null && BCrypt.checkpw(password, user.getPassword())) {
+                    switchToMyAccount(event);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
+                    alert.setHeaderText("Incorrect Username or Password.");
+                    alert.showAndWait();
                 }
-            } else {
-                throw new Exception();
             }
+
         } catch (IOException | ClassNotFoundException exception) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
             alert.setHeaderText("Cannot communicate with server.");
-            alert.showAndWait();
-        } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please try again.", ButtonType.OK);
-            alert.setHeaderText("Invalid Username or Password.");
             alert.showAndWait();
         }
     }

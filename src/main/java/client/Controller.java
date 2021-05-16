@@ -54,7 +54,7 @@ public class Controller {
      * @param page The page to switch to
      */
     protected void switchToPage(ActionEvent event, Page page) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + page));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + page.path));
 
         try {
             Parent root = loader.load();
