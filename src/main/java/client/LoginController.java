@@ -1,6 +1,7 @@
 package client;
 
 import common.domain.User;
+import common.dto.LoginDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -38,7 +39,9 @@ public class LoginController extends Controller {
             String password = passwordField.getText();
 
             if (password.length() >= User.USERNAME_MIN_LENGTH && password.length() <= User.USERNAME_MAX_LENGTH) {
-                outputStream.writeObject(username);
+                LoginDTO loginDTO = new LoginDTO(username);
+
+                outputStream.writeObject(loginDTO);
                 outputStream.flush();
 
                 Object object = inputStream.readObject();

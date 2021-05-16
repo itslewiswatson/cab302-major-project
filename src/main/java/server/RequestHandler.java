@@ -1,11 +1,14 @@
 package server;
 
 import common.domain.User;
+import common.dto.LoginDTO;
+import server.handlers.LoginHandler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.text.ParseException;
 
 /**
  * This class represents a request handler.
@@ -82,11 +85,15 @@ public class RequestHandler extends Thread {
      * @throws IOException An error occurred when writing the object to the stream.
      */
     private void handleRequest(Object object) throws IOException {
-        if (object instanceof String) {
-            String username = (String) object;
-            User existingUser = dbStatements.getExistingUser(username);
-            outputStream.writeObject(existingUser);
+        if (object instanceof LoginDTO) {
+            LoginDTO loginDTO = (LoginDTO) object;
+            LoginHandler loginHandler = new LoginHandler(dbStatements);
+            User user = loginHandler.handle(loginDTO);
+            outputStream.writeObject(user);
             outputStream.flush();
+            return;
         }
+
+        throw new IOException();
     }
 }
