@@ -1,11 +1,9 @@
 package server;
 
+import common.domain.Trade;
 import common.domain.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +31,13 @@ public class DBStatements {
     private static final String UPDATE_PASSWORD = "UPDATE user SET password = ? WHERE username = ?";
 
     /**
+     * SQL statement to insert a new trade.
+     */
+    private static final String NEW_TRADE = "" +
+            "INSERT INTO trades (tradeId, unitId, assetId, userId, dateListed, type, quantity, price, quantityFilled, dateFilled) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+    /**
      * A precompiled SQL statement to insert a user.
      */
     private PreparedStatement insertUser;
@@ -53,6 +58,11 @@ public class DBStatements {
     private PreparedStatement updatePassword;
 
     /**
+     * A precompiled SQL statement to inset a new trade.
+     */
+    private PreparedStatement newTrade;
+
+    /**
      * Creates a DBStatements object.
      */
     public DBStatements() {
@@ -63,8 +73,28 @@ public class DBStatements {
             getUser = connection.prepareStatement(GET_USER);
             getUserUnits = connection.prepareStatement(GET_USER_UNITS);
             updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
+            newTrade = connection.prepareStatement(NEW_TRADE);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
+        }
+    }
+
+    public void createTrade(Trade trade) {
+        try {
+            newTrade.setString(1, trade.getTradeId());
+            newTrade.setString(2, trade.getUnitId());
+            newTrade.setString(3, trade.getAssetId());
+            newTrade.setString(4, trade.getUserId());
+            newTrade.setDate(5, Date.valueOf(trade.getDateListed()));
+            newTrade.setString(6, trade.getType().toString());
+            newTrade.setInt(7, trade.getQuantity());
+            newTrade.setInt(8, trade.getPrice());
+            newTrade.setInt(9, trade.getQuantityFilled());
+            newTrade.setDate(10, Date.valueOf(trade.getDateFilled()));
+
+            newTrade.execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -75,9 +105,10 @@ public class DBStatements {
      */
     public void addNewUser(User user) {
         try {
-            insertUser.setString(1, user.getUsername());
-            insertUser.setString(2, user.getPassword());
-            insertUser.setString(3, user.getAdmin());
+            insertUser.setString(1, user.getUserId());
+            insertUser.setString(2, user.getUsername());
+            insertUser.setString(3, user.getPassword());
+            insertUser.setString(4, user.getAdmin());
 
             insertUser.execute();
         } catch (SQLException exception) {
@@ -114,13 +145,14 @@ public class DBStatements {
                 units = unitsList.toArray(units);
 
                 user = new User(
+                        userResultSet.getString("userId"),
                         userResultSet.getString("username"),
                         userResultSet.getString("password"),
                         userResultSet.getBoolean("admin"),
                         units
                 );
             } else {
-                user = new User(null, null, false, null);
+                user = new User(null, null, null, false, null);
             }
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");

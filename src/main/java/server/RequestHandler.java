@@ -1,14 +1,18 @@
 package server;
 
+import common.domain.Trade;
 import common.domain.User;
+import common.dto.CreateAccountDTO;
 import common.dto.LoginDTO;
+import common.dto.NewTradeDTO;
+import server.handlers.CreateAccountHandler;
 import server.handlers.LoginHandler;
+import server.handlers.NewTradeHandler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.text.ParseException;
 
 /**
  * This class represents a request handler.
@@ -90,6 +94,24 @@ public class RequestHandler extends Thread {
             LoginHandler loginHandler = new LoginHandler(dbStatements);
             User user = loginHandler.handle(loginDTO);
             outputStream.writeObject(user);
+            outputStream.flush();
+            return;
+        }
+
+        if (object instanceof CreateAccountDTO) {
+            CreateAccountDTO createAccountDTO = (CreateAccountDTO) object;
+            CreateAccountHandler createAccountHandler = new CreateAccountHandler(dbStatements);
+            User user = createAccountHandler.handle(createAccountDTO);
+            outputStream.writeObject(user);
+            outputStream.flush();
+            return;
+        }
+
+        if (object instanceof NewTradeDTO) {
+            NewTradeDTO newTradeDTO = (NewTradeDTO) object;
+            NewTradeHandler newTradeHandler = new NewTradeHandler(dbStatements);
+            Trade newTrade = newTradeHandler.handle(newTradeDTO);
+            outputStream.writeObject(newTrade);
             outputStream.flush();
             return;
         }

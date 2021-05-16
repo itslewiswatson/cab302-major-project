@@ -1,19 +1,18 @@
 package common.domain;
 
-import common.services.PasswordHasher;
+import java.io.Serializable;
 
 /**
  * This class represents a user account.
  */
-public class User implements java.io.Serializable {
-
-    public static final int USERNAME_MIN_LENGTH = 1;
-    public static final int USERNAME_MAX_LENGTH = 255;
+public class User extends Entity implements Serializable {
 
     /**
      * The class' version number.
      */
     private static final long serialVersionUID = 0;
+
+    private final String userId;
 
     /**
      * The username.
@@ -43,11 +42,21 @@ public class User implements java.io.Serializable {
      * @param admin    An indication of whether the user account has administrative privileges.
      * @param units    The user's organisational unit names.
      */
-    public User(String username, String password, boolean admin, String[] units) {
+    public User(String userId, String username, String password, boolean admin, String[] units) {
+        this.userId = userId;
         this.username = username;
         this.password = password; // Hash by using (new PasswordHasher()).hashPassword(password)
         this.admin = admin;
         this.units = units;
+    }
+
+    /**
+     * Gets the user's UUID
+     *
+     * @return The UUID
+     */
+    public String getUserId() {
+        return userId;
     }
 
     /**
