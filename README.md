@@ -38,4 +38,7 @@ Milestones
 - [Video](https://youtu.be/3HGGa-gk6uI)
 
 ### Milestone 2
+- [Requirements](/docs/milestone-two/requirements.md)
+- [Detailed Design](/docs/milestone-two/detailed-design.md)
+- [Sprint Planning](/docs/milestone-two/sprint-planning.md)
 - [Video](https://youtu.be/sJfcgYVdTmI)
