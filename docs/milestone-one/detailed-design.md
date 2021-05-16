@@ -3,7 +3,7 @@ Detailed Design
 
 Java Classes
 ------------
-[JavaDoc](https://mitchelljqegan.github.io/cab302-major-project-javadoc/)
+[JavaDoc](https://mitchelljqegan.github.io/javadoc-m-one/)
 
 GUI Design
 ----------
