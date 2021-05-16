@@ -7,6 +7,7 @@ Java Classes
 
 Class Diagram
 -------------
+![UML Class Diagram](/docs/images/uml-class-diagram.png)
 
 GUI Design
 ----------
