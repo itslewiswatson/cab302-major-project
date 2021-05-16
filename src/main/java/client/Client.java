@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 public class Client extends Application {
 
     /**
-     *
      * Starts the JavaFX application.
      *
      * @param stage The initial stage.
@@ -25,8 +24,7 @@ public class Client extends Application {
      *
      * @param args Command line arguments.
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         launch(args);
     }
 }

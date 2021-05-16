@@ -1,7 +1,8 @@
 package client;
 
-import common.ExistingUser;
-import common.Username;
+import common.domain.User;
+import common.dto.LoginDTO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -14,7 +15,7 @@ import java.io.IOException;
 /**
  * This class is the Login GUI controller.
  */
-public class LoginController {
+public class LoginController extends Controller {
 
     private ClientController clientController;
 
@@ -38,49 +39,45 @@ public class LoginController {
         int maxLength = 255;
 
         try {
-            Username username = new Username(usernameField.getText());
+            String username = usernameField.getText();
             String password = passwordField.getText();
 
-            if (password.length() >= minLength && password.length() <= maxLength)
-            {
-                clientController.getOutputStream().writeObject(username);
-                clientController.getOutputStream().flush();
+            LoginDTO loginDTO = new LoginDTO(username);
 
-                ExistingUser existingUser = (ExistingUser) clientController.getInputStream().readObject();
+            outputStream.writeObject(loginDTO);
+            outputStream.flush();
 
-                if (existingUser.getUsername() != null && BCrypt.checkpw(password, existingUser.getPassword()))
-                {
-                    clientController.setUser(existingUser);
-                    clientController.switchToMyAccount();
-                }
-                else {
+            Object object = inputStream.readObject();
+
+            if (object instanceof User) {
+                User user = (User) object;
+
+                if (user.getUsername() != null && BCrypt.checkpw(password, user.getPassword())) {
+                    switchToMyAccount(event);
+                } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
                     alert.setHeaderText("Incorrect Username or Password.");
                     alert.showAndWait();
                 }
             }
-            else {
-                throw new Exception();
-            }
-        }
-        catch (IOException exception) {
+
+        } catch (IOException | ClassNotFoundException exception) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
             alert.setHeaderText("Cannot communicate with server.");
-            alert.showAndWait();
-        }
-        catch (ClassNotFoundException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
-            alert.setHeaderText("A program file has been deleted or become corrupted.");
-            alert.showAndWait();
-        }
-        catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please try again.", ButtonType.OK);
-            alert.setHeaderText("Invalid Username or Password.");
             alert.showAndWait();
         }
     }
 
     void setClientController(ClientController clientController) {
         this.clientController = clientController;
+    }
+
+    /**
+     * Method to switch to My Account page.
+     *
+     * @param event Event action.
+     */
+    public void switchToMyAccount(ActionEvent event) {
+        switchToPage(event, Page.myAccount);
     }
 }

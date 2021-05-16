@@ -40,7 +40,7 @@ public class MyAccountController {
         String newPassword = newPasswordField.getText();
 
         try {
-            if(currentPassword.length() > 0 && newPassword.length() > 0) {
+            if (currentPassword.length() > 0 && newPassword.length() > 0) {
                 if (BCrypt.checkpw(currentPassword, clientController.getUser().getPassword())) {
                     if (!currentPassword.equals(newPassword)) {
                         ExistingUser newPasswordUser = clientController.getUser();
@@ -51,43 +51,35 @@ public class MyAccountController {
 
                         ExistingUser existingUser = (ExistingUser) clientController.getInputStream().readObject();
 
-                        if (BCrypt.checkpw(newPassword, existingUser.getPassword()))
-                        {
+                        if (BCrypt.checkpw(newPassword, existingUser.getPassword())) {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
                             alert.setHeaderText("Password changed successfully.");
                             alert.showAndWait();
-                        }
-                        else {
+                        } else {
                             Alert alert = new Alert(Alert.AlertType.ERROR, "Contact administrator.", ButtonType.OK);
                             alert.setHeaderText("Password could not be updated.");
                             alert.showAndWait();
                         }
-                    }
-                    else {
+                    } else {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
                         alert.setHeaderText("New Password and Current Password are the same.");
                         alert.showAndWait();
                     }
-                }
-                else {
+                } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
                     alert.setHeaderText("Current Password is incorrect.");
                     alert.showAndWait();
                 }
-            }
-            else
-            {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
                 alert.setHeaderText("Current Password and New Password cannot be empty.");
                 alert.showAndWait();
             }
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
             alert.setHeaderText("Cannot communicate with server.");
             alert.showAndWait();
-        }
-        catch (ClassNotFoundException exception) {
+        } catch (ClassNotFoundException exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
             alert.setHeaderText("A program file has been deleted or become corrupted.");
             alert.showAndWait();
@@ -111,19 +103,16 @@ public class MyAccountController {
     private void displayAccountType(boolean isAdmin) {
         if (isAdmin) {
             accountTypeLabel.setText("Account Type: Administrator");
-        }
-        else {
+        } else {
             accountTypeLabel.setText("Account Type: Standard");
         }
     }
 
     private void displayUnits(String[] units) {
-        if (units.length > 0)
-        {
+        if (units.length > 0) {
             ObservableList<String> unitsList = FXCollections.observableArrayList(units);
             unitsComboBox.setItems(unitsList);
-        }
-        else {
+        } else {
             unitsComboBox.setValue("None");
         }
     }

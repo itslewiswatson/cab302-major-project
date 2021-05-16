@@ -1,7 +1,13 @@
 package server;
 
-import common.ExistingUser;
-import common.Username;
+import common.domain.Trade;
+import common.domain.User;
+import common.dto.CreateAccountDTO;
+import common.dto.LoginDTO;
+import common.dto.NewTradeDTO;
+import server.handlers.CreateAccountHandler;
+import server.handlers.LoginHandler;
+import server.handlers.NewTradeHandler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,7 +17,7 @@ import java.net.Socket;
 /**
  * This class represents a request handler.
  */
-class RequestHandler extends Thread {
+public class RequestHandler extends Thread {
 
     /**
      * The client socket.
@@ -37,7 +43,7 @@ class RequestHandler extends Thread {
      * Creates a RequestHandler object when a new thread is created.
      *
      * @param clientSocket The client socket.
-     * @param inputStream The server socket input stream.
+     * @param inputStream  The server socket input stream.
      * @param outputStream The server socket output stream.
      * @param dbStatements The database controller.
      */
@@ -53,8 +59,7 @@ class RequestHandler extends Thread {
      */
     @Override
     @SuppressWarnings("InfiniteLoopStatement")
-    public void run()
-    {
+    public void run() {
         try {
             while (true) {
                 Object object = inputStream.readObject();
@@ -63,19 +68,17 @@ class RequestHandler extends Thread {
                 handleRequest(object);
                 System.out.println("\t\tResponse sent.");
             }
-        }
-        catch (ClassNotFoundException exception) {
+        } catch (ClassNotFoundException exception) {
             System.err.println("The expected Class file is missing. Rebuild the program.");
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             try {
                 outputStream.close();
                 inputStream.close();
                 clientSocket.close();
 
                 System.out.println("Connection closed.\n");
+            } catch (IOException ignored) {
             }
-            catch (IOException ignored) {}
         }
     }
 
@@ -86,25 +89,33 @@ class RequestHandler extends Thread {
      * @throws IOException An error occurred when writing the object to the stream.
      */
     private void handleRequest(Object object) throws IOException {
-
-        if (object instanceof ExistingUser)
-        {
-            try {
-                ExistingUser existingUser = (ExistingUser) object;
-                dbStatements.changePassword(existingUser);
-
-                existingUser = dbStatements.getExistingUser(new Username(existingUser.getUsername()));
-                outputStream.writeObject(existingUser);
-                outputStream.flush();
-            }
-            catch (Exception ignored) {}
-        }
-        else if (object instanceof Username)
-        {
-            Username username = (Username) object;
-            ExistingUser existingUser = dbStatements.getExistingUser(username);
-            outputStream.writeObject(existingUser);
+        if (object instanceof LoginDTO) {
+            LoginDTO loginDTO = (LoginDTO) object;
+            LoginHandler loginHandler = new LoginHandler(dbStatements);
+            User user = loginHandler.handle(loginDTO);
+            outputStream.writeObject(user);
             outputStream.flush();
+            return;
         }
+
+        if (object instanceof CreateAccountDTO) {
+            CreateAccountDTO createAccountDTO = (CreateAccountDTO) object;
+            CreateAccountHandler createAccountHandler = new CreateAccountHandler(dbStatements);
+            User user = createAccountHandler.handle(createAccountDTO);
+            outputStream.writeObject(user);
+            outputStream.flush();
+            return;
+        }
+
+        if (object instanceof NewTradeDTO) {
+            NewTradeDTO newTradeDTO = (NewTradeDTO) object;
+            NewTradeHandler newTradeHandler = new NewTradeHandler(dbStatements);
+            Trade newTrade = newTradeHandler.handle(newTradeDTO);
+            outputStream.writeObject(newTrade);
+            outputStream.flush();
+            return;
+        }
+
+        throw new IOException();
     }
 }

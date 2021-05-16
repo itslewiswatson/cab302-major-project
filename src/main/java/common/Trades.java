@@ -1,5 +1,7 @@
 package common;
 
+import common.domain.Trade;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -84,8 +86,7 @@ public class Trades implements java.io.Serializable {
      * @param unit The organisational unit to filter by.
      * @return A new Trades object containing the filtered trades.
      */
-    public Trades filterByUnit(String unit)
-    {
+    public Trades filterByUnit(String unit) {
         //To implement
 
         return null;
@@ -97,8 +98,7 @@ public class Trades implements java.io.Serializable {
      * @param asset The asset to filter by.
      * @return A new Trades object containing the filtered trades.
      */
-    public Trades filterByAsset(String asset)
-    {
+    public Trades filterByAsset(String asset) {
         //To implement
 
         return null;
@@ -110,8 +110,7 @@ public class Trades implements java.io.Serializable {
      * @param date The date to filter by.
      * @return A new Trades object containing the filtered trades.
      */
-    public Trades filterByDate(LocalDate date)
-    {
+    public Trades filterByDate(LocalDate date) {
         //To implement
 
         return null;
@@ -123,8 +122,7 @@ public class Trades implements java.io.Serializable {
      * @param type The type to filter by.
      * @return A new Trades object containing the filtered trades.
      */
-    public Trades filterByType(String type)
-    {
+    public Trades filterByType(String type) {
         //To implement
 
         return null;

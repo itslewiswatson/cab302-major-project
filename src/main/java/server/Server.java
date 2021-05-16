@@ -9,7 +9,7 @@ import java.net.Socket;
 /**
  * This class is the server application.
  */
-class Server  {
+class Server {
 
     /**
      * Main method.
