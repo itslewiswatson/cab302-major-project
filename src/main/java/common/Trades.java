@@ -1,5 +1,7 @@
 package common;
 
+import common.domain.Trade;
+
 import java.time.LocalDate;
 import java.util.List;
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.MyAccountController">
    <left>
       <AnchorPane blendMode="DARKEN" prefHeight="400.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
@@ -32,7 +32,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="13.0" layoutY="356.0" mnemonicParsing="false" prefWidth="125.0" text="Log Out">
+            <Button layoutX="13.0" layoutY="356.0" mnemonicParsing="false" prefWidth="125.0" text="Log Out" onAction="#logout">
                <font>
                   <Font size="14.0" />
                </font>

@@ -1,7 +1,13 @@
 package server;
 
-import common.ExistingUser;
-import common.Username;
+import common.domain.Trade;
+import common.domain.User;
+import common.dto.CreateAccountDTO;
+import common.dto.LoginDTO;
+import common.dto.NewTradeDTO;
+import server.handlers.CreateAccountHandler;
+import server.handlers.LoginHandler;
+import server.handlers.NewTradeHandler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -83,11 +89,33 @@ public class RequestHandler extends Thread {
      * @throws IOException An error occurred when writing the object to the stream.
      */
     private void handleRequest(Object object) throws IOException {
-        if (object instanceof Username) {
-            Username username = (Username) object;
-            ExistingUser existingUser = dbStatements.getExistingUser(username);
-            outputStream.writeObject(existingUser);
+        if (object instanceof LoginDTO) {
+            LoginDTO loginDTO = (LoginDTO) object;
+            LoginHandler loginHandler = new LoginHandler(dbStatements);
+            User user = loginHandler.handle(loginDTO);
+            outputStream.writeObject(user);
             outputStream.flush();
+            return;
         }
+
+        if (object instanceof CreateAccountDTO) {
+            CreateAccountDTO createAccountDTO = (CreateAccountDTO) object;
+            CreateAccountHandler createAccountHandler = new CreateAccountHandler(dbStatements);
+            User user = createAccountHandler.handle(createAccountDTO);
+            outputStream.writeObject(user);
+            outputStream.flush();
+            return;
+        }
+
+        if (object instanceof NewTradeDTO) {
+            NewTradeDTO newTradeDTO = (NewTradeDTO) object;
+            NewTradeHandler newTradeHandler = new NewTradeHandler(dbStatements);
+            Trade newTrade = newTradeHandler.handle(newTradeDTO);
+            outputStream.writeObject(newTrade);
+            outputStream.flush();
+            return;
+        }
+
+        throw new IOException();
     }
 }
