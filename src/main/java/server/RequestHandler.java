@@ -11,7 +11,7 @@ import java.net.Socket;
 /**
  * This class represents a request handler.
  */
-public class RequestHandler extends Thread {
+class RequestHandler extends Thread {
 
     /**
      * The client socket.
@@ -86,7 +86,20 @@ public class RequestHandler extends Thread {
      * @throws IOException An error occurred when writing the object to the stream.
      */
     private void handleRequest(Object object) throws IOException {
-        if (object instanceof Username)
+
+        if (object instanceof ExistingUser)
+        {
+            try {
+                ExistingUser existingUser = (ExistingUser) object;
+                dbStatements.changePassword(existingUser);
+
+                existingUser = dbStatements.getExistingUser(new Username(existingUser.getUsername()));
+                outputStream.writeObject(existingUser);
+                outputStream.flush();
+            }
+            catch (Exception ignored) {}
+        }
+        else if (object instanceof Username)
         {
             Username username = (Username) object;
             ExistingUser existingUser = dbStatements.getExistingUser(username);
