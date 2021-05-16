@@ -1,6 +1,6 @@
 package server;
 
-import common.entities.User;
+import common.domain.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

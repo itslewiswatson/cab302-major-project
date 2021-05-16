@@ -1,9 +1,9 @@
-package common.entities;
+package common.domain;
 
 import common.services.PasswordHasher;
 
 /**
- * This class represents an existing user account.
+ * This class represents a user account.
  */
 public class User implements java.io.Serializable {
 
@@ -31,22 +31,21 @@ public class User implements java.io.Serializable {
     private final boolean admin;
 
     /**
-     * The existing user's organisational unit names.
+     * The user's organisational unit names.
      */
     private final String[] units;
 
     /**
-     * Creates an ExistingUser object when a user account is retrieved from the database.
+     * Creates a User instance
      *
-     * @param username An existing user account's username.
-     * @param password An existing user account's plaintext password.
-     * @param admin    An indication of whether the existing user account has administrative privileges.
-     * @param units    The existing user's organisational unit names.
-     * @throws Exception Incorrect username or password length.
+     * @param username An user account's username.
+     * @param password An user account's hashed password.
+     * @param admin    An indication of whether the user account has administrative privileges.
+     * @param units    The user's organisational unit names.
      */
-    public User(String username, String password, boolean admin, String[] units) throws Exception {
+    public User(String username, String password, boolean admin, String[] units) {
         this.username = username;
-        this.password = (new PasswordHasher()).hashPassword(password);
+        this.password = password; // Hash by using (new PasswordHasher()).hashPassword(password)
         this.admin = admin;
         this.units = units;
     }
@@ -70,7 +69,7 @@ public class User implements java.io.Serializable {
     }
 
     /**
-     * Set the existing user's password field.
+     * Set the user's password field.
      *
      * @param password A hashed password.
      */
@@ -97,9 +96,9 @@ public class User implements java.io.Serializable {
     }
 
     /**
-     * Gets the existing user's units field.
+     * Gets the user's units field.
      *
-     * @return The existing user's organisational unit names.
+     * @return The user's organisational unit names.
      */
     public String[] getUnits() {
         return units;
