@@ -16,7 +16,7 @@ public class Client extends Application {
     @Override
     public void start(Stage stage) {
         ClientController clientController = new ClientController(stage);
-        clientController.openLogin();
+        clientController.initialise();
     }
 
     /**

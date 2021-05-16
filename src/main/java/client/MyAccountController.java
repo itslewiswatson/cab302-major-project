@@ -1,20 +1,17 @@
 package client;
 
-import common.ExistingUser;
+import common.domain.User;
+import common.exceptions.NullResultException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.io.IOException;
-
 /**
  * This class is the My Account GUI controller.
  */
-public class MyAccountController {
-
-    private ClientController clientController;
+public class MyAccountController extends Controller {
 
     @FXML
     private Label usernameLabel;
@@ -31,25 +28,19 @@ public class MyAccountController {
     @FXML
     private PasswordField newPasswordField;
 
-    void setClientController(ClientController clientController) {
-        this.clientController = clientController;
-    }
-
     public void changePassword() {
         String currentPassword = currentPasswordField.getText();
         String newPassword = newPasswordField.getText();
 
         try {
             if (currentPassword.length() > 0 && newPassword.length() > 0) {
-                if (BCrypt.checkpw(currentPassword, clientController.getUser().getPassword())) {
+                if (BCrypt.checkpw(currentPassword, getUser().getPassword())) {
                     if (!currentPassword.equals(newPassword)) {
-                        ExistingUser newPasswordUser = clientController.getUser();
+                        User newPasswordUser = getUser();
                         newPasswordUser.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
 
-                        clientController.getOutputStream().writeObject(newPasswordUser);
-                        clientController.getOutputStream().flush();
-
-                        ExistingUser existingUser = (ExistingUser) clientController.getInputStream().readObject();
+                        sendObject(newPasswordUser);
+                        User existingUser = (User) readObject();
 
                         if (BCrypt.checkpw(newPassword, existingUser.getPassword())) {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
@@ -75,25 +66,21 @@ public class MyAccountController {
                 alert.setHeaderText("Current Password and New Password cannot be empty.");
                 alert.showAndWait();
             }
-        } catch (IOException exception) {
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
             alert.setHeaderText("Cannot communicate with server.");
-            alert.showAndWait();
-        } catch (ClassNotFoundException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
-            alert.setHeaderText("A program file has been deleted or become corrupted.");
             alert.showAndWait();
         }
     }
 
     public void logout() {
-        clientController.switchToLogin();
+        switchToPage(Page.login);
     }
 
     public void displayUserDetails() {
-        displayUsername(clientController.getUser().getUsername());
-        displayAccountType(clientController.getUser().isAdmin());
-        displayUnits(clientController.getUser().getUnits());
+        displayUsername(getUser().getUsername());
+        displayAccountType(getUser().isAdmin());
+        displayUnits(getUser().getUnits());
     }
 
     private void displayUsername(String username) {

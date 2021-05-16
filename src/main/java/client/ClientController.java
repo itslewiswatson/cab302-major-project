@@ -1,7 +1,8 @@
 package client;
 
-import common.ExistingUser;
+import common.domain.User;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,109 +17,40 @@ import java.net.Socket;
 
 class ClientController {
 
-    /**
-     * The client input stream.
-     */
+    private User user;
     private ObjectInputStream inputStream;
-
-    /**
-     * The client output stream.
-     */
     private ObjectOutputStream outputStream;
+    protected final Stage stage;
 
-    private final Stage stage;
-
-    private ExistingUser user;
-
-    ClientController(Stage stage) {
+    public ClientController(Stage stage) {
         this.stage = stage;
     }
 
-    ObjectInputStream getInputStream() {
-        return inputStream;
-    }
-
-    ObjectOutputStream getOutputStream() {
-        return outputStream;
-    }
-
-    ExistingUser getUser() {
+    protected User getUser() {
         return user;
     }
 
-    void setUser(ExistingUser user) {
+    protected void setUser(User user) {
         this.user = user;
     }
 
-    void openLogin() {
+    public void initialise() {
         openSocket();
+        switchToPage(Page.login);
+    }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+    protected ObjectOutputStream getOutputStream() {
+        return outputStream;
+    }
 
-        try {
-            Parent root = loader.load();
-
-            LoginController loginController = loader.getController();
-            loginController.setClientController(this);
-
-            stage.setTitle("Client");
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch (IOException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
-            alert.setHeaderText("A program file has been deleted or become corrupted.");
-            alert.showAndWait();
-        }
+    protected ObjectInputStream getInputStream() {
+        return inputStream;
     }
 
     /**
-     * Method to switch to My Account page.
+     * Initialising method.
      */
-    void switchToMyAccount() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/myAccount.fxml"));
-
-        try {
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            MyAccountController myAccountController = loader.getController();
-            myAccountController.setClientController(this);
-            myAccountController.displayUserDetails();
-
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch (IOException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
-            alert.setHeaderText("A program file has been deleted or become corrupted.");
-            alert.showAndWait();
-            exception.printStackTrace();
-        }
-    }
-
-    void switchToLogin() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-
-        try {
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            LoginController loginController = loader.getController();
-            loginController.setClientController(this);
-
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch (IOException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
-            alert.setHeaderText("A program file has been deleted or become corrupted.");
-            alert.showAndWait();
-            exception.printStackTrace();
-        }
-    }
-
+    @FXML
     private void openSocket() {
         String host = "127.0.0.1";
         int portNumber = 1234;
@@ -127,12 +59,36 @@ class ClientController {
             Socket clientSocket = new Socket(host, portNumber);
             outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             inputStream = new ObjectInputStream(clientSocket.getInputStream());
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Ensure the server is running and the configuration file is correct.", ButtonType.OK);
             alert.setHeaderText("Could not connect to server.");
             alert.showAndWait();
             Platform.exit();
         }
     }
+
+    /**
+     * Handle switching between pages
+     *
+     * @param page The page to switch to
+     */
+    protected void switchToPage(Page page) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + page.path));
+
+        try {
+            Parent root = loader.load();
+            Controller mainController = loader.getController();
+            mainController.setClientController(this);
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
+            alert.setHeaderText("A program file has been deleted or become corrupted.");
+            alert.showAndWait();
+        }
+    }
+
 }
