@@ -1,5 +1,6 @@
 package server;
 
+import common.dataTypes.TradeType;
 import common.domain.Trade;
 import common.domain.User;
 
@@ -35,6 +36,8 @@ public class DBStatements {
      */
     private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE ID = ?";
 
+    private static final String GET_ACTIVE_TRADES = "SELECT * FROM trades WHERE date_filled IS NULL";
+
     /**
      * SQL statement to insert a new trade.
      */
@@ -68,6 +71,11 @@ public class DBStatements {
     private PreparedStatement updatePassword;
 
     /**
+     * A precompiled SQL statement to retrieve all unfulfilled trades.
+     */
+    private PreparedStatement getActiveTrades;
+
+    /**
      * A precompiled SQL statement to inset a new trade.r
      */
     private PreparedStatement newTrade;
@@ -84,6 +92,7 @@ public class DBStatements {
             getUserById = connection.prepareStatement(FIND_USER_BY_ID);
             getUserUnits = connection.prepareStatement(GET_USER_UNITS);
             updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
+            getActiveTrades = connection.prepareStatement(GET_ACTIVE_TRADES);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -240,5 +249,39 @@ public class DBStatements {
         String[] units = new String[unitsList.size()];
         units = unitsList.toArray(units);
         return units;
+    }
+
+    public ArrayList<Trade> getActiveTrades() {
+        ResultSet tradeResultSet;
+        ArrayList<Trade> trades = new ArrayList<>();
+
+        try {
+            tradeResultSet = getActiveTrades.executeQuery();
+
+            while (tradeResultSet.next()) {
+                Trade trade = new Trade(
+                        tradeResultSet.getString("id"),
+                        tradeResultSet.getString("unit_id"),
+                        tradeResultSet.getString("asset_id"),
+                        tradeResultSet.getString("user_id"),
+                        tradeResultSet.getDate("date_listed").toLocalDate(),
+                        TradeType.valueOf(tradeResultSet.getString("type")),
+                        tradeResultSet.getInt("quantity"),
+                        tradeResultSet.getInt("price"),
+                        tradeResultSet.getInt("quantity_filled"),
+                        null
+                );
+                trades.add(trade);
+            }
+
+            return trades;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            System.err.println("Access to the database was denied. Ensure MySQL server is running.");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return trades;
     }
 }

@@ -56,56 +56,56 @@ CREATE TABLE IF NOT EXISTS trades (
   id VARCHAR(255) NOT NULL,
   unit_id VARCHAR(255) NOT NULL,
   asset_id VARCHAR(255) NOT NULL,
-  date DATE NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  date_listed DATE NOT NULL,
   type VARCHAR(4) NOT NULL,
   quantity INT NOT NULL,
   price INT NOT NULL,
-  completed BOOLEAN NOT NULL,
+  quantity_filled INT NOT NULL,
+  date_filled DATE,
   PRIMARY KEY (id),
   FOREIGN KEY (unit_id) REFERENCES units(id),
-  FOREIGN KEY (asset_id) REFERENCES assets(id)
+  FOREIGN KEY (asset_id) REFERENCES assets(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 -- Add initial entries.
 
-INSERT INTO 
+INSERT INTO
   users (id, username, password, admin)
-VALUES 
-  ('bdfc9ecf-5bbe-4e5e-9c05-e42167ef25bd', 'admin', '$2a$10$ip/7v4Bf9c.tiiyw7solvOfMAK4PrPtnzD57Qx986f8ddnbWddiZy', 1);
-
-INSERT INTO 
-  users (id, username, password, admin)
-VALUES 
-  ('45c3c36b-d77b-490b-b24a-c245c2f865ba', 'Mitchell', '$2a$10$eQFfKOvSyJk4BXSxeC3kpu0e6pi7au8zv4zodPkHweLUBLrAAMWrO', 0);
-
-INSERT INTO 
-  users (id, username, password, admin)
-VALUES 
+VALUES
+  ('bdfc9ecf-5bbe-4e5e-9c05-e42167ef25bd', 'admin', '$2a$10$ip/7v4Bf9c.tiiyw7solvOfMAK4PrPtnzD57Qx986f8ddnbWddiZy', 1),
+  ('45c3c36b-d77b-490b-b24a-c245c2f865ba', 'Mitchell', '$2a$10$eQFfKOvSyJk4BXSxeC3kpu0e6pi7au8zv4zodPkHweLUBLrAAMWrO', 0),
   ('11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', 'Lewis', '$2a$10$VvUx/7wDYSJ0yeX.6xwUZuPczqBJlsnEpuCATDfGLsupr0k3W6VG6', 0);
 
-INSERT INTO 
+INSERT INTO
   units (id, name, credits)
-VALUES 
+VALUES
   ('b7313567-395b-424b-b130-ea413f8fba1a', 'Animation', 10000),
   ('cdf64dd1-a541-4b1f-a71b-8f5fa191defa', 'Processing', 10000),
   ('bd609f6d-baa9-476d-b50d-e833f40bbec7', 'Simulation', 10000);
 
-INSERT INTO 
+INSERT INTO
   unitusers (user_id, unit_id)
-VALUES 
+VALUES
   ('45c3c36b-d77b-490b-b24a-c245c2f865ba', 'b7313567-395b-424b-b130-ea413f8fba1a'),
   ('45c3c36b-d77b-490b-b24a-c245c2f865ba', 'cdf64dd1-a541-4b1f-a71b-8f5fa191defa'),
   ('11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', 'bd609f6d-baa9-476d-b50d-e833f40bbec7');
 
-INSERT INTO 
+INSERT INTO
   assets (id, name)
-VALUES 
+VALUES
   ('b2f27a46-c324-42d0-a242-36b88c279fff', 'GPU Hours'),
   ('4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 'CPU Hours');
 
-INSERT INTO 
-  unitassets (unit_id, asset_id, quantity) 
-VALUES 
+INSERT INTO
+  unitassets (unit_id, asset_id, quantity)
+VALUES
   ('b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', 250),
   ('cdf64dd1-a541-4b1f-a71b-8f5fa191defa', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 2500),
   ('bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 500);
+
+INSERT INTO
+    trades (id, unit_id, asset_id, user_id, date_listed, type, quantity, price, quantity_filled, date_filled)
+VALUES
+    ('ecb9a5c3-d12a-444a-b571-be8908794116', 'b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', NOW(), 'BUY', 10, 1, 1, NULL);
