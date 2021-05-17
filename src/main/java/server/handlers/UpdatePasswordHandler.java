@@ -11,9 +11,9 @@ public class UpdatePasswordHandler extends Handler<User, UpdatePasswordDTO> {
 
     @Override
     public User handle(UpdatePasswordDTO dto) {
-        User user = dbStatements.getUserByUsername(dto.getUserId());
+        User user = dbStatements.findUserById(dto.getUserId());
         user.setPassword(dto.getNewPassword());
-        dbStatements.changePassword(user);
+        dbStatements.updatePassword(user);
 
         return user;
     }

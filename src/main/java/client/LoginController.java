@@ -54,6 +54,7 @@ public class LoginController extends Controller {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
             alert.setHeaderText("Cannot communicate with server.");
             alert.showAndWait();

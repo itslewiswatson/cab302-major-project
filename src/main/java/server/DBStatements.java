@@ -13,27 +13,27 @@ public class DBStatements {
     /**
      * SQL statement to retrieve a user by their username
      */
-    private static final String GET_USER = "SELECT * FROM users WHERE username = ?";
+    private static final String FIND_USER_BY_USERNAME = "SELECT * FROM users WHERE username = ? LIMIT 1";
 
     /**
      * SQL statement to retrive a user by their ID
      */
-    private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
+    private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? LIMIT 1";
 
     /**
      * SQL statement to retrieve the organisation units of a given user.
      */
-    private static final String GET_USER_UNITS = "SELECT unitName FROM unitusers WHERE username = ?";
+    private static final String GET_USER_UNITS = "SELECT unit_id FROM unitusers WHERE user_id = ?";
 
     /**
      * SQL statement to insert a user.
      */
-    private static final String INSERT_USER = "INSERT INTO users (username, password, admin) VALUES (?, ?, ?);";
+    private static final String INSERT_USER = "INSERT INTO users (id, username, password, admin) VALUES (?, ?, ?, ?);";
 
     /**
      * SQL statement to update a given user's password.
      */
-    private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE username = ?";
+    private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE ID = ?";
 
     /**
      * SQL statement to insert a new trade.
@@ -50,7 +50,7 @@ public class DBStatements {
     /**
      * A precompiled SQL statement to retrieve a given user.
      */
-    private PreparedStatement getUser;
+    private PreparedStatement getUserByUsername;
 
     /**
      * A precompiled SQL statement to retrieve a given user.
@@ -68,7 +68,7 @@ public class DBStatements {
     private PreparedStatement updatePassword;
 
     /**
-     * A precompiled SQL statement to inset a new trade.
+     * A precompiled SQL statement to inset a new trade.r
      */
     private PreparedStatement newTrade;
 
@@ -80,10 +80,10 @@ public class DBStatements {
 
         try {
             insertUser = connection.prepareStatement(INSERT_USER);
-            getUser = connection.prepareStatement(GET_USER);
+            getUserByUsername = connection.prepareStatement(FIND_USER_BY_USERNAME);
+            getUserById = connection.prepareStatement(FIND_USER_BY_ID);
             getUserUnits = connection.prepareStatement(GET_USER_UNITS);
             updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
-            getUserById = connection.prepareStatement(FIND_USER_BY_ID);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -133,18 +133,23 @@ public class DBStatements {
         try {
             getUserById.setString(1, userId);
             userResultSet = getUserById.executeQuery();
+
             if (userResultSet.isBeforeFirst()) {
                 userResultSet.next();
-
-                String[] units = {};
 
                 user = new User(
                         userResultSet.getString("id"),
                         userResultSet.getString("username"),
                         userResultSet.getString("password"),
-                        userResultSet.getBoolean("admin"),
-                        units
+                        userResultSet.getBoolean("admin")
                 );
+
+                String[] units = findUserUnits(user);
+                for (String unitId : units) {
+                    user.addUnit(unitId);
+                }
+
+                return user;
             }
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
@@ -160,38 +165,30 @@ public class DBStatements {
      * @param username A set of login credentials.
      * @return An existing user account.
      */
-    public User getUserByUsername(String username) {
+    public User findUserByUsername(String username) {
         User user = null;
         ResultSet userResultSet;
-        ResultSet unitResultSet;
-        ArrayList<String> unitsList = new ArrayList<>();
 
         try {
-            getUser.setString(1, username);
-            // getUserUnits.setString(1, username);
-
-            userResultSet = getUser.executeQuery();
+            getUserByUsername.setString(1, username);
+            userResultSet = getUserByUsername.executeQuery();
 
             if (userResultSet.isBeforeFirst()) {
                 userResultSet.next();
-
-//                unitResultSet = getUserUnits.executeQuery();
-//                while (unitResultSet.next()) {®
-//                    unitsList.add(unitResultSet.getString(1));
-//                }
-//                String[] units = new String[unitsList.size()];
-//                units = unitsList.toArray(units);
-                String[] units = {};
 
                 user = new User(
                         userResultSet.getString("id"),
                         userResultSet.getString("username"),
                         userResultSet.getString("password"),
-                        userResultSet.getBoolean("admin"),
-                        units
+                        userResultSet.getBoolean("admin")
                 );
-            } else {
-                user = new User(null, null, null, false, null);
+
+                String[] units = findUserUnits(user);
+                for (String unitId : units) {
+                    user.addUnit(unitId);
+                }
+
+                return user;
             }
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
@@ -206,13 +203,42 @@ public class DBStatements {
      *
      * @param user An existing user account.
      */
-    public void changePassword(User user) {
+    public void updatePassword(User user) {
         try {
             updatePassword.setString(1, user.getPassword());
-            updatePassword.setString(2, user.getUsername());
+            updatePassword.setString(2, user.getUserId());
             updatePassword.execute();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
+    }
+
+    /**
+     * Retrieves the user's units
+     *
+     * @param user An existing user account.
+     * @return A list of units the user is part of.
+     */
+    private String[] findUserUnits(User user) {
+        ResultSet unitResultSet;
+        ArrayList<String> unitsList = new ArrayList<>();
+
+        try {
+            getUserUnits.setString(1, user.getUserId());
+            unitResultSet = getUserUnits.executeQuery();
+            while (unitResultSet.next()) {
+                unitsList.add(unitResultSet.getString(1));
+            }
+            String[] units = new String[unitsList.size()];
+            units = unitsList.toArray(units);
+            return units;
+        } catch (SQLException exception) {
+            System.err.println("Access to the database was denied. Ensure MySQL server is running.");
+        } catch (Exception ignored) {
+        }
+
+        String[] units = new String[unitsList.size()];
+        units = unitsList.toArray(units);
+        return units;
     }
 }

@@ -89,7 +89,7 @@ public class MyAccountController extends Controller {
     public void displayUserDetails() {
         displayUsername(getUser().getUsername());
         displayAccountType(getUser().isAdmin());
-        displayUnits(getUser().getUnits());
+        displayUnits((String[]) getUser().getUnits().toArray());
     }
 
     private void displayUsername(String username) {

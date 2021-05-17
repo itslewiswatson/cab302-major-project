@@ -17,8 +17,7 @@ public class CreateAccountHandler extends Handler<User, CreateAccountDTO> {
      */
     @Override
     public User handle(CreateAccountDTO dto) {
-        String[] units = {};
-        User newUser = new User(UuidGenerator.generateUuid(), dto.getUsername(), dto.getPassword(), dto.isAdmin(), units);
+        User newUser = new User(UuidGenerator.generateUuid(), dto.getUsername(), dto.getPassword(), dto.isAdmin());
 
         dbStatements.addNewUser(newUser);
 
