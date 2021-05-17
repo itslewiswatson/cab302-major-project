@@ -1,16 +1,11 @@
 package common.domain;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This class represents a user account.
  */
-public class User extends Entity implements Serializable {
-
-    /**
-     * The class' version number.
-     */
-    private static final long serialVersionUID = 0;
+public class User extends Entity {
 
     private final String userId;
 
@@ -32,7 +27,7 @@ public class User extends Entity implements Serializable {
     /**
      * The user's organisational unit names.
      */
-    private final String[] units;
+    private final ArrayList<String> units;
 
     /**
      * Creates a User instance
@@ -40,14 +35,13 @@ public class User extends Entity implements Serializable {
      * @param username An user account's username.
      * @param password An user account's hashed password.
      * @param admin    An indication of whether the user account has administrative privileges.
-     * @param units    The user's organisational unit names.
      */
-    public User(String userId, String username, String password, boolean admin, String[] units) {
+    public User(String userId, String username, String password, boolean admin) {
         this.userId = userId;
         this.username = username;
         this.password = password; // Hash by using (new PasswordHasher()).hashPassword(password)
         this.admin = admin;
-        this.units = units;
+        this.units = new ArrayList<String>();
     }
 
     /**
@@ -109,7 +103,16 @@ public class User extends Entity implements Serializable {
      *
      * @return The user's organisational unit names.
      */
-    public String[] getUnits() {
+    public ArrayList<String> getUnits() {
         return units;
+    }
+
+    /**
+     * Add the user to a unit.
+     *
+     * @param unitId The unit id to add the user to.
+     */
+    public void addUnit(String unitId) {
+        this.units.add(unitId);
     }
 }

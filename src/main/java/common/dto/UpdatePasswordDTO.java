@@ -1,8 +1,6 @@
 package common.dto;
 
-import java.io.Serializable;
-
-public class UpdatePasswordDTO implements Serializable {
+public class UpdatePasswordDTO extends DTO {
     private final String userId;
     private final String oldPassword;
     private final String newPassword;

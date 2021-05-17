@@ -1,8 +1,6 @@
 package common.dto;
 
-import java.io.Serializable;
-
-public class CreateAccountDTO implements Serializable {
+public class CreateAccountDTO extends DTO {
 
     private final String username;
     private final String password;

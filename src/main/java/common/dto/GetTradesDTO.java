@@ -1,4 +1,4 @@
 package common.dto;
 
-public class GetTradesDTO {
+public class GetTradesDTO extends DTO {
 }

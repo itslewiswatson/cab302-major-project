@@ -2,7 +2,7 @@ package common.dto;
 
 import common.dataTypes.TradeType;
 
-public class NewTradeDTO {
+public class NewTradeDTO extends DTO {
     private final String assetId;
     private final String unitId;
     private final String userId;
