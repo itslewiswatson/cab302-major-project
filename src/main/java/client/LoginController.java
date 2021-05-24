@@ -1,5 +1,6 @@
 package client;
 
+import client.config.Page;
 import common.domain.User;
 import common.dto.LoginDTO;
 import common.exceptions.NullResultException;
@@ -14,6 +15,10 @@ import org.mindrot.jbcrypt.BCrypt;
  * This class is the Login GUI controller.
  */
 public class LoginController extends Controller {
+
+    public LoginController(ClientController clientController) {
+        super(clientController);
+    }
 
     /**
      * Username text field.

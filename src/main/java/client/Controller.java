@@ -1,5 +1,6 @@
 package client;
 
+import client.config.Page;
 import common.domain.User;
 import common.exceptions.NullResultException;
 import javafx.scene.control.Alert;
@@ -10,9 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Controller {
-    private ClientController clientController;
+    private final ClientController clientController;
 
-    public void setClientController(ClientController clientController) {
+    public Controller(ClientController clientController) {
         this.clientController = clientController;
     }
 

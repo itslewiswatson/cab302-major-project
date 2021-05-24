@@ -1,5 +1,6 @@
 package client;
 
+import client.config.Page;
 import common.domain.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 
 class ClientController {
@@ -76,19 +79,25 @@ class ClientController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + page.path));
 
         try {
-            Parent root = loader.load();
-            Controller mainController = loader.getController();
-            mainController.setClientController(this);
+            Constructor<?> controller = Class.forName(page.namespace).getConstructor(ClientController.class);
+            loader.setControllerFactory(Controller -> {
+                try {
+                    return controller.newInstance(this);
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            });
 
+            Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } catch (IOException exception) {
+        } catch (IOException | ClassNotFoundException | NoSuchMethodException exception) {
             exception.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
             alert.setHeaderText("A program file has been deleted or become corrupted.");
             alert.showAndWait();
         }
     }
-
 }

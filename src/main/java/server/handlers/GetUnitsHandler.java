@@ -15,10 +15,6 @@ public class GetUnitsHandler extends Handler<ArrayList<Unit>, GetUnitsDTO> {
     public ArrayList<Unit> handle(GetUnitsDTO dto) {
         String userId = dto.getUserId();
         User user = dbStatements.findUserById(userId);
-
-        ArrayList<String> unitIds = user.getUnits();
-        System.out.println("The user is part of the following units: ");
-        System.out.println(unitIds);
-        return dbStatements.findUnitsByIds(unitIds);
+        return dbStatements.findUserUnits(user);
     }
 }

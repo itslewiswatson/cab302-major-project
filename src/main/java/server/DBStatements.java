@@ -45,7 +45,7 @@ public class DBStatements {
     /**
      * SQL statement to select
      */
-    private static final String GET_UNITS_BY_IDS = "SELECT * FROM units WHERE id IS IN (?)";
+    private static final String GET_UNITS_BY_IDS = "SELECT id, name, credits FROM units WHERE id IN (SELECT unit_id FROM unitusers WHERE user_id = ?)";
 
     /**
      * SQL statement to insert a new trade.
@@ -169,7 +169,7 @@ public class DBStatements {
                         userResultSet.getBoolean("admin")
                 );
 
-                String[] units = findUserUnits(user);
+                String[] units = findUserUnitIds(user);
                 for (String unitId : units) {
                     user.addUnit(unitId);
                 }
@@ -208,7 +208,7 @@ public class DBStatements {
                         userResultSet.getBoolean("admin")
                 );
 
-                String[] units = findUserUnits(user);
+                String[] units = findUserUnitIds(user);
                 for (String unitId : units) {
                     user.addUnit(unitId);
                 }
@@ -244,7 +244,7 @@ public class DBStatements {
      * @param user An existing user account.
      * @return A list of units the user is part of.
      */
-    private String[] findUserUnits(User user) {
+    private String[] findUserUnitIds(User user) {
         ResultSet unitResultSet;
         ArrayList<String> unitsList = new ArrayList<>();
 
@@ -304,23 +304,21 @@ public class DBStatements {
     /**
      * Retrieve units corresponding to their IDs
      *
-     * @param unitIds Array of unit IDs to fetch
      * @return Array of units
      */
-    public ArrayList<Unit> findUnitsByIds(ArrayList<String> unitIds) {
+    public ArrayList<Unit> findUserUnits(User user) {
         ResultSet unitResultSet;
         ArrayList<Unit> units = new ArrayList<>();
 
         try {
-            Array array = DBConnection.getConnection().createArrayOf("VARCHAR", unitIds.toArray());
-            getUnitsByIds.setArray(1, array);
-            unitResultSet = getUserUnits.executeQuery();
+            getUnitsByIds.setString(1, user.getUserId());
+            unitResultSet = getUnitsByIds.executeQuery();
 
             while (unitResultSet.next()) {
                 Unit unit = new Unit(
                         unitResultSet.getString("id"),
-                        unitResultSet.getString("unit_name"),
-                        unitResultSet.getInt("units")
+                        unitResultSet.getString("name"),
+                        unitResultSet.getInt("credits")
                 );
                 units.add(unit);
             }
