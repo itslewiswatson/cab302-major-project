@@ -28,9 +28,19 @@ public class Controller {
         }
     }
 
-    protected Object readObject() throws NullResultException, IOException, ClassNotFoundException {
+    /**
+     * Read the current object the input stream
+     *
+     * @param <T> Type to be returned
+     * @return Object of type T
+     * @throws NullResultException    Null is read from the input stream
+     * @throws IOException            Any of the usual Input/Output related exceptions
+     * @throws ClassNotFoundException Class of a serialized object cannot be found
+     */
+    @SuppressWarnings("unchecked")
+    protected <T> T readObject() throws NullResultException, IOException, ClassNotFoundException {
         ObjectInputStream inputStream = clientController.getInputStream();
-        Object object = inputStream.readObject();
+        T object = (T) inputStream.readObject();
         if (object == null) {
             throw new NullResultException();
         }

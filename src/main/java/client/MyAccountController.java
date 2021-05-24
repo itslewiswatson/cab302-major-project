@@ -1,12 +1,17 @@
 package client;
 
+import common.domain.Unit;
 import common.domain.User;
+import common.dto.GetUnitsDTO;
 import common.dto.UpdatePasswordDTO;
+import common.exceptions.NullResultException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.ArrayList;
 
 /**
  * This class is the My Account GUI controller.
@@ -46,7 +51,7 @@ public class MyAccountController extends Controller {
                         );
 
                         sendObject(updatePasswordDTO);
-                        User existingUser = (User) readObject();
+                        User existingUser = readObject();
 
                         newPasswordUser.setPassword(existingUser.getPassword());
 
@@ -86,10 +91,26 @@ public class MyAccountController extends Controller {
         switchToPage(Page.login);
     }
 
+    private ArrayList<Unit> fetchUserUnits(String userId) {
+        try {
+            GetUnitsDTO getUnitsDTO = new GetUnitsDTO(userId);
+            sendObject(getUnitsDTO);
+            return readObject();
+        } catch (Exception exception) {
+            return new ArrayList<>();
+        }
+    }
+
     public void displayUserDetails() {
-        displayUsername(getUser().getUsername());
-        displayAccountType(getUser().isAdmin());
-        displayUnits((String[]) getUser().getUnits().toArray());
+        try {
+            User user = getUser();
+            ArrayList<Unit> units = fetchUserUnits(user.getUserId());
+            displayUsername(getUser().getUsername());
+            displayAccountType(getUser().isAdmin());
+            displayUnits((String[]) units.toArray());
+        } catch (Exception exception) {
+            System.out.println("Cannot display user details");
+        }
     }
 
     private void displayUsername(String username) {

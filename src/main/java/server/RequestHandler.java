@@ -1,6 +1,7 @@
 package server;
 
 import common.domain.Trade;
+import common.domain.Unit;
 import common.domain.User;
 import common.dto.*;
 import server.handlers.*;
@@ -127,6 +128,15 @@ public class RequestHandler extends Thread {
             GetTradesHandler getTradesHandler = new GetTradesHandler(dbStatements);
             ArrayList<Trade> trades = getTradesHandler.handle(getTradesDTO);
             outputStream.writeObject(trades);
+            outputStream.flush();
+            return;
+        }
+
+        if (object instanceof GetUnitsDTO) {
+            GetUnitsDTO getUnitsDTO = (GetUnitsDTO) object;
+            GetUnitsHandler getUnitsHandler = new GetUnitsHandler(dbStatements);
+            ArrayList<Unit> units = getUnitsHandler.handle(getUnitsDTO);
+            outputStream.writeObject(units);
             outputStream.flush();
             return;
         }

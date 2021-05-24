@@ -2,6 +2,7 @@ package server;
 
 import common.dataTypes.TradeType;
 import common.domain.Trade;
+import common.domain.Unit;
 import common.domain.User;
 
 import java.sql.*;
@@ -36,13 +37,21 @@ public class DBStatements {
      */
     private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE ID = ?";
 
+    /**
+     * SQL statement to select unfulfilled trades.
+     */
     private static final String GET_ACTIVE_TRADES = "SELECT * FROM trades WHERE date_filled IS NULL";
+
+    /**
+     * SQL statement to select
+     */
+    private static final String GET_UNITS_BY_IDS = "SELECT * FROM units WHERE id IS IN (?)";
 
     /**
      * SQL statement to insert a new trade.
      */
     private static final String NEW_TRADE = "" +
-            "INSERT INTO trades (tradeId, unitId, assetId, userId, dateListed, type, quantity, price, quantityFilled, dateFilled) " +
+            "INSERT INTO trades (id, unit_id, asset_id, user_id, date_listed, type, quantity, price, quantity_filled, date_filled) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     /**
@@ -76,6 +85,11 @@ public class DBStatements {
     private PreparedStatement getActiveTrades;
 
     /**
+     * A precompiled SQL statement to retrieve units by their IDs.
+     */
+    private PreparedStatement getUnitsByIds;
+
+    /**
      * A precompiled SQL statement to inset a new trade.r
      */
     private PreparedStatement newTrade;
@@ -93,6 +107,8 @@ public class DBStatements {
             getUserUnits = connection.prepareStatement(GET_USER_UNITS);
             updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
             getActiveTrades = connection.prepareStatement(GET_ACTIVE_TRADES);
+            getUnitsByIds = connection.prepareStatement(GET_UNITS_BY_IDS);
+            newTrade = connection.prepareStatement(NEW_TRADE);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -283,5 +299,40 @@ public class DBStatements {
         }
 
         return trades;
+    }
+
+    /**
+     * Retrieve units corresponding to their IDs
+     *
+     * @param unitIds Array of unit IDs to fetch
+     * @return Array of units
+     */
+    public ArrayList<Unit> findUnitsByIds(ArrayList<String> unitIds) {
+        ResultSet unitResultSet;
+        ArrayList<Unit> units = new ArrayList<>();
+
+        try {
+            Array array = DBConnection.getConnection().createArrayOf("VARCHAR", unitIds.toArray());
+            getUnitsByIds.setArray(1, array);
+            unitResultSet = getUserUnits.executeQuery();
+
+            while (unitResultSet.next()) {
+                Unit unit = new Unit(
+                        unitResultSet.getString("id"),
+                        unitResultSet.getString("unit_name"),
+                        unitResultSet.getInt("units")
+                );
+                units.add(unit);
+            }
+
+            return units;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            System.err.println("Access to the database was denied. Ensure MySQL server is running.");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return units;
     }
 }
