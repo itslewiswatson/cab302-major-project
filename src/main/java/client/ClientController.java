@@ -50,6 +50,10 @@ class ClientController {
         return inputStream;
     }
 
+    protected Stage getStage() {
+        return stage;
+    }
+
     /**
      * Initialising method.
      */

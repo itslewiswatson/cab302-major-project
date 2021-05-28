@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.TradeInfoDialogController">
+   <children>
+      <Label fx:id="tradeId" layoutX="15.0" layoutY="15.0" text="Trade ID: " />
+      <Label fx:id="assetId" layoutX="15.0" layoutY="35.0" text="Asset ID: " />
+      <Label fx:id="userId" layoutX="15.0" layoutY="55.0" text="User ID: " />
+      <Button fx:id="okButton" layoutX="134.0" layoutY="95.0" mnemonicParsing="false" onAction="#onClickOK" prefHeight="26.0" prefWidth="50.0" text="OK" />
+   </children>
+</AnchorPane>

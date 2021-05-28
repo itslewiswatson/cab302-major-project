@@ -36,6 +36,7 @@ Should Have
   - Passwords are hashed before being sent to the server.
   - Users can change their own password.
   - Users are presented with helpful and informative error messages when the system is unable to perform their desired action.
+  - Large numbers (ie quantities and unit prices) are comma-formatted (eg: 10,000,00) for easier reading.
 
 Nice to Have
 ------------

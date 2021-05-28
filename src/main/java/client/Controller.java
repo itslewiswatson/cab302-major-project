@@ -5,6 +5,7 @@ import common.domain.User;
 import common.exceptions.NullResultException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -79,6 +80,10 @@ public class Controller {
 
     protected User getUser() {
         return clientController.getUser();
+    }
+
+    protected Stage getStage() {
+        return clientController.getStage();
     }
 
     protected void switchToPage(Page page) {
