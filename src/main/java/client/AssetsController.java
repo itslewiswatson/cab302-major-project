@@ -2,9 +2,16 @@ package client;
 
 import client.config.Page;
 import common.domain.FullAsset;
+import common.dto.AddAssetDTO;
 import common.dto.GetAssetsDTO;
 import common.exceptions.NullResultException;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,6 +21,21 @@ public class AssetsController extends Controller implements Initializable {
     public AssetsController(ClientController clientController) {
         super(clientController);
     }
+
+    @FXML
+    private TableView<FullAsset> tableView;
+
+    @FXML
+    private TableColumn<FullAsset, String> name;
+
+    @FXML
+    private TableColumn<FullAsset, String> dateAdded;
+
+    @FXML
+    private TableColumn<FullAsset, String> quantity;
+
+    @FXML
+    private TextField newAssetName;
 
     private ArrayList<FullAsset> fetchAssets() {
         sendObject(new GetAssetsDTO());
@@ -30,6 +52,30 @@ public class AssetsController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(fetchAssets());
+        setupColumns();
+        populateTable();
+    }
+
+    private void populateTable() {
+        tableView.setItems(FXCollections.observableList(fetchAssets()));
+    }
+
+    @SuppressWarnings("all")
+    private void setupColumns() {
+        name.setCellValueFactory(c -> new ReadOnlyObjectWrapper(c.getValue().getAssetName()));
+        dateAdded.setCellValueFactory(c -> new ReadOnlyObjectWrapper(c.getValue().getDateAdded().toString()));
+        quantity.setCellValueFactory(c -> new ReadOnlyObjectWrapper(c.getValue().getAmount()));
+    }
+
+    public void onAddAsset() {
+        if (newAssetName.getLength() == 0) return;
+        AddAssetDTO addAssetDTO = new AddAssetDTO(newAssetName.getText());
+        sendObject(addAssetDTO);
+        try {
+            readObject();
+        } catch (NullResultException e) {
+            e.printStackTrace();
+        }
+        populateTable();
     }
 }

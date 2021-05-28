@@ -52,7 +52,9 @@ public class DBStatements {
             "INSERT INTO trades (id, unit_id, asset_id, user_id, date_listed, type, quantity, price, quantity_filled, date_filled) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-    private static final String GET_ASSETS = "SELECT A.id, A.name, A.date_added, SUM(quantity) AS qty FROM unitassets UA, assets A WHERE UA.asset_id = A.id GROUP BY asset_id;";
+    private static final String GET_ASSETS = "SELECT A.id, A.name, A.date_added, COALESCE(SUM(quantity), 0) AS qty FROM assets A LEFT JOIN unitassets u on A.id = u.asset_id GROUP BY A.id;";
+
+    private static final String NEW_ASSET = "INSERT INTO assets (id, name, date_added) VALUES (?, ?, NOW())";
 
     /**
      * A precompiled SQL statement to insert a user.
@@ -99,6 +101,8 @@ public class DBStatements {
      */
     private PreparedStatement getAssets;
 
+    private PreparedStatement newAsset;
+
     /**
      * Creates a DBStatements object.
      */
@@ -115,6 +119,7 @@ public class DBStatements {
             getUnitsByIds = connection.prepareStatement(GET_UNITS_BY_IDS);
             newTrade = connection.prepareStatement(NEW_TRADE);
             getAssets = connection.prepareStatement(GET_ASSETS);
+            newAsset = connection.prepareStatement(NEW_ASSET);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -136,6 +141,16 @@ public class DBStatements {
             newTrade.execute();
         } catch (SQLException exception) {
             exception.printStackTrace();
+        }
+    }
+
+    public void addAsset(Asset asset) {
+        try {
+            newAsset.setString(1, asset.getAssetId());
+            newAsset.setString(2, asset.getAssetName());
+            newAsset.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

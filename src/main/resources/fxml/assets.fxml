@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.AssetsController">
-   <children>
-      <Button layoutX="15.0" layoutY="362.0" mnemonicParsing="false" text="&lt;&lt; Back" onAction="#goBack" />
-      <TableView layoutX="15.0" layoutY="15.0" prefHeight="333.0" prefWidth="570.0">
-        <columns>
-          <TableColumn minWidth="0.0" prefWidth="215.9848117828369" text="Asset Name" />
-            <TableColumn prefWidth="162.01513671875" text="Date Added" />
-            <TableColumn prefWidth="192.31417846679688" text="Amount in Circulation" />
-        </columns>
-      </TableView>
-      <Button layoutX="509.0" layoutY="362.0" mnemonicParsing="false" text="Add Asset" />
-      <TextField layoutX="341.0" layoutY="362.0" prefHeight="25.0" prefWidth="160.0" promptText="New asset name..." />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.AssetsController">
+    <children>
+        <Button layoutX="15.0" layoutY="362.0" mnemonicParsing="false" text="&lt;&lt; Back" onAction="#goBack"/>
+        <TableView fx:id="tableView" layoutX="15.0" layoutY="15.0" prefHeight="333.0" prefWidth="570.0">
+            <columns>
+                <TableColumn fx:id="name" minWidth="0.0" prefWidth="215.9848117828369" text="Asset Name"/>
+                <TableColumn fx:id="dateAdded" prefWidth="162.01513671875" text="Date Added"/>
+                <TableColumn fx:id="quantity" prefWidth="192.31417846679688" text="Amount in Circulation"/>
+            </columns>
+        </TableView>
+        <Button layoutX="509.0" layoutY="362.0" mnemonicParsing="false" text="Add Asset" onAction="#onAddAsset"/>
+        <TextField fx:id="newAssetName" layoutX="341.0" layoutY="362.0" prefHeight="25.0" prefWidth="160.0"
+                   promptText="New asset name..."/>
+    </children>
 </AnchorPane>

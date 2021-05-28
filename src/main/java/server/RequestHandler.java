@@ -151,6 +151,15 @@ public class RequestHandler extends Thread {
             return;
         }
 
+        if (object instanceof AddAssetDTO) {
+            AddAssetDTO addAssetDTO = (AddAssetDTO) object;
+            AddAssetHandler addAssetHandler = new AddAssetHandler(dbStatements);
+            ArrayList<FullAsset> assets = addAssetHandler.handle(addAssetDTO);
+            outputStream.writeObject(assets);
+            outputStream.flush();
+            return;
+        }
+
         throw new IOException();
     }
 }
