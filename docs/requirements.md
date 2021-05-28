@@ -43,5 +43,8 @@ Nice to Have
   - Users:
     - Can see the graphical price history (date on the X axis and price on the Y axis) of an asset when they go to list a BUY or SELL offer.
     - Are immediately notified when a trade involving their organisational unit is fulfilled. 
-    - Ability to filter and sort currently listed trades.
+    - Ability to filter trade history and current active trades.
+    - Ability to sort trade history and current active trades.
+    - Helpful tool tips on various GUI elements to guide and provide additional context for users.
+    - Appropriate iconography to assist those who may find text too overwhelming - push for accessibility.
 
