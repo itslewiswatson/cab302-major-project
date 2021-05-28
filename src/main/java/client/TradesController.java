@@ -1,5 +1,6 @@
 package client;
 
+import client.config.Page;
 import common.domain.Trade;
 import common.dto.GetTradesDTO;
 import common.exceptions.NullResultException;
@@ -23,7 +24,10 @@ public class TradesController extends Controller implements Initializable {
     private TableView<Trade> tableView;
 
     @FXML
-    private TableColumn<Trade, String> assetName;
+    private TableColumn<Trade, String> dateListed;
+
+    @FXML
+    private TableColumn<Trade, String> asset;
 
     @FXML
     private TableColumn<Trade, String> quantity;
@@ -56,9 +60,14 @@ public class TradesController extends Controller implements Initializable {
 
     @SuppressWarnings("all")
     private void setupColumns() {
-        assetName.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getAsset().getAssetName()));
+        dateListed.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getDateListed().toString()));
+        asset.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getAsset().getAssetName()));
         quantity.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getQuantity()));
         price.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getPrice()));
         tradeType.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getType()));
+    }
+
+    public void goBack() {
+        switchToPage(Page.myAccount);
     }
 }
