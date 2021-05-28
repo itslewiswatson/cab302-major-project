@@ -1,10 +1,7 @@
 package server;
 
 import common.dataTypes.TradeType;
-import common.domain.Asset;
-import common.domain.Trade;
-import common.domain.Unit;
-import common.domain.User;
+import common.domain.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,6 +52,8 @@ public class DBStatements {
             "INSERT INTO trades (id, unit_id, asset_id, user_id, date_listed, type, quantity, price, quantity_filled, date_filled) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
+    private static final String GET_ASSETS = "SELECT A.id, A.name, A.date_added, SUM(quantity) AS qty FROM unitassets UA, assets A WHERE UA.asset_id = A.id GROUP BY asset_id;";
+
     /**
      * A precompiled SQL statement to insert a user.
      */
@@ -91,9 +90,14 @@ public class DBStatements {
     private PreparedStatement getUnitsByIds;
 
     /**
-     * A precompiled SQL statement to inset a new trade.r
+     * A precompiled SQL statement to inset a new trade.
      */
     private PreparedStatement newTrade;
+
+    /**
+     * A precompiled SQL statement to retrieve all assets.
+     */
+    private PreparedStatement getAssets;
 
     /**
      * Creates a DBStatements object.
@@ -110,6 +114,7 @@ public class DBStatements {
             getActiveTrades = connection.prepareStatement(GET_ACTIVE_TRADES);
             getUnitsByIds = connection.prepareStatement(GET_UNITS_BY_IDS);
             newTrade = connection.prepareStatement(NEW_TRADE);
+            getAssets = connection.prepareStatement(GET_ASSETS);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -336,5 +341,30 @@ public class DBStatements {
         }
 
         return units;
+    }
+
+    public ArrayList<FullAsset> findAssets() {
+        ResultSet assetResultSet;
+        ArrayList<FullAsset> assets = new ArrayList<>();
+
+        try {
+            assetResultSet = getAssets.executeQuery();
+
+            while (assetResultSet.next()) {
+                FullAsset fullAsset = new FullAsset(
+                        assetResultSet.getString("A.id"),
+                        assetResultSet.getString("A.name"),
+                        assetResultSet.getDate("A.date_added").toLocalDate(),
+                        assetResultSet.getInt("qty")
+                );
+                assets.add(fullAsset);
+            }
+
+            return assets;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return assets;
     }
 }

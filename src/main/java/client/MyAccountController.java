@@ -106,6 +106,10 @@ public class MyAccountController extends Controller implements Initializable {
         switchToPage(Page.trades);
     }
 
+    public void assets() {
+        switchToPage(Page.assets);
+    }
+
     private ArrayList<Unit> fetchUserUnits(String userId) {
         try {
             sendObject(new GetUnitsDTO(userId));

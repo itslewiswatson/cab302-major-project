@@ -3,7 +3,8 @@ package client.config;
 public enum Page {
     myAccount("myAccount.fxml", "client.MyAccountController"),
     login("login.fxml", "client.LoginController"),
-    trades("trades.fxml", "client.TradesController");
+    trades("trades.fxml", "client.TradesController"),
+    assets("assets.fxml", "client.AssetsController");
 
     public final String path;
     public final String namespace;

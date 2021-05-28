@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS unitusers (
 CREATE TABLE IF NOT EXISTS assets (
   id VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL,
+  date_added DATE NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -93,10 +94,10 @@ VALUES
   ('11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', 'bd609f6d-baa9-476d-b50d-e833f40bbec7');
 
 INSERT INTO
-  assets (id, name)
+  assets (id, name, date_added)
 VALUES
-  ('b2f27a46-c324-42d0-a242-36b88c279fff', 'GPU Hours'),
-  ('4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 'CPU Hours');
+  ('b2f27a46-c324-42d0-a242-36b88c279fff', 'GPU Hours', NOW()),
+  ('4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 'CPU Hours', NOW());
 
 INSERT INTO
   unitassets (unit_id, asset_id, quantity)

@@ -1,5 +1,6 @@
 package server;
 
+import common.domain.FullAsset;
 import common.domain.Trade;
 import common.domain.Unit;
 import common.domain.User;
@@ -137,6 +138,15 @@ public class RequestHandler extends Thread {
             GetUnitsHandler getUnitsHandler = new GetUnitsHandler(dbStatements);
             ArrayList<Unit> units = getUnitsHandler.handle(getUnitsDTO);
             outputStream.writeObject(units);
+            outputStream.flush();
+            return;
+        }
+
+        if (object instanceof GetAssetsDTO) {
+            GetAssetsDTO getAssetsDTO = (GetAssetsDTO) object;
+            GetAssetsHandler getAssetsHandler = new GetAssetsHandler(dbStatements);
+            ArrayList<FullAsset> assets = getAssetsHandler.handle(getAssetsDTO);
+            outputStream.writeObject(assets);
             outputStream.flush();
             return;
         }

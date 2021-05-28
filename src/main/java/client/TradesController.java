@@ -1,6 +1,7 @@
 package client;
 
 import client.config.Page;
+import client.dialog.TradeInfoDialogController;
 import common.domain.Trade;
 import common.dto.GetTradesDTO;
 import common.exceptions.NullResultException;

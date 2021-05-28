@@ -1,4 +1,4 @@
-package client;
+package client.dialog;
 
 import common.domain.Trade;
 import javafx.fxml.FXML;
