@@ -34,18 +34,43 @@ public class Controller {
      *
      * @param <T> Type to be returned
      * @return Object of type T
-     * @throws NullResultException    Null is read from the input stream
+     * @throws NullResultException Null is read from the input stream
+     */
+    protected <T> T readObject() throws NullResultException {
+        try {
+            return readObject_();
+        } catch (IOException e) {
+            showCommunicationAlert();
+        } catch (ClassNotFoundException e) {
+            showApplicationAlert();
+        }
+        throw new NullResultException();
+    }
+
+    /**
      * @throws IOException            Any of the usual Input/Output related exceptions
      * @throws ClassNotFoundException Class of a serialized object cannot be found
      */
     @SuppressWarnings("unchecked")
-    protected <T> T readObject() throws NullResultException, IOException, ClassNotFoundException {
+    private <T> T readObject_() throws NullResultException, IOException, ClassNotFoundException {
         ObjectInputStream inputStream = clientController.getInputStream();
         T object = (T) inputStream.readObject();
         if (object == null) {
             throw new NullResultException();
         }
         return object;
+    }
+
+    private void showApplicationAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Please notify the your IT department.", ButtonType.OK);
+        alert.setHeaderText("A critical error has occurred.");
+        alert.showAndWait();
+    }
+
+    private void showCommunicationAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
+        alert.setHeaderText("Cannot communicate with server.");
+        alert.showAndWait();
     }
 
     protected void setUser(User user) {

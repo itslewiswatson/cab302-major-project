@@ -5,6 +5,7 @@ import common.domain.Unit;
 import common.domain.User;
 import common.dto.GetUnitsDTO;
 import common.dto.UpdatePasswordDTO;
+import common.exceptions.NullResultException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -101,17 +102,17 @@ public class MyAccountController extends Controller implements Initializable {
         switchToPage(Page.login);
     }
 
+    public void allTrades() {
+        switchToPage(Page.trades);
+    }
+
     private ArrayList<Unit> fetchUserUnits(String userId) {
         try {
-            GetUnitsDTO getUnitsDTO = new GetUnitsDTO(userId);
-            sendObject(getUnitsDTO);
-            ArrayList<Unit> units = readObject();
-            System.out.println(units);
-            return units;
-        } catch (Exception exception) {
+            sendObject(new GetUnitsDTO(userId));
+            return readObject();
+        } catch (NullResultException exception) {
             return new ArrayList<>();
         }
-
     }
 
     public void displayUserDetails() {
