@@ -108,4 +108,8 @@ VALUES
 INSERT INTO
     trades (id, unit_id, asset_id, user_id, date_listed, type, quantity, price, quantity_filled, date_filled)
 VALUES
-    ('ecb9a5c3-d12a-444a-b571-be8908794116', 'b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', NOW(), 'BUY', 10, 1, 1, NULL);
+    ('ecb9a5c3-d12a-444a-b571-be8908794116', 'b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', NOW(), 'BUY', 50223, 4, 1, NULL),
+    ('07238804-48e5-46f6-9af5-f699c7684fb3', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', NOW(), 'SELL', 194838, 7, 1, NULL),
+    ('5e66c645-132e-442f-a5cd-89937b7aa938', 'b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', NOW(), 'SELL', 138839, 9, 1, NULL),
+    ('8fa7949e-94eb-4dd0-9d40-51f035eb7795', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', NOW(), 'BUY', 110920, 3, 1, NULL),
+    ('a727fb51-8ba6-4746-8cc2-f748544b1a55', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', NOW(), 'BUY', 110920, 3, 1, NOW());

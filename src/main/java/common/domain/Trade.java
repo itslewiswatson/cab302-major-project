@@ -22,7 +22,7 @@ public class Trade extends Entity {
     /**
      * The asset being listed in the trade offer.
      */
-    private final String assetId;
+    private final Asset asset;
 
     /**
      * The date the trade offer was listed.
@@ -64,7 +64,7 @@ public class Trade extends Entity {
      *
      * @param tradeId        The trade offer's identifier.
      * @param unitId         The organisational unit that listed the trade offer.
-     * @param assetId        The asset being listed in the trade offer.
+     * @param asset          The asset being listed in the trade offer.
      * @param userId         The user who listed the trade offer.
      * @param dateListed     The date the trade offer was listed.
      * @param type           The trade offer's type.
@@ -73,10 +73,10 @@ public class Trade extends Entity {
      * @param quantityFilled The quantity current filled (default: 0)
      * @param dateFilled     The date which the entire order was filled.
      */
-    public Trade(String tradeId, String unitId, String assetId, String userId, LocalDate dateListed, TradeType type, int quantity, int price, int quantityFilled, LocalDate dateFilled) {
+    public Trade(String tradeId, String unitId, Asset asset, String userId, LocalDate dateListed, TradeType type, int quantity, int price, int quantityFilled, LocalDate dateFilled) {
         this.tradeId = tradeId;
         this.unitId = unitId;
-        this.assetId = assetId;
+        this.asset = asset;
         this.userId = userId;
         this.dateListed = dateListed;
         this.type = type;
@@ -109,8 +109,8 @@ public class Trade extends Entity {
      *
      * @return The asset being listed in the trade offer.
      */
-    public String getAssetId() {
-        return assetId;
+    public Asset getAsset() {
+        return asset;
     }
 
     /**

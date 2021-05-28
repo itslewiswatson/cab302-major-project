@@ -1,5 +1,6 @@
 package server.handlers;
 
+import common.domain.Asset;
 import common.domain.Trade;
 import common.dto.NewTradeDTO;
 import common.services.UuidGenerator;
@@ -20,11 +21,13 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
     @Override
     public Trade handle(NewTradeDTO dto) {
         // TODO check pricing, check user, check unit, etc
+        String assetId = dto.getAssetId();
+        Asset asset = new Asset(assetId, "");
 
         Trade newTrade = new Trade(
                 UuidGenerator.generateUuid(),
                 dto.getUnitId(),
-                dto.getAssetId(),
+                asset,
                 dto.getUserId(),
                 LocalDate.now(),
                 dto.getType(),

@@ -1,6 +1,7 @@
 package server;
 
 import common.dataTypes.TradeType;
+import common.domain.Asset;
 import common.domain.Trade;
 import common.domain.Unit;
 import common.domain.User;
@@ -40,7 +41,7 @@ public class DBStatements {
     /**
      * SQL statement to select unfulfilled trades.
      */
-    private static final String GET_ACTIVE_TRADES = "SELECT * FROM trades WHERE date_filled IS NULL";
+    private static final String GET_ACTIVE_TRADES = "SELECT * FROM trades INNER JOIN assets ON asset_id = assets.id WHERE date_filled IS NULL";
 
     /**
      * SQL statement to select
@@ -118,7 +119,7 @@ public class DBStatements {
         try {
             newTrade.setString(1, trade.getTradeId());
             newTrade.setString(2, trade.getUnitId());
-            newTrade.setString(3, trade.getAssetId());
+            newTrade.setString(3, trade.getAsset().getAssetId());
             newTrade.setString(4, trade.getUserId());
             newTrade.setDate(5, Date.valueOf(trade.getDateListed()));
             newTrade.setString(6, trade.getType().toString());
@@ -278,7 +279,10 @@ public class DBStatements {
                 Trade trade = new Trade(
                         tradeResultSet.getString("id"),
                         tradeResultSet.getString("unit_id"),
-                        tradeResultSet.getString("asset_id"),
+                        new Asset(
+                                tradeResultSet.getString("asset_id"),
+                                tradeResultSet.getString("name")
+                        ),
                         tradeResultSet.getString("user_id"),
                         tradeResultSet.getDate("date_listed").toLocalDate(),
                         TradeType.valueOf(tradeResultSet.getString("type")),
@@ -289,7 +293,7 @@ public class DBStatements {
                 );
                 trades.add(trade);
             }
-
+            System.out.println(trades);
             return trades;
         } catch (SQLException exception) {
             exception.printStackTrace();

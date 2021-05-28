@@ -3,9 +3,12 @@ package client;
 import common.domain.Trade;
 import common.dto.GetTradesDTO;
 import common.exceptions.NullResultException;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,11 +20,22 @@ public class TradesController extends Controller implements Initializable {
     }
 
     @FXML
-    private ListView<String> tradesList;
+    private TableView<Trade> tableView;
+
+    @FXML
+    private TableColumn<Trade, String> assetName;
+
+    @FXML
+    private TableColumn<Trade, String> quantity;
+
+    @FXML
+    private TableColumn<Trade, String> price;
+
+    @FXML
+    private TableColumn<Trade, String> tradeType;
 
     private ArrayList<Trade> getActiveTrades() {
         sendObject(new GetTradesDTO());
-
         try {
             return readObject();
         } catch (NullResultException e) {
@@ -31,9 +45,20 @@ public class TradesController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupColumns();
+        populateTable();
+    }
+
+    private void populateTable() {
         ArrayList<Trade> trades = getActiveTrades();
-        for (Trade trade : trades) {
-            tradesList.getItems().add(trade.getTradeId());
-        }
+        tableView.setItems(FXCollections.observableArrayList(trades));
+    }
+
+    @SuppressWarnings("all")
+    private void setupColumns() {
+        assetName.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getAsset().getAssetName()));
+        quantity.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getQuantity()));
+        price.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getPrice()));
+        tradeType.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getType()));
     }
 }
