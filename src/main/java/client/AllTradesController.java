@@ -23,8 +23,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class TradesController extends Controller implements Initializable {
-    public TradesController(ClientController clientController) {
+public class AllTradesController extends Controller implements Initializable {
+    public AllTradesController(ClientController clientController) {
         super(clientController);
     }
 

@@ -103,11 +103,15 @@ public class MyAccountController extends Controller implements Initializable {
     }
 
     public void allTrades() {
-        switchToPage(Page.trades);
+        switchToPage(Page.allTrades);
     }
 
     public void assets() {
         switchToPage(Page.assets);
+    }
+
+    public void unitTrades() {
+        switchToPage(Page.unitTrades);
     }
 
     private ArrayList<Unit> fetchUserUnits(String userId) {
