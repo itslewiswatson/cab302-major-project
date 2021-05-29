@@ -48,4 +48,6 @@ Nice to Have
     - Ability to sort trade history and current active trades.
     - Helpful tool tips on various GUI elements to guide and provide additional context for users.
     - Appropriate iconography to assist those who may find text too overwhelming - push for accessibility.
+  - Admins:
+    - Can remove assets if they are unused.
 
