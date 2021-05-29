@@ -12,9 +12,11 @@ import java.util.ResourceBundle;
 
 public class TradeInfoDialogController implements Initializable {
     private final Trade trade;
+    private final Boolean showUserInfo;
 
-    public TradeInfoDialogController(Trade trade) {
+    public TradeInfoDialogController(Trade trade, Boolean showUserInfo) {
         this.trade = trade;
+        this.showUserInfo = showUserInfo;
     }
 
     @FXML
@@ -48,7 +50,10 @@ public class TradeInfoDialogController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tradeId.setText("Trade ID: " + trade.getTradeId());
         asset.setText("Asset: " + trade.getAsset().getAssetName());
-        unitId.setText("Unit ID: " + trade.getUnitId());
+        unitId.setText(showUserInfo ?
+                "User: " + trade.getUser().getUsername() :
+                "Unit ID: " + trade.getUnitId()
+        );
         dateListed.setText("Date Listed: " + trade.getDateListed().toString());
         tradeType.setText("Trade Type: " + trade.getType().toString());
         initialQty.setText("Initial Quantity: " + trade.getQuantity());
