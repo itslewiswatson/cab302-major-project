@@ -11,52 +11,6 @@ import java.util.ArrayList;
  */
 public class DBStatements {
     /**
-     * SQL statement to retrieve a user by their username
-     */
-    private static final String FIND_USER_BY_USERNAME = "SELECT * FROM users WHERE username = ? LIMIT 1";
-
-    /**
-     * SQL statement to retrive a user by their ID
-     */
-    private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? LIMIT 1";
-
-    /**
-     * SQL statement to retrieve the organisation units of a given user.
-     */
-    private static final String GET_USER_UNITS = "SELECT unit_id FROM unitusers WHERE user_id = ?";
-
-    /**
-     * SQL statement to insert a user.
-     */
-    private static final String INSERT_USER = "INSERT INTO users (id, username, password, admin) VALUES (?, ?, ?, ?);";
-
-    /**
-     * SQL statement to update a given user's password.
-     */
-    private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE ID = ?";
-
-    /**
-     * SQL statement to select unfulfilled trades.
-     */
-    private static final String GET_ACTIVE_TRADES = "SELECT * FROM trades INNER JOIN assets ON asset_id = assets.id WHERE date_filled IS NULL";
-
-    /**
-     * SQL statement to select
-     */
-    private static final String GET_UNITS_BY_IDS = "SELECT id, name, credits FROM units WHERE id IN (SELECT unit_id FROM unitusers WHERE user_id = ?)";
-
-    /**
-     * SQL statement to insert a new trade.
-     */
-    private static final String NEW_TRADE = "" +
-            "INSERT INTO trades (id, unit_id, asset_id, user_id, date_listed, type, quantity, price, quantity_filled, date_filled) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
-    private static final String GET_ASSETS = "SELECT A.id, A.name, A.date_added, COALESCE(SUM(quantity), 0) AS qty FROM assets A LEFT JOIN unitassets u on A.id = u.asset_id GROUP BY A.id;";
-
-    private static final String NEW_ASSET = "INSERT INTO assets (id, name, date_added) VALUES (?, ?, NOW())";
-
-    /**
      * A precompiled SQL statement to insert a user.
      */
     private PreparedStatement insertUser;
@@ -92,7 +46,7 @@ public class DBStatements {
     private PreparedStatement getUnitsByIds;
 
     /**
-     * A precompiled SQL statement to inset a new trade.
+     * A precompiled SQL statement to insert a new trade.
      */
     private PreparedStatement newTrade;
 
@@ -101,6 +55,9 @@ public class DBStatements {
      */
     private PreparedStatement getAssets;
 
+    /**
+     * A precompiled SQL statement to insert a new asset.
+     */
     private PreparedStatement newAsset;
 
     /**
@@ -110,16 +67,16 @@ public class DBStatements {
         Connection connection = DBConnection.getConnection();
 
         try {
-            insertUser = connection.prepareStatement(INSERT_USER);
-            getUserByUsername = connection.prepareStatement(FIND_USER_BY_USERNAME);
-            getUserById = connection.prepareStatement(FIND_USER_BY_ID);
-            getUserUnits = connection.prepareStatement(GET_USER_UNITS);
-            updatePassword = connection.prepareStatement(UPDATE_PASSWORD);
-            getActiveTrades = connection.prepareStatement(GET_ACTIVE_TRADES);
-            getUnitsByIds = connection.prepareStatement(GET_UNITS_BY_IDS);
-            newTrade = connection.prepareStatement(NEW_TRADE);
-            getAssets = connection.prepareStatement(GET_ASSETS);
-            newAsset = connection.prepareStatement(NEW_ASSET);
+            insertUser = connection.prepareStatement(DBQueries.INSERT_USER);
+            getUserByUsername = connection.prepareStatement(DBQueries.FIND_USER_BY_USERNAME);
+            getUserById = connection.prepareStatement(DBQueries.FIND_USER_BY_ID);
+            getUserUnits = connection.prepareStatement(DBQueries.GET_USER_UNITS);
+            updatePassword = connection.prepareStatement(DBQueries.UPDATE_PASSWORD);
+            getActiveTrades = connection.prepareStatement(DBQueries.GET_ACTIVE_TRADES);
+            getUnitsByIds = connection.prepareStatement(DBQueries.GET_UNITS_BY_IDS);
+            newTrade = connection.prepareStatement(DBQueries.NEW_TRADE);
+            getAssets = connection.prepareStatement(DBQueries.GET_ASSETS);
+            newAsset = connection.prepareStatement(DBQueries.NEW_ASSET);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
