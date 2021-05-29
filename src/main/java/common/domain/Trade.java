@@ -32,7 +32,7 @@ public class Trade extends Entity {
     /**
      * The user who listed the trade offer.
      */
-    private final String userId;
+    private final User user;
 
     /**
      * The trade offer's type.
@@ -65,7 +65,7 @@ public class Trade extends Entity {
      * @param tradeId        The trade offer's identifier.
      * @param unitId         The organisational unit that listed the trade offer.
      * @param asset          The asset being listed in the trade offer.
-     * @param userId         The user who listed the trade offer.
+     * @param user           The user who listed the trade offer.
      * @param dateListed     The date the trade offer was listed.
      * @param type           The trade offer's type.
      * @param quantity       The quantity of the asset being listed in the trade offer.
@@ -73,11 +73,11 @@ public class Trade extends Entity {
      * @param quantityFilled The quantity current filled (default: 0)
      * @param dateFilled     The date which the entire order was filled.
      */
-    public Trade(String tradeId, String unitId, Asset asset, String userId, LocalDate dateListed, TradeType type, int quantity, int price, int quantityFilled, LocalDate dateFilled) {
+    public Trade(String tradeId, String unitId, Asset asset, User user, LocalDate dateListed, TradeType type, int quantity, int price, int quantityFilled, LocalDate dateFilled) {
         this.tradeId = tradeId;
         this.unitId = unitId;
         this.asset = asset;
-        this.userId = userId;
+        this.user = user;
         this.dateListed = dateListed;
         this.type = type;
         this.quantity = quantity;
@@ -116,10 +116,10 @@ public class Trade extends Entity {
     /**
      * Gets the user who listed the trade.
      *
-     * @return The user id of whoever made the trade offer.
+     * @return The user instance of whoever initiated the trade offer.
      */
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     /**

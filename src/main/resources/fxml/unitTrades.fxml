@@ -11,15 +11,16 @@
     <children>
         <TableView fx:id="tableView" layoutX="15.0" layoutY="55.0" prefHeight="267.0" prefWidth="569.0">
             <columns>
-                <TableColumn fx:id="dateListed" prefWidth="167.11034202575684" text="Date Listed" />
-                <TableColumn fx:id="asset" prefWidth="83.00691223144531" text="Asset" />
-                <TableColumn fx:id="quantity" prefWidth="92.49310302734375" text="Qty" />
-                <TableColumn fx:id="price" minWidth="8.8690185546875" prefWidth="86.66207885742188" text="Price" />
-                <TableColumn fx:id="tradeType" prefWidth="103.73455810546875" text="Buy/Sell" />
+                <TableColumn fx:id="dateListed" prefWidth="141.5" text="Date Listed" />
+                <TableColumn fx:id="listedBy" prefWidth="101.0" text="Listed By" />
+                <TableColumn fx:id="asset" prefWidth="91.5" text="Asset" />
+                <TableColumn fx:id="quantity" prefWidth="68.5" text="Qty" />
+                <TableColumn fx:id="price" minWidth="8.8690185546875" prefWidth="69.0" text="Price" />
+                <TableColumn fx:id="tradeType" prefWidth="68.0" text="Buy/Sell" />
             </columns>
         </TableView>
       <Button layoutX="15.0" layoutY="360.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back" />
-      <Label layoutX="15.0" layoutY="334.0" text="Double click on a row in the table to view more information about the trade" />
+      <Label layoutX="15.0" layoutY="334.0" text="Double click on a row to view more information about the trade" />
       <ComboBox fx:id="unitComboBox" layoutX="85.0" layoutY="14.0" prefWidth="150.0" />
       <Label layoutX="17.0" layoutY="19.0" text="Select Unit" />
       <Button disable="true" layoutX="487.0" layoutY="360.0" mnemonicParsing="false" onAction="#goBack" text="Remove Trade" />

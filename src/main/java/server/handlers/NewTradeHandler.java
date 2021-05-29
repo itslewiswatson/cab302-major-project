@@ -2,6 +2,7 @@ package server.handlers;
 
 import common.domain.Asset;
 import common.domain.Trade;
+import common.domain.User;
 import common.dto.NewTradeDTO;
 import common.services.UuidGenerator;
 import server.DBStatements;
@@ -23,12 +24,13 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
         // TODO check pricing, check user, check unit, etc
         String assetId = dto.getAssetId();
         Asset asset = new Asset(assetId, "");
+        User user = new User(dto.getUserId(), "", "", false);
 
         Trade newTrade = new Trade(
                 UuidGenerator.generateUuid(),
                 dto.getUnitId(),
                 asset,
-                dto.getUserId(),
+                user,
                 LocalDate.now(),
                 dto.getType(),
                 dto.getQuantity(),

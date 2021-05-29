@@ -18,6 +18,6 @@
             </columns>
         </TableView>
       <Button layoutX="15.0" layoutY="360.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back" />
-      <Label layoutX="15.0" layoutY="334.0" text="Double click on a row in the table to view more information about the trade" />
+      <Label layoutX="15.0" layoutY="334.0" text="Double click on a row to view more information about the trade" />
     </children>
 </AnchorPane>

@@ -160,6 +160,15 @@ public class RequestHandler extends Thread {
             return;
         }
 
+        if (object instanceof GetUnitTradesDTO) {
+            GetUnitTradesDTO getUnitTradesDTO = (GetUnitTradesDTO) object;
+            GetUnitTradesHandler getUnitTradesHandler = new GetUnitTradesHandler(dbStatements);
+            ArrayList<Trade> trades = getUnitTradesHandler.handle(getUnitTradesDTO);
+            outputStream.writeObject(trades);
+            outputStream.flush();
+            return;
+        }
+
         throw new IOException();
     }
 }

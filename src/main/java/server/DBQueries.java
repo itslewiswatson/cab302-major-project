@@ -29,7 +29,7 @@ public class DBQueries {
     /**
      * SQL statement to select unfulfilled trades.
      */
-    public static final String GET_ACTIVE_TRADES = "SELECT * FROM trades INNER JOIN assets ON asset_id = assets.id WHERE date_filled IS NULL";
+    public static final String GET_ACTIVE_TRADES = "SELECT * FROM trades INNER JOIN assets ON asset_id = assets.id INNER JOIN users ON users.id = user_id WHERE date_filled IS NULL";
 
     /**
      * SQL statement to select
@@ -52,4 +52,13 @@ public class DBQueries {
      * SQL statement to insert a new a asset.
      */
     public static final String NEW_ASSET = "INSERT INTO assets (id, name, date_added) VALUES (?, ?, NOW())";
+
+    /**
+     * SQL statement to retrieve all active trades for a specific unit.
+     */
+    public static final String GET_UNIT_ACTIVE_TRADES = "SELECT * FROM trades T " +
+            "INNER JOIN assets A ON asset_id = A.id " +
+            "INNER JOIN users U ON user_id = U.id " +
+            "WHERE unit_id = ? " +
+            "AND date_filled IS NULL";
 }

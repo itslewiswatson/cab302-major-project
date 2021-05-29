@@ -61,6 +61,11 @@ public class DBStatements {
     private PreparedStatement newAsset;
 
     /**
+     * A precompiled SQL statement to retrieve all trades for a given unit.
+     */
+    private PreparedStatement getUnitTrades;
+
+    /**
      * Creates a DBStatements object.
      */
     public DBStatements() {
@@ -77,6 +82,7 @@ public class DBStatements {
             newTrade = connection.prepareStatement(DBQueries.NEW_TRADE);
             getAssets = connection.prepareStatement(DBQueries.GET_ASSETS);
             newAsset = connection.prepareStatement(DBQueries.NEW_ASSET);
+            getUnitTrades = connection.prepareStatement(DBQueries.GET_UNIT_ACTIVE_TRADES);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -87,7 +93,7 @@ public class DBStatements {
             newTrade.setString(1, trade.getTradeId());
             newTrade.setString(2, trade.getUnitId());
             newTrade.setString(3, trade.getAsset().getAssetId());
-            newTrade.setString(4, trade.getUserId());
+            newTrade.setString(4, trade.getUser().getUserId());
             newTrade.setDate(5, Date.valueOf(trade.getDateListed()));
             newTrade.setString(6, trade.getType().toString());
             newTrade.setInt(7, trade.getQuantity());
@@ -260,7 +266,12 @@ public class DBStatements {
                                 tradeResultSet.getString("asset_id"),
                                 tradeResultSet.getString("name")
                         ),
-                        tradeResultSet.getString("user_id"),
+                        new User(
+                                tradeResultSet.getString("users.id"),
+                                tradeResultSet.getString("users.username"),
+                                tradeResultSet.getString("users.password"),
+                                tradeResultSet.getBoolean("users.admin")
+                        ),
                         tradeResultSet.getDate("date_listed").toLocalDate(),
                         TradeType.valueOf(tradeResultSet.getString("type")),
                         tradeResultSet.getInt("quantity"),
@@ -315,6 +326,9 @@ public class DBStatements {
         return units;
     }
 
+    /**
+     * @return
+     */
     public ArrayList<FullAsset> findAssets() {
         ResultSet assetResultSet;
         ArrayList<FullAsset> assets = new ArrayList<>();
@@ -338,5 +352,45 @@ public class DBStatements {
         }
 
         return assets;
+    }
+
+    public ArrayList<Trade> findUnitTrades(String unitId) {
+        ResultSet tradeResultSet;
+        ArrayList<Trade> trades = new ArrayList<>();
+
+        try {
+            getUnitTrades.setString(1, unitId);
+            tradeResultSet = getUnitTrades.executeQuery();
+
+            while (tradeResultSet.next()) {
+                Trade trade = new Trade(
+                        tradeResultSet.getString("T.id"),
+                        tradeResultSet.getString("T.unit_id"),
+                        new Asset(
+                                tradeResultSet.getString("A.id"),
+                                tradeResultSet.getString("A.name")
+                        ),
+                        new User(
+                                tradeResultSet.getString("U.id"),
+                                tradeResultSet.getString("username"),
+                                tradeResultSet.getString("password"),
+                                tradeResultSet.getBoolean("admin")
+                        ),
+                        tradeResultSet.getDate("date_listed").toLocalDate(),
+                        TradeType.valueOf(tradeResultSet.getString("type")),
+                        tradeResultSet.getInt("quantity"),
+                        tradeResultSet.getInt("price"),
+                        tradeResultSet.getInt("quantity_filled"),
+                        null
+                );
+                trades.add(trade);
+            }
+
+            return trades;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return trades;
     }
 }
