@@ -95,7 +95,7 @@ public class TradesController extends Controller implements Initializable {
 
     public void viewTradeInfo(Trade trade) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/test.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tradeDialog.fxml"));
             loader.setControllerFactory(c -> new TradeInfoDialogController(trade));
             Parent parent = loader.load();
 
