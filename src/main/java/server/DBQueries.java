@@ -61,4 +61,15 @@ public class DBQueries {
             "INNER JOIN users U ON user_id = U.id " +
             "WHERE unit_id = ? " +
             "AND date_filled IS NULL";
+
+    public static final String FIND_TRADE_BY_ID = "SELECT * FROM trades T " +
+            "INNER JOIN assets A ON asset_id = A.id " +
+            "INNER JOIN users U ON user_id = U.id " +
+            "WHERE T.id = ? " +
+            "AND date_filled IS NULL";
+
+    /**
+     * SQL statement to delete a trade.
+     */
+    public static final String DELETE_TRADE = "DELETE FROM trades WHERE id = ?";
 }

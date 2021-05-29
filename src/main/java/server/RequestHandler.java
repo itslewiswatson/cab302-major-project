@@ -169,6 +169,15 @@ public class RequestHandler extends Thread {
             return;
         }
 
+        if (object instanceof RemoveTradeDTO) {
+            RemoveTradeDTO removeTradeDTO = (RemoveTradeDTO) object;
+            RemoveTradeHandler removeTradeHandler = new RemoveTradeHandler(dbStatements);
+            Boolean tradeRemoved = removeTradeHandler.handle(removeTradeDTO);
+            outputStream.writeObject(tradeRemoved);
+            outputStream.flush();
+            return;
+        }
+
         throw new IOException();
     }
 }

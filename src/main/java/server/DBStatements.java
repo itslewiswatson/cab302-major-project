@@ -66,6 +66,16 @@ public class DBStatements {
     private PreparedStatement getUnitTrades;
 
     /**
+     * A precompiled SQL statement to delete a trade.
+     */
+    private PreparedStatement deleteTrade;
+
+    /**
+     * A precompiled SQL statement to find a trade by its ID.
+     */
+    private PreparedStatement getTradeById;
+
+    /**
      * Creates a DBStatements object.
      */
     public DBStatements() {
@@ -83,6 +93,8 @@ public class DBStatements {
             getAssets = connection.prepareStatement(DBQueries.GET_ASSETS);
             newAsset = connection.prepareStatement(DBQueries.NEW_ASSET);
             getUnitTrades = connection.prepareStatement(DBQueries.GET_UNIT_ACTIVE_TRADES);
+            deleteTrade = connection.prepareStatement(DBQueries.DELETE_TRADE);
+            getTradeById = connection.prepareStatement(DBQueries.FIND_TRADE_BY_ID);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -392,5 +404,51 @@ public class DBStatements {
         }
 
         return trades;
+    }
+
+    public void removeTrade(Trade trade) throws SQLException {
+        deleteTrade.setString(1, trade.getTradeId());
+        deleteTrade.executeQuery();
+    }
+
+    public Trade findTradeById(String tradeId) {
+        ResultSet tradeResultSet;
+        Trade trade = null;
+
+        try {
+            getTradeById.setString(1, tradeId);
+            tradeResultSet = getTradeById.executeQuery();
+
+            if (tradeResultSet.isBeforeFirst()) {
+                tradeResultSet.next();
+
+                trade = new Trade(
+                        tradeResultSet.getString("T.id"),
+                        tradeResultSet.getString("T.unit_id"),
+                        new Asset(
+                                tradeResultSet.getString("A.id"),
+                                tradeResultSet.getString("A.name")
+                        ),
+                        new User(
+                                tradeResultSet.getString("U.id"),
+                                tradeResultSet.getString("username"),
+                                tradeResultSet.getString("password"),
+                                tradeResultSet.getBoolean("admin")
+                        ),
+                        tradeResultSet.getDate("date_listed").toLocalDate(),
+                        TradeType.valueOf(tradeResultSet.getString("type")),
+                        tradeResultSet.getInt("quantity"),
+                        tradeResultSet.getInt("price"),
+                        tradeResultSet.getInt("quantity_filled"),
+                        null
+                );
+
+                return trade;
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return trade;
     }
 }

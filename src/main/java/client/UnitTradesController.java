@@ -3,17 +3,16 @@ package client;
 import client.config.Page;
 import common.domain.Trade;
 import common.domain.Unit;
-import common.dto.GetTradesDTO;
 import common.dto.GetUnitTradesDTO;
 import common.dto.GetUnitsDTO;
+import common.dto.RemoveTradeDTO;
 import common.exceptions.NullResultException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -63,7 +62,10 @@ public class UnitTradesController extends Controller implements Initializable {
         try {
             return readObject();
         } catch (NullResultException e) {
-            // TODO use an alert here instead
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Contact an IT admin to be placed in a unit.", ButtonType.OK);
+            alert.setHeaderText("You are not part of any unit.");
+            alert.showAndWait();
+            // TODO halt execution here
             return new ArrayList<>();
         }
     }
@@ -118,6 +120,26 @@ public class UnitTradesController extends Controller implements Initializable {
         quantity.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getQuantity() - p.getValue().getQuantityFilled()));
         price.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getPrice()));
         tradeType.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getType()));
+    }
+
+    @FXML
+    public void onDeleteTrade() {
+        Trade selectedTrade = tableView.getSelectionModel().getSelectedItem();
+        // TODO show alert here
+        if (selectedTrade == null) return;
+
+        sendObject(new RemoveTradeDTO(selectedTrade.getTradeId()));
+        try {
+            Boolean success = readObject();
+            if (!success) {
+                // TODO show alert here
+                return;
+            }
+            ObservableList<Trade> visibleTrades = tableView.getItems().filtered(trade -> !trade.getTradeId().equals(selectedTrade.getTradeId()));
+            tableView.setItems(visibleTrades);
+        } catch (NullResultException e) {
+            // TODO show alert here
+        }
     }
 
     public void goBack() {

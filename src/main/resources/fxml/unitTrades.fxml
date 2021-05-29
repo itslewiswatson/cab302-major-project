@@ -23,7 +23,7 @@
       <Label layoutX="15.0" layoutY="334.0" text="Double click on a row to view more information about the trade" />
       <ComboBox fx:id="unitComboBox" layoutX="85.0" layoutY="14.0" prefWidth="150.0" />
       <Label layoutX="17.0" layoutY="19.0" text="Select Unit" />
-      <Button disable="true" layoutX="487.0" layoutY="360.0" mnemonicParsing="false" onAction="#goBack" text="Remove Trade" />
+      <Button layoutX="487.0" layoutY="360.0" mnemonicParsing="false" onAction="#onDeleteTrade" text="Remove Trade" />
       <Button disable="true" layoutX="406.0" layoutY="360.0" mnemonicParsing="false" onAction="#goBack" text="Edit Trade" />
     </children>
 </AnchorPane>
