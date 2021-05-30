@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.net.URL;
@@ -27,6 +28,9 @@ public class MyAccountController extends Controller implements Initializable {
     }
 
     @FXML
+    private AnchorPane anchorPane;
+
+    @FXML
     private Label usernameLabel;
 
     @FXML
@@ -40,6 +44,9 @@ public class MyAccountController extends Controller implements Initializable {
 
     @FXML
     private PasswordField newPasswordField;
+
+    @FXML
+    private Button assetsButton;
 
     public void changePassword() {
         String currentPassword = currentPasswordField.getText();
@@ -123,14 +130,13 @@ public class MyAccountController extends Controller implements Initializable {
         }
     }
 
-    public void displayUserDetails() {
+    public void displayUserDetails(User user) {
         try {
-            User user = getUser();
             ArrayList<Unit> units = fetchUserUnits(user.getUserId());
             String[] unitNames = units.stream().map(Unit::getUnitName).toArray(String[]::new);
 
-            displayUsername(getUser().getUsername());
-            displayAccountType(getUser().isAdmin());
+            displayUsername(user.getUsername());
+            displayAccountType(user.isAdmin());
             displayUnits(unitNames);
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,6 +166,10 @@ public class MyAccountController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        displayUserDetails();
+        User user = getUser();
+        displayUserDetails(user);
+        if (!user.isAdmin()) {
+            anchorPane.getChildren().remove(assetsButton);
+        }
     }
 }
