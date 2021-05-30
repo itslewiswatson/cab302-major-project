@@ -7,7 +7,7 @@ public class DBQueries {
     public static final String FIND_USER_BY_USERNAME = "SELECT * FROM users WHERE username = ? LIMIT 1";
 
     /**
-     * SQL statement to retrive a user by their ID
+     * SQL statement to retrieve a user by their ID
      */
     public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? LIMIT 1";
 
@@ -35,6 +35,11 @@ public class DBQueries {
      * SQL statement to blindly retrieve all units.
      */
     public static final String GET_UNITS = "SELECT * FROM units";
+
+    /**
+     * SQL statement to retrive a unit by its ID.
+     */
+    public static final String GET_UNIT_BY_ID = "SELECT * FROM units WHERE id = ?";
 
     /**
      * SQL statement to select a user's given units.
@@ -67,6 +72,9 @@ public class DBQueries {
             "WHERE unit_id = ? " +
             "AND date_filled IS NULL";
 
+    /**
+     * SQL statement to find a single trade by its ID.
+     */
     public static final String FIND_TRADE_BY_ID = "SELECT * FROM trades T " +
             "INNER JOIN assets A ON asset_id = A.id " +
             "INNER JOIN users U ON user_id = U.id " +
@@ -77,4 +85,6 @@ public class DBQueries {
      * SQL statement to delete a trade.
      */
     public static final String DELETE_TRADE = "DELETE FROM trades WHERE id = ?";
+
+    public static final String UPDATE_UNIT = "UPDATE units SET credits = ? WHERE id = ?";
 }

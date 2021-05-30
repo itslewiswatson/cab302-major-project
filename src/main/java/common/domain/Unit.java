@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Unit extends Entity {
     private final String unitId;
     private final String unitName;
-    private final int credits;
+    private int credits;
     private final ArrayList<UnitAsset> unitAssets;
     private final ArrayList<User> users;
 
@@ -27,6 +27,10 @@ public class Unit extends Entity {
 
     public int getCredits() {
         return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 
     public ArrayList<UnitAsset> getUnitAssets() {

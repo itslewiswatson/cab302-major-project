@@ -178,6 +178,15 @@ public class RequestHandler extends Thread {
             return;
         }
 
+        if (object instanceof UpdateCreditsDTO) {
+            UpdateCreditsDTO updateCreditsDTO = (UpdateCreditsDTO) object;
+            UpdateCreditsHandler updateCreditsHandler = new UpdateCreditsHandler(dbStatements);
+            Unit unit = updateCreditsHandler.handle(updateCreditsDTO);
+            outputStream.writeObject(unit);
+            outputStream.flush();
+            return;
+        }
+
         throw new IOException();
     }
 }

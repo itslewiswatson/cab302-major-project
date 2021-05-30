@@ -46,6 +46,11 @@ public class DBStatements {
     private PreparedStatement getUnits;
 
     /**
+     * A precompiled SQL statement to retrieve a unit by its ID.
+     */
+    private PreparedStatement getUnitById;
+
+    /**
      * A precompiled SQL statement to retrieve units by their IDs.
      */
     private PreparedStatement getUnitsByIds;
@@ -80,6 +85,8 @@ public class DBStatements {
      */
     private PreparedStatement getTradeById;
 
+    private PreparedStatement updateUnit;
+
     /**
      * Creates a DBStatements object.
      */
@@ -101,6 +108,8 @@ public class DBStatements {
             deleteTrade = connection.prepareStatement(DBQueries.DELETE_TRADE);
             getTradeById = connection.prepareStatement(DBQueries.FIND_TRADE_BY_ID);
             getUnits = connection.prepareStatement(DBQueries.GET_UNITS);
+            getUnitById = connection.prepareStatement(DBQueries.GET_UNIT_BY_ID);
+            updateUnit = connection.prepareStatement(DBQueries.UPDATE_UNIT);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -483,5 +492,38 @@ public class DBStatements {
         }
 
         return units;
+    }
+
+    public void updateUnitCredits(Unit unit) throws SQLException {
+        updateUnit.setInt(1, unit.getCredits());
+        updateUnit.setString(2, unit.getUnitId());
+        updateUnit.executeQuery();
+    }
+
+    public Unit findUnitById(String unitId) {
+        ResultSet unitResultSet;
+        Unit unit = null;
+
+        try {
+            getUnitById.setString(1, unitId);
+            unitResultSet = getUnitById.executeQuery();
+
+            if (unitResultSet.isBeforeFirst()) {
+                unitResultSet.next();
+
+                unit = new Unit(
+                        unitResultSet.getString("id"),
+                        unitResultSet.getString("name"),
+                        unitResultSet.getInt("credits")
+                );
+
+                return unit;
+            }
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return unit;
     }
 }
