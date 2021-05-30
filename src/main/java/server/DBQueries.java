@@ -32,7 +32,12 @@ public class DBQueries {
     public static final String GET_ACTIVE_TRADES = "SELECT * FROM trades INNER JOIN assets ON asset_id = assets.id INNER JOIN users ON users.id = user_id WHERE date_filled IS NULL";
 
     /**
-     * SQL statement to select
+     * SQL statement to blindly retrieve all units.
+     */
+    public static final String GET_UNITS = "SELECT * FROM units";
+
+    /**
+     * SQL statement to select a user's given units.
      */
     public static final String GET_UNITS_BY_IDS = "SELECT id, name, credits FROM units WHERE id IN (SELECT unit_id FROM unitusers WHERE user_id = ?)";
 

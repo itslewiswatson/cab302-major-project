@@ -46,7 +46,10 @@ public class MyAccountController extends Controller implements Initializable {
     private PasswordField newPasswordField;
 
     @FXML
-    private Button assetsButton;
+    private Button manageAssetsButton;
+
+    @FXML
+    private Button manageUnitsButton;
 
     public void changePassword() {
         String currentPassword = currentPasswordField.getText();
@@ -121,6 +124,10 @@ public class MyAccountController extends Controller implements Initializable {
         switchToPage(Page.unitTrades);
     }
 
+    public void manageUnits() {
+        switchToPage(Page.manageUnits);
+    }
+
     private ArrayList<Unit> fetchUserUnits(String userId) {
         try {
             sendObject(new GetUnitsDTO(userId));
@@ -169,7 +176,7 @@ public class MyAccountController extends Controller implements Initializable {
         User user = getUser();
         displayUserDetails(user);
         if (!user.isAdmin()) {
-            anchorPane.getChildren().remove(assetsButton);
+            anchorPane.getChildren().remove(manageAssetsButton);
         }
     }
 }

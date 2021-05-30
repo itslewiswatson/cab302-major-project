@@ -17,7 +17,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutX="12.0" layoutY="83.0" mnemonicParsing="false" prefWidth="125.0" text="My Unit's Trades" onAction="#unitTrades">
+            <Button alignment="CENTER" layoutX="12.0" layoutY="83.0" mnemonicParsing="false" onAction="#unitTrades" prefWidth="125.0" text="My Unit's Trades">
                <font>
                   <Font size="14.0" />
                </font>
@@ -42,7 +42,12 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="assetsButton" layoutX="12.0" layoutY="154.0" mnemonicParsing="false" prefWidth="125.0" text="Manage Assets" onAction="#assets">
+            <Button fx:id="manageAssetsButton" layoutX="12.0" layoutY="154.0" mnemonicParsing="false" onAction="#assets" prefWidth="125.0" text="Manage Assets">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="manageUnitsButton" layoutX="12.0" layoutY="191.0" mnemonicParsing="false" onAction="#manageUnits" prefWidth="125.0" text="Manage Units">
                <font>
                   <Font size="14.0" />
                </font>

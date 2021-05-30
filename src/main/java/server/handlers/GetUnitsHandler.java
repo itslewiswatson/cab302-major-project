@@ -14,7 +14,12 @@ public class GetUnitsHandler extends Handler<ArrayList<Unit>, GetUnitsDTO> {
 
     public ArrayList<Unit> handle(GetUnitsDTO dto) {
         String userId = dto.getUserId();
-        User user = dbStatements.findUserById(userId);
-        return dbStatements.findUserUnits(user);
+
+        if (userId != null) {
+            User user = dbStatements.findUserById(userId);
+            return dbStatements.findUserUnits(user);
+        }
+
+        return dbStatements.findUnits();
     }
 }

@@ -41,6 +41,11 @@ public class DBStatements {
     private PreparedStatement getActiveTrades;
 
     /**
+     * A precompiled SQL statement to retrieve all units.
+     */
+    private PreparedStatement getUnits;
+
+    /**
      * A precompiled SQL statement to retrieve units by their IDs.
      */
     private PreparedStatement getUnitsByIds;
@@ -95,6 +100,7 @@ public class DBStatements {
             getUnitTrades = connection.prepareStatement(DBQueries.GET_UNIT_ACTIVE_TRADES);
             deleteTrade = connection.prepareStatement(DBQueries.DELETE_TRADE);
             getTradeById = connection.prepareStatement(DBQueries.FIND_TRADE_BY_ID);
+            getUnits = connection.prepareStatement(DBQueries.GET_UNITS);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -450,5 +456,32 @@ public class DBStatements {
         }
 
         return trade;
+    }
+
+    public ArrayList<Unit> findUnits() {
+        ResultSet unitResultSet;
+        ArrayList<Unit> units = new ArrayList<>();
+
+        try {
+            unitResultSet = getUnits.executeQuery();
+
+            while (unitResultSet.next()) {
+                Unit unit = new Unit(
+                        unitResultSet.getString("id"),
+                        unitResultSet.getString("name"),
+                        unitResultSet.getInt("credits")
+                );
+                units.add(unit);
+            }
+
+            return units;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            System.err.println("Access to the database was denied. Ensure MySQL server is running.");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return units;
     }
 }

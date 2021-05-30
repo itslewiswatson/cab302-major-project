@@ -1,13 +1,16 @@
 package common.dto;
 
-public class GetUnitsDTO extends DTO {
-    private final String userId;
+import org.jetbrains.annotations.Nullable;
 
-    public GetUnitsDTO(String userId) {
+public class GetUnitsDTO extends DTO {
+    private final @Nullable
+    String userId;
+
+    public GetUnitsDTO(@Nullable String userId) {
         this.userId = userId;
     }
 
-    public String getUserId() {
+    public @Nullable String getUserId() {
         return userId;
     }
 }
