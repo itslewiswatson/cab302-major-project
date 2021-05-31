@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -38,7 +39,10 @@ class Server {
                 System.out.println("\tConnection sent to thread.");
                 thread.start();
             }
-        } catch (IOException exception) {
+        } catch (BindException exception) {
+            System.err.println("Port number " + portNumber + " is already in use. Try closing the process using it or change the port number, and restart the server.");
+        }
+        catch (IOException exception) {
             System.err.println("An error occurred while starting or during execution of the server. Try restarting the server or rebuilding the program.");
         }
     }
