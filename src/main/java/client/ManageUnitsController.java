@@ -174,6 +174,10 @@ public class ManageUnitsController extends Controller implements Initializable {
     }
 
     private void showUnitInfo(Unit unit) {
+        addAssetTextField.clear();
+        creditsTextField.clear();
+        allAssetsComboBox.setValue(null);
+
         populateUnitAssetTable(unit);
 
         ArrayList<Trade> trades = fetchUnitTrades(unit);
@@ -204,6 +208,8 @@ public class ManageUnitsController extends Controller implements Initializable {
             showUnitInfo(result);
         } catch (NullResultException e) {
             // TODO show alert here
+        } finally {
+            creditsTextField.clear();
         }
     }
 
@@ -250,12 +256,15 @@ public class ManageUnitsController extends Controller implements Initializable {
 
         sendObject(new CreateOrUpdateUnitAssetDTO(selectedUnit.getUnitId(), asset.getAssetId(), qty));
         try {
-            ArrayList<Object> result = readObject();
-            System.out.println(result);
-            System.out.println(result.size());
+            readObject();
         } catch (NullResultException e) {
             e.printStackTrace();
         }
+        finally {
+            addAssetTextField.clear();
+            allAssetsComboBox.setValue(null);
+        }
+
         populateUnitAssetTable(selectedUnit);
     }
 
