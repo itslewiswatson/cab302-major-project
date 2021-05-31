@@ -1,9 +1,6 @@
 package server;
 
-import common.domain.FullAsset;
-import common.domain.Trade;
-import common.domain.Unit;
-import common.domain.User;
+import common.domain.*;
 import common.dto.*;
 import server.handlers.*;
 
@@ -92,8 +89,7 @@ public class RequestHandler extends Thread {
             LoginDTO loginDTO = (LoginDTO) object;
             LoginHandler loginHandler = new LoginHandler(dbStatements);
             User user = loginHandler.handle(loginDTO);
-            outputStream.writeObject(user);
-            outputStream.flush();
+            sendOutput(user);
             return;
         }
 
@@ -101,8 +97,7 @@ public class RequestHandler extends Thread {
             CreateAccountDTO createAccountDTO = (CreateAccountDTO) object;
             CreateAccountHandler createAccountHandler = new CreateAccountHandler(dbStatements);
             User user = createAccountHandler.handle(createAccountDTO);
-            outputStream.writeObject(user);
-            outputStream.flush();
+            sendOutput(user);
             return;
         }
 
@@ -110,8 +105,7 @@ public class RequestHandler extends Thread {
             NewTradeDTO newTradeDTO = (NewTradeDTO) object;
             NewTradeHandler newTradeHandler = new NewTradeHandler(dbStatements);
             Trade newTrade = newTradeHandler.handle(newTradeDTO);
-            outputStream.writeObject(newTrade);
-            outputStream.flush();
+            sendOutput(newTrade);
             return;
         }
 
@@ -119,8 +113,7 @@ public class RequestHandler extends Thread {
             UpdatePasswordDTO updatePasswordDTO = (UpdatePasswordDTO) object;
             UpdatePasswordHandler updatePasswordHandler = new UpdatePasswordHandler(dbStatements);
             User user = updatePasswordHandler.handle(updatePasswordDTO);
-            outputStream.writeObject(user);
-            outputStream.flush();
+            sendOutput(user);
             return;
         }
 
@@ -128,8 +121,7 @@ public class RequestHandler extends Thread {
             GetTradesDTO getTradesDTO = (GetTradesDTO) object;
             GetTradesHandler getTradesHandler = new GetTradesHandler(dbStatements);
             ArrayList<Trade> trades = getTradesHandler.handle(getTradesDTO);
-            outputStream.writeObject(trades);
-            outputStream.flush();
+            sendOutput(trades);
             return;
         }
 
@@ -137,8 +129,7 @@ public class RequestHandler extends Thread {
             GetUnitsDTO getUnitsDTO = (GetUnitsDTO) object;
             GetUnitsHandler getUnitsHandler = new GetUnitsHandler(dbStatements);
             ArrayList<Unit> units = getUnitsHandler.handle(getUnitsDTO);
-            outputStream.writeObject(units);
-            outputStream.flush();
+            sendOutput(units);
             return;
         }
 
@@ -146,8 +137,7 @@ public class RequestHandler extends Thread {
             GetAssetsDTO getAssetsDTO = (GetAssetsDTO) object;
             GetAssetsHandler getAssetsHandler = new GetAssetsHandler(dbStatements);
             ArrayList<FullAsset> assets = getAssetsHandler.handle(getAssetsDTO);
-            outputStream.writeObject(assets);
-            outputStream.flush();
+            sendOutput(assets);
             return;
         }
 
@@ -155,8 +145,7 @@ public class RequestHandler extends Thread {
             AddAssetDTO addAssetDTO = (AddAssetDTO) object;
             AddAssetHandler addAssetHandler = new AddAssetHandler(dbStatements);
             ArrayList<FullAsset> assets = addAssetHandler.handle(addAssetDTO);
-            outputStream.writeObject(assets);
-            outputStream.flush();
+            sendOutput(assets);
             return;
         }
 
@@ -164,8 +153,7 @@ public class RequestHandler extends Thread {
             GetUnitTradesDTO getUnitTradesDTO = (GetUnitTradesDTO) object;
             GetUnitTradesHandler getUnitTradesHandler = new GetUnitTradesHandler(dbStatements);
             ArrayList<Trade> trades = getUnitTradesHandler.handle(getUnitTradesDTO);
-            outputStream.writeObject(trades);
-            outputStream.flush();
+            sendOutput(trades);
             return;
         }
 
@@ -173,8 +161,7 @@ public class RequestHandler extends Thread {
             RemoveTradeDTO removeTradeDTO = (RemoveTradeDTO) object;
             RemoveTradeHandler removeTradeHandler = new RemoveTradeHandler(dbStatements);
             Boolean tradeRemoved = removeTradeHandler.handle(removeTradeDTO);
-            outputStream.writeObject(tradeRemoved);
-            outputStream.flush();
+            sendOutput(tradeRemoved);
             return;
         }
 
@@ -182,11 +169,23 @@ public class RequestHandler extends Thread {
             UpdateCreditsDTO updateCreditsDTO = (UpdateCreditsDTO) object;
             UpdateCreditsHandler updateCreditsHandler = new UpdateCreditsHandler(dbStatements);
             Unit unit = updateCreditsHandler.handle(updateCreditsDTO);
-            outputStream.writeObject(unit);
-            outputStream.flush();
+            sendOutput(unit);
+            return;
+        }
+
+        if (object instanceof GetUnitAssetsDTO) {
+            GetUnitAssetsDTO getUnitAssetsDTO = (GetUnitAssetsDTO) object;
+            GetUnitAssetsHandler getUnitAssetsHandler = new GetUnitAssetsHandler(dbStatements);
+            ArrayList<UnitAsset> unitAssets = getUnitAssetsHandler.handle(getUnitAssetsDTO);
+            sendOutput(unitAssets);
             return;
         }
 
         throw new IOException();
+    }
+
+    private void sendOutput(Object object) throws IOException {
+        outputStream.writeObject(object);
+        outputStream.flush();
     }
 }

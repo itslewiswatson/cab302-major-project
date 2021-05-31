@@ -85,7 +85,15 @@ public class DBStatements {
      */
     private PreparedStatement getTradeById;
 
+    /**
+     * A precompiled SQL statement to update a unit.
+     */
     private PreparedStatement updateUnit;
+
+    /**
+     * A precompiled SQL statement to get unit assets by a unit's ID.
+     */
+    private PreparedStatement getUnitAssetsById;
 
     /**
      * Creates a DBStatements object.
@@ -110,6 +118,7 @@ public class DBStatements {
             getUnits = connection.prepareStatement(DBQueries.GET_UNITS);
             getUnitById = connection.prepareStatement(DBQueries.GET_UNIT_BY_ID);
             updateUnit = connection.prepareStatement(DBQueries.UPDATE_UNIT);
+            getUnitAssetsById = connection.prepareStatement(DBQueries.GET_UNIT_ASSETS_BY_UNIT);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -525,5 +534,30 @@ public class DBStatements {
         }
 
         return unit;
+    }
+
+    public ArrayList<UnitAsset> findUnitAssetsByUnit(String unitId) {
+        ResultSet unitAssetResultSet;
+        ArrayList<UnitAsset> unitAssets = new ArrayList<>();
+
+        try {
+            getUnitAssetsById.setString(1, unitId);
+            unitAssetResultSet = getUnitAssetsById.executeQuery();
+
+            while (unitAssetResultSet.next()) {
+                UnitAsset unitAsset = new UnitAsset(
+                        unitAssetResultSet.getString("unit_id"),
+                        unitAssetResultSet.getString("asset_id"),
+                        unitAssetResultSet.getInt("quantity")
+                );
+                unitAssets.add(unitAsset);
+            }
+
+            return unitAssets;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return unitAssets;
     }
 }
