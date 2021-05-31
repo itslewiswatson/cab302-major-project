@@ -2,18 +2,16 @@ package client;
 
 import client.config.Page;
 import common.domain.FullAsset;
+import common.domain.Trade;
 import common.domain.Unit;
-import common.dto.GetAssetsDTO;
-import common.dto.GetUnitsDTO;
-import common.dto.UpdateCreditsDTO;
+import common.domain.UnitAsset;
+import common.dto.*;
 import common.exceptions.NullResultException;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -55,6 +53,15 @@ public class ManageUnitsController extends Controller implements Initializable {
     @FXML
     private Label completedTrades;
 
+    @FXML
+    private TableView<UnitAsset> unitAssetTableView;
+
+    @FXML
+    private TableColumn<UnitAsset, String> assetNameTableCol;
+
+    @FXML
+    private TableColumn<UnitAsset, Integer> quantityTableCol;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupUnitComboBox();
@@ -62,6 +69,8 @@ public class ManageUnitsController extends Controller implements Initializable {
 
         setupAssetComboBox();
         populateAssetComboBox();
+
+        setupUnitAssetTable();
     }
 
     private ArrayList<Unit> fetchUnits() {
@@ -78,6 +87,27 @@ public class ManageUnitsController extends Controller implements Initializable {
         try {
             return readObject();
         } catch (NullResultException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private ArrayList<Trade> fetchUnitTrades(Unit unit) {
+        String unitId = unit.getUnitId();
+        sendObject(new GetUnitTradesDTO(unitId));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private ArrayList<UnitAsset> fetchUnitAssets(Unit unit) {
+        String unitId = unit.getUnitId();
+        sendObject(new GetUnitAssetsDTO(unitId));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -115,6 +145,16 @@ public class ManageUnitsController extends Controller implements Initializable {
         });
     }
 
+    private void setupUnitAssetTable() {
+        assetNameTableCol.setCellValueFactory(v -> new ReadOnlyObjectWrapper<>(v.getValue().getAsset().getAssetName()));
+        quantityTableCol.setCellValueFactory(v -> new ReadOnlyObjectWrapper<>(v.getValue().getQuantity()));
+    }
+
+    private void populateUnitAssetTable(Unit unit) {
+        ArrayList<UnitAsset> unitAssets = fetchUnitAssets(unit);
+        unitAssetTableView.setItems(FXCollections.observableArrayList(unitAssets));
+    }
+
     @FXML
     private void onSelectUnit() {
         Unit selectedUnit = unitComboBox.getValue();
@@ -122,12 +162,16 @@ public class ManageUnitsController extends Controller implements Initializable {
             disableSaveCredits();
             return;
         }
-        ;
 
         showUnitInfo(selectedUnit);
     }
 
     private void showUnitInfo(Unit unit) {
+        populateUnitAssetTable(unit);
+
+        ArrayList<Trade> trades = fetchUnitTrades(unit);
+        pendingTrades.setText("Pending Trades: " + trades.size());
+
         unitIdLabel.setText("Unit ID: " + unit.getUnitId());
         userCountLabel.setText("Users: " + unit.getUsers().size());
         assetsHeldLabel.setText("Assets Held: " + unit.getUnitAssets().size());
