@@ -7,6 +7,7 @@ import common.exceptions.NullResultException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -129,6 +130,16 @@ public class ManageUnitsController extends Controller implements Initializable {
         }
     }
 
+    private ArrayList<UnitAsset> fetchUnitAssets(String unitId) {
+        sendObject(new GetUnitAssetsDTO(unitId));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
     private ArrayList<User> fetchUnitUsers(Unit unit) {
         String unitId = unit.getUnitId();
         sendObject(new GetUnitUsersDTO(unitId));
@@ -178,9 +189,10 @@ public class ManageUnitsController extends Controller implements Initializable {
         quantityTableCol.setCellValueFactory(v -> new ReadOnlyObjectWrapper<>(v.getValue().getQuantity()));
     }
 
-    private void populateUnitAssetTable(Unit unit) {
+    private ArrayList<UnitAsset> populateUnitAssetTable(Unit unit) {
         ArrayList<UnitAsset> unitAssets = fetchUnitAssets(unit);
         unitAssetTableView.setItems(FXCollections.observableArrayList(unitAssets));
+        return unitAssets;
     }
 
     @FXML
@@ -199,12 +211,10 @@ public class ManageUnitsController extends Controller implements Initializable {
         creditsTextField.clear();
         allAssetsComboBox.setValue(null);
 
-        populateUnitAssetTable(unit);
-
         ArrayList<User> unitUsers = fetchUnitUsers(unit);
         userCountLabel.setText("Users: " + unitUsers.size());
 
-        ArrayList<UnitAsset> unitAssets = fetchUnitAssets(unit);
+        ArrayList<UnitAsset> unitAssets = populateUnitAssetTable(unit);
         assetsHeldLabel.setText("Assets Held: " + unitAssets.size());
 
         ArrayList<Trade> tradesPending = fetchUnitTrades(unit);
@@ -257,13 +267,13 @@ public class ManageUnitsController extends Controller implements Initializable {
         try {
             Boolean success = readObject();
             if (!success) {
-                // TODO show alert here
                 return;
             }
-            ObservableList<UnitAsset> visibleUnitAssets = unitAssetTableView.getItems().filtered(unitAsset -> !unitAsset.getAsset().getAssetId().equals(selectedUnitAsset.getAsset().getAssetId()) && !unitAsset.getUnitId().equals(selectedUnitAsset.getUnitId()));
-            unitAssetTableView.setItems(visibleUnitAssets);
+
+            ArrayList<UnitAsset> unitAssets = fetchUnitAssets(selectedUnitAsset.getUnitId());
+            unitAssetTableView.setItems(FXCollections.observableArrayList(unitAssets));
         } catch (NullResultException e) {
-            // TODO show alert here
+            e.printStackTrace();
         }
     }
 
@@ -281,6 +291,13 @@ public class ManageUnitsController extends Controller implements Initializable {
 
         Asset asset = allAssetsComboBox.getValue();
         if (asset == null) return;
+
+        ObservableList<UnitAsset> currentUnitAssets = unitAssetTableView.getItems();
+        FilteredList<UnitAsset> filteredUnitAssets = currentUnitAssets.filtered(unitAsset -> unitAsset.getAsset().getAssetId().equals(asset.getAssetId()));
+        if (filteredUnitAssets.size() == 1) {
+            System.out.println("You can't add an asset you already have");
+            return;
+        }
 
         sendObject(new CreateOrUpdateUnitAssetDTO(selectedUnit.getUnitId(), asset.getAssetId(), qty));
         try {
