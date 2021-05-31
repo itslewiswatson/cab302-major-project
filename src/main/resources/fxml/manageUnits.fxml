@@ -25,7 +25,7 @@
       <Button fx:id="addAssetButton" disable="true" layoutX="437.0" layoutY="362.0" mnemonicParsing="false" text="Add" onAction="#addAsset" />
       <TextField fx:id="addAssetTextField" disable="true" layoutX="362.0" layoutY="362.0" prefHeight="26.0" prefWidth="70.0" promptText="Qty" />
       <Separator layoutX="15.0" layoutY="250.0" prefHeight="4.0" prefWidth="213.0" />
-      <Label fx:id="unitIdLabel" layoutX="15.0" layoutY="110.0" text="Unit ID:" />
+      <Label fx:id="unitNameLabel" layoutX="15.0" layoutY="110.0" text="Unit Name: " />
       <Label fx:id="userCountLabel" layoutX="15.0" layoutY="135.0" text="Users: " />
       <Label fx:id="assetsHeldLabel" layoutX="15.0" layoutY="160.0" text="Assets Held: " />
       <Label fx:id="creditsLabel" layoutX="15.0" layoutY="272.0" text="Credits: " />

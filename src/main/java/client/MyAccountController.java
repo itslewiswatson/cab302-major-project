@@ -162,8 +162,7 @@ public class MyAccountController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User user = getUser();
         displayUserDetails(user);
-        if (!user.isAdmin()) {
-            anchorPane.getChildren().remove(manageAssetsButton);
-        }
+        manageAssetsButton.setDisable(!user.isAdmin());
+        manageUnitsButton.setDisable(!user.isAdmin());
     }
 }

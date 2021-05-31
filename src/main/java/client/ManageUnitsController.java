@@ -36,7 +36,7 @@ public class ManageUnitsController extends Controller implements Initializable {
     private ComboBox<FullAsset> allAssetsComboBox;
 
     @FXML
-    private Label unitIdLabel;
+    private Label unitNameLabel;
 
     @FXML
     private Label userCountLabel;
@@ -224,7 +224,7 @@ public class ManageUnitsController extends Controller implements Initializable {
         ArrayList<Trade> tradesHistoric = fetchHistoricTrades(unit);
         completedTrades.setText("Completed Trades: " + tradesHistoric.size());
 
-        unitIdLabel.setText("Unit ID: " + unit.getUnitId());
+        unitNameLabel.setText("Unit Name: " + unit.getUnitName());
         creditsLabel.setText("Credits: " + unit.getCredits());
         enableInputs();
     }
