@@ -18,7 +18,19 @@ public class AlertDialog {
         base(Alert.AlertType.INFORMATION, header, content);
     }
 
+    public static void info(String header) {
+        info(header, "");
+    }
+
     public static void error(String header, String content) {
         base(Alert.AlertType.ERROR, header, content);
+    }
+
+    public static void serverCommunication() {
+        warning("Cannot communicate with server", "If the problem persists, restart the client.");
+    }
+
+    public static void fileError() {
+        error("A program file has been deleted or corrupted", "Try restarting the client or rebuilding the program");
     }
 }

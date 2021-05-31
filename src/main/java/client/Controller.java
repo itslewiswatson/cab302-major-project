@@ -1,10 +1,9 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import common.domain.User;
 import common.exceptions.NullResultException;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,9 +23,7 @@ public class Controller {
             outputStream.writeObject(object);
             outputStream.flush();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
-            alert.setHeaderText("Cannot communicate with server.");
-            alert.showAndWait();
+            AlertDialog.serverCommunication();
         }
     }
 
@@ -41,9 +38,9 @@ public class Controller {
         try {
             return readObject_();
         } catch (IOException e) {
-            showCommunicationAlert();
+            AlertDialog.serverCommunication();
         } catch (ClassNotFoundException e) {
-            showApplicationAlert();
+            AlertDialog.fileError();
         }
         throw new NullResultException();
     }
@@ -60,18 +57,6 @@ public class Controller {
             throw new NullResultException();
         }
         return object;
-    }
-
-    private void showApplicationAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Please notify the your IT department.", ButtonType.OK);
-        alert.setHeaderText("A critical error has occurred.");
-        alert.showAndWait();
-    }
-
-    private void showCommunicationAlert() {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
-        alert.setHeaderText("Cannot communicate with server.");
-        alert.showAndWait();
     }
 
     protected void setUser(User user) {

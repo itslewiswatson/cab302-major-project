@@ -1,5 +1,6 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import client.dialog.TradeInfoDialogController;
 import common.domain.Trade;
@@ -51,6 +52,7 @@ public class AllTradesController extends Controller implements Initializable {
         try {
             return readObject();
         } catch (NullResultException e) {
+            AlertDialog.info("There are no active trades at the moment", "All trades have been fulfilled. Consider making a new trade of your own.");
             return new ArrayList<>();
         }
     }

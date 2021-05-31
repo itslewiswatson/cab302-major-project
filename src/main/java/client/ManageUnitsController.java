@@ -1,5 +1,6 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import common.domain.*;
 import common.dto.*;
@@ -235,7 +236,7 @@ public class ManageUnitsController extends Controller implements Initializable {
 
         String textCredits = creditsTextField.getText();
         if (!textCredits.matches("[0-9]+")) {
-            System.out.println("Invalid credits '" + textCredits + "'");
+            AlertDialog.error("Invalid input for credits", "Please enter a numeric value");
             return;
         }
         int credits = Integer.parseInt(textCredits);
@@ -267,13 +268,14 @@ public class ManageUnitsController extends Controller implements Initializable {
         try {
             Boolean success = readObject();
             if (!success) {
+                AlertDialog.warning("Could not remove asset from unit", "Please try again");
                 return;
             }
 
             ArrayList<UnitAsset> unitAssets = fetchUnitAssets(selectedUnitAsset.getUnitId());
             unitAssetTableView.setItems(FXCollections.observableArrayList(unitAssets));
         } catch (NullResultException e) {
-            e.printStackTrace();
+            AlertDialog.warning("Could not remove asset from unit", "Please try again");
         }
     }
 
@@ -284,7 +286,7 @@ public class ManageUnitsController extends Controller implements Initializable {
 
         String textQty = addAssetTextField.getText();
         if (!textQty.matches("[0-9]+")) {
-            System.out.println("Invalid quantity '" + textQty + "'");
+            AlertDialog.error("Invalid input for quantity", "Please enter a numeric value");
             return;
         }
         int qty = Integer.parseInt(textQty);
@@ -295,7 +297,7 @@ public class ManageUnitsController extends Controller implements Initializable {
         ObservableList<UnitAsset> currentUnitAssets = unitAssetTableView.getItems();
         FilteredList<UnitAsset> filteredUnitAssets = currentUnitAssets.filtered(unitAsset -> unitAsset.getAsset().getAssetId().equals(asset.getAssetId()));
         if (filteredUnitAssets.size() == 1) {
-            System.out.println("You can't add an asset you already have");
+            AlertDialog.error("This asset is already owned by this unit", "Please edit the existing value in the table");
             return;
         }
 

@@ -1,5 +1,6 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import client.dialog.TradeInfoDialogController;
 import common.domain.Trade;
@@ -16,7 +17,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -69,10 +73,7 @@ public class UnitTradesController extends Controller implements Initializable {
         try {
             return readObject();
         } catch (NullResultException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Contact an IT admin to be placed in a unit.", ButtonType.OK);
-            alert.setHeaderText("You are not part of any unit.");
-            alert.showAndWait();
-            // TODO halt execution here
+            AlertDialog.info("You are not part of any unit", "Contact an IT admin to be placed in a unit.");
             return new ArrayList<>();
         }
     }
@@ -160,20 +161,22 @@ public class UnitTradesController extends Controller implements Initializable {
     @FXML
     public void deleteTrade() {
         Trade selectedTrade = tableView.getSelectionModel().getSelectedItem();
-        // TODO show alert here
-        if (selectedTrade == null) return;
+        if (selectedTrade == null) {
+            AlertDialog.info("You must select a trade to remove", "Click on any item in the list, then navigate and click 'Remove'");
+            return;
+        };
 
         sendObject(new RemoveTradeDTO(selectedTrade.getTradeId()));
         try {
             Boolean success = readObject();
             if (!success) {
-                // TODO show alert here
+                AlertDialog.warning("Could not remove the selected trade", "Please try again");
                 return;
             }
             ObservableList<Trade> visibleTrades = tableView.getItems().filtered(trade -> !trade.getTradeId().equals(selectedTrade.getTradeId()));
             tableView.setItems(visibleTrades);
         } catch (NullResultException e) {
-            // TODO show alert here
+            AlertDialog.warning("Could not remove the selected trade", "Please try again");
         }
     }
 

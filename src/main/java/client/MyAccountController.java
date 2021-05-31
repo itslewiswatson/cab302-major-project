@@ -1,5 +1,6 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import common.domain.Unit;
 import common.domain.User;
@@ -10,7 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -57,23 +61,17 @@ public class MyAccountController extends Controller implements Initializable {
 
         try {
             if (currentPassword.length() <= 0 || newPassword.length() <= 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
-                alert.setHeaderText("Current Password and New Password cannot be empty.");
-                alert.showAndWait();
+                AlertDialog.info("Current password and new password cannot be empty", "Please try again");
                 return;
             }
 
             if (!BCrypt.checkpw(currentPassword, getUser().getPassword())) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
-                alert.setHeaderText("Current Password is incorrect.");
-                alert.showAndWait();
+                AlertDialog.info("Current password is incorrect", "Please try again");
                 return;
             }
 
             if (currentPassword.equals(newPassword)) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
-                alert.setHeaderText("New Password and Current Password are the same.");
-                alert.showAndWait();
+                AlertDialog.info("Current password and new password are the same", "Please try again");
                 return;
             }
 
@@ -92,19 +90,12 @@ public class MyAccountController extends Controller implements Initializable {
             currentUser.setPassword(existingUser.getPassword());
 
             if (BCrypt.checkpw(newPassword, existingUser.getPassword())) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
-                alert.setHeaderText("Password changed successfully.");
-                alert.showAndWait();
+                AlertDialog.info("Password changed successfully");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Contact administrator.", ButtonType.OK);
-                alert.setHeaderText("Password could not be updated.");
-                alert.showAndWait();
+                AlertDialog.error("Password could not be updated", "Please contact an IT administrator");
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
-            alert.setHeaderText("Cannot communicate with server.");
-            alert.showAndWait();
+            AlertDialog.serverCommunication();
         }
     }
 
@@ -155,11 +146,7 @@ public class MyAccountController extends Controller implements Initializable {
     }
 
     private void displayAccountType(boolean isAdmin) {
-        if (isAdmin) {
-            accountTypeLabel.setText("Account Type: Administrator");
-        } else {
-            accountTypeLabel.setText("Account Type: Standard");
-        }
+        accountTypeLabel.setText("Account Type: " + (isAdmin ? "Administrator" : "Standard"));
     }
 
     private void displayUnits(String[] units) {

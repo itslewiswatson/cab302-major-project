@@ -6,8 +6,6 @@ import common.domain.User;
 import common.dto.LoginDTO;
 import common.exceptions.NullResultException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
@@ -51,17 +49,12 @@ public class LoginController extends Controller {
                 setUser(user);
                 switchToPage(Page.myAccount);
             } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please try again.", ButtonType.OK);
-                alert.setHeaderText("Incorrect Username or Password.");
-                alert.showAndWait();
+                AlertDialog.info("Incorrect username or password.", "Please try again.");
             }
         } catch (NullResultException e) {
             AlertDialog.warning("No such username exists", "Contact an IT admin for an account");
         } catch (Exception e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
-            alert.setHeaderText("Cannot communicate with server.");
-            alert.showAndWait();
+            AlertDialog.serverCommunication();
         }
     }
 }

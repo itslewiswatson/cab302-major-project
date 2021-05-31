@@ -1,5 +1,6 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import common.domain.FullAsset;
 import common.dto.AddAssetDTO;
@@ -74,7 +75,7 @@ public class AssetsController extends Controller implements Initializable {
         try {
             readObject();
         } catch (NullResultException e) {
-            e.printStackTrace();
+            AlertDialog.warning("Could not add asset", "Please try again");
         }
         populateTable();
     }

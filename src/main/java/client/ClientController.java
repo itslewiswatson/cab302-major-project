@@ -1,5 +1,6 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import common.domain.User;
 import javafx.application.Platform;
@@ -7,8 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -67,9 +66,7 @@ class ClientController {
             outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             inputStream = new ObjectInputStream(clientSocket.getInputStream());
         } catch (IOException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Ensure the server is running and the configuration file is correct.", ButtonType.OK);
-            alert.setHeaderText("Could not connect to server.");
-            alert.showAndWait();
+            AlertDialog.error("Could not establish communication with the server", "Ensure the server is running and the configuration file is correct");
             Platform.exit();
         }
     }
@@ -88,7 +85,7 @@ class ClientController {
                 try {
                     return controller.newInstance(this);
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
+                    AlertDialog.fileError();
                 }
                 return null;
             });
@@ -99,9 +96,7 @@ class ClientController {
             stage.show();
         } catch (IOException | ClassNotFoundException | NoSuchMethodException exception) {
             exception.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Try restarting the client or rebuilding the program.", ButtonType.OK);
-            alert.setHeaderText("A program file has been deleted or become corrupted.");
-            alert.showAndWait();
+            AlertDialog.fileError();
         }
     }
 }
