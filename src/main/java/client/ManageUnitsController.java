@@ -1,10 +1,7 @@
 package client;
 
 import client.config.Page;
-import common.domain.FullAsset;
-import common.domain.Trade;
-import common.domain.Unit;
-import common.domain.UnitAsset;
+import common.domain.*;
 import common.dto.*;
 import common.exceptions.NullResultException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -234,6 +231,32 @@ public class ManageUnitsController extends Controller implements Initializable {
         } catch (NullResultException e) {
             // TODO show alert here
         }
+    }
+
+    @FXML
+    private void addAsset() {
+        Unit selectedUnit = unitComboBox.getValue();
+        if (selectedUnit == null) return;
+
+        String textQty = addAssetTextField.getText();
+        if (!textQty.matches("[0-9]+")) {
+            System.out.println("Invalid quantity '" + textQty + "'");
+            return;
+        }
+        int qty = Integer.parseInt(textQty);
+
+        Asset asset = allAssetsComboBox.getValue();
+        if (asset == null) return;
+
+        sendObject(new CreateOrUpdateUnitAssetDTO(selectedUnit.getUnitId(), asset.getAssetId(), qty));
+        try {
+            ArrayList<Object> result = readObject();
+            System.out.println(result);
+            System.out.println(result.size());
+        } catch (NullResultException e) {
+            e.printStackTrace();
+        }
+        populateUnitAssetTable(selectedUnit);
     }
 
     public void goBack() {

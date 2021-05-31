@@ -66,6 +66,11 @@ public class DBStatements {
     private PreparedStatement getAssets;
 
     /**
+     * A precompiled SQL statement to retrieve an asset by its ID.
+     */
+    private PreparedStatement getAssetById;
+
+    /**
      * A precompiled SQL statement to insert a new asset.
      */
     private PreparedStatement newAsset;
@@ -105,6 +110,10 @@ public class DBStatements {
      */
     private PreparedStatement deleteUnitAsset;
 
+    private PreparedStatement createUnitAsset;
+
+    private PreparedStatement updateUnitAssetQuantity;
+
     /**
      * Creates a DBStatements object.
      */
@@ -131,6 +140,9 @@ public class DBStatements {
             getUnitAssetsById = connection.prepareStatement(DBQueries.GET_UNIT_ASSETS_BY_UNIT);
             getUnitAsset = connection.prepareStatement(DBQueries.GET_UNIT_ASSET);
             deleteUnitAsset = connection.prepareStatement(DBQueries.REMOVE_UNIT_ASSET);
+            getAssetById = connection.prepareStatement(DBQueries.GET_ASSET_BY_ID);
+            createUnitAsset = connection.prepareStatement(DBQueries.ADD_UNIT_ASSET);
+            updateUnitAssetQuantity = connection.prepareStatement(DBQueries.UPDATE_UNIT_ASSET);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -610,5 +622,37 @@ public class DBStatements {
         deleteUnitAsset.setString(1, unitAsset.getUnitId());
         deleteUnitAsset.setString(2, unitAsset.getAsset().getAssetId());
         deleteUnitAsset.executeQuery();
+    }
+
+    public Asset findAssetById(String assetId) throws SQLException {
+        ResultSet assetResultSet;
+
+        getAssetById.setString(1, assetId);
+        assetResultSet = getAssetById.executeQuery();
+
+        if (assetResultSet.isBeforeFirst()) {
+            assetResultSet.next();
+
+            return new Asset(
+                    assetResultSet.getString("id"),
+                    assetResultSet.getString("name")
+            );
+        }
+
+        return null;
+    }
+
+    public void updateUnitAsset(UnitAsset unitAsset) throws SQLException {
+        updateUnitAssetQuantity.setInt(1, unitAsset.getQuantity());
+        updateUnitAssetQuantity.setString(2, unitAsset.getUnitId());
+        updateUnitAssetQuantity.setString(3, unitAsset.getAsset().getAssetId());
+        updateUnitAssetQuantity.execute();
+    }
+
+    public void addUnitAsset(UnitAsset unitAsset) throws SQLException {
+        createUnitAsset.setString(1, unitAsset.getUnitId());
+        createUnitAsset.setString(2, unitAsset.getAsset().getAssetId());
+        createUnitAsset.setInt(3, unitAsset.getQuantity());
+        createUnitAsset.execute();
     }
 }

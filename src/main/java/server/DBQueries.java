@@ -59,6 +59,11 @@ public class DBQueries {
     public static final String GET_ASSETS = "SELECT A.id, A.name, A.date_added, COALESCE(SUM(quantity), 0) AS qty FROM assets A LEFT JOIN unitassets u on A.id = u.asset_id GROUP BY A.id;";
 
     /**
+     * SQL statement to retrieve an asset by its ID.
+     */
+    public static final String GET_ASSET_BY_ID = "SELECT * FROM assets WHERE id = ?";
+
+    /**
      * SQL statement to insert a new a asset.
      */
     public static final String NEW_ASSET = "INSERT INTO assets (id, name, date_added) VALUES (?, ?, NOW())";
@@ -105,4 +110,8 @@ public class DBQueries {
      * SQL statement to remove a unit asset by its ID.
      */
     public static final String REMOVE_UNIT_ASSET = "DELETE FROM unitassets WHERE unit_id = ? AND asset_id = ?";
+
+    public static final String UPDATE_UNIT_ASSET = "UPDATE unitassets SET quantity = ? WHERE unit_id = ? AND asset_id = ?";
+
+    public static final String ADD_UNIT_ASSET = "INSERT INTO unitassets (unit_id, asset_id, quantity) VALUES (?, ?, ?)";
 }

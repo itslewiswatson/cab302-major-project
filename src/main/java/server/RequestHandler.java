@@ -193,6 +193,14 @@ public class RequestHandler extends Thread {
             return;
         }
 
+        if (object instanceof CreateOrUpdateUnitAssetDTO) {
+            CreateOrUpdateUnitAssetDTO createOrUpdateUnitAssetDTO = (CreateOrUpdateUnitAssetDTO) object;
+            CreateOrUpdateUnitAssetHandler createOrUpdateUnitAssetHandler = new CreateOrUpdateUnitAssetHandler(dbStatements);
+            ArrayList<UnitAsset> unitAssets = createOrUpdateUnitAssetHandler.handle(createOrUpdateUnitAssetDTO);
+            sendOutput(unitAssets);
+            return;
+        }
+
         throw new IOException();
     }
 
