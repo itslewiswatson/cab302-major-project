@@ -19,11 +19,11 @@
       </TableView>
       <ComboBox fx:id="unitComboBox" layoutX="15.0" layoutY="41.0" onAction="#onSelectUnit" prefWidth="150.0" />
       <Label layoutX="15.0" layoutY="14.0" text="Select Unit" />
-      <Button fx:id="removeAssetButton" layoutX="518.0" layoutY="362.0" mnemonicParsing="false" text="Remove" onAction="#removeAsset" />
+      <Button fx:id="removeAssetButton" disable="true" layoutX="518.0" layoutY="362.0" mnemonicParsing="false" text="Remove" onAction="#removeAsset" />
       <Button layoutX="15.0" layoutY="362.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back" />
-      <ComboBox fx:id="allAssetsComboBox" layoutX="257.0" layoutY="362.0" prefHeight="26.0" prefWidth="100.0" promptText="Asset" />
-      <Button fx:id="addAssetButton" layoutX="417.0" layoutY="362.0" mnemonicParsing="false" text="Add" />
-      <TextField fx:id="addAssetTextField" layoutX="362.0" layoutY="362.0" prefHeight="26.0" prefWidth="51.0" promptText="Qty" />
+      <ComboBox fx:id="allAssetsComboBox" disable="true" layoutX="257.0" layoutY="362.0" prefHeight="26.0" prefWidth="100.0" promptText="Asset" />
+      <Button fx:id="addAssetButton" disable="true" layoutX="417.0" layoutY="362.0" mnemonicParsing="false" text="Add" />
+      <TextField fx:id="addAssetTextField" disable="true" layoutX="362.0" layoutY="362.0" prefHeight="26.0" prefWidth="51.0" promptText="Qty" />
       <Separator layoutX="15.0" layoutY="250.0" prefHeight="4.0" prefWidth="213.0" />
       <Label fx:id="unitIdLabel" layoutX="15.0" layoutY="110.0" text="Unit ID:" />
       <Label fx:id="userCountLabel" layoutX="15.0" layoutY="135.0" text="Users: " />
@@ -31,7 +31,7 @@
       <Label fx:id="creditsLabel" layoutX="15.0" layoutY="272.0" text="Credits: " />
       <Label fx:id="pendingTrades" layoutX="15.0" layoutY="185.0" text="Pending Trades: " />
       <Label fx:id="completedTrades" layoutX="15.0" layoutY="210.0" text="Completed Trades: " />
-      <TextField fx:id="creditsTextField" disable="true" layoutX="15.0" layoutY="299.0" prefHeight="26.0" prefWidth="150.0" promptText="Credits" text="New credits..." />
+      <TextField fx:id="creditsTextField" disable="true" layoutX="15.0" layoutY="299.0" prefHeight="26.0" prefWidth="150.0" promptText="Enter credits..." />
       <Button fx:id="saveCreditsButton" disable="true" layoutX="169.0" layoutY="299.0" mnemonicParsing="false" onAction="#updateCredits" prefHeight="26.0" prefWidth="60.0" text="Save" />
       <Separator layoutX="15.0" layoutY="88.0" prefHeight="4.0" prefWidth="213.0" />
    </children>

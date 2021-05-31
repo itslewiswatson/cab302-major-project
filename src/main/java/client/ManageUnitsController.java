@@ -243,10 +243,18 @@ public class ManageUnitsController extends Controller implements Initializable {
     private void disableInputs() {
         creditsTextField.setDisable(true);
         saveCreditsButton.setDisable(true);
+        addAssetButton.setDisable(true);
+        removeAssetButton.setDisable(true);
+        addAssetTextField.setDisable(true);
+        allAssetsComboBox.setDisable(true);
     }
 
     private void enableInputs() {
         creditsTextField.setDisable(false);
         saveCreditsButton.setDisable(false);
+        addAssetButton.setDisable(false);
+        removeAssetButton.setDisable(false);
+        addAssetTextField.setDisable(false);
+        allAssetsComboBox.setDisable(false);
     }
 }
