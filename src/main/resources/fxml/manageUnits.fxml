@@ -17,7 +17,7 @@
           <TableColumn fx:id="quantityTableCol" prefWidth="106.8609619140625" text="Quantity" />
         </columns>
       </TableView>
-      <ComboBox fx:id="unitComboBox" layoutX="15.0" layoutY="41.0" onAction="#onSelectUnit" prefWidth="150.0" />
+      <ComboBox fx:id="unitComboBox" layoutX="15.0" layoutY="41.0" onAction="#selectUnit" prefWidth="150.0" />
       <Label layoutX="15.0" layoutY="14.0" text="Select Unit" />
       <Button fx:id="removeAssetButton" disable="true" layoutX="518.0" layoutY="362.0" mnemonicParsing="false" onAction="#removeAsset" text="Remove" />
       <Button layoutX="15.0" layoutY="362.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back" />

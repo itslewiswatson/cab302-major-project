@@ -41,6 +41,11 @@ public class DBStatements {
     private PreparedStatement getActiveTrades;
 
     /**
+     * A precompiled SQL statement to retrieve all fulfilled trades.
+     */
+    private PreparedStatement getHistoricTrades;
+
+    /**
      * A precompiled SQL statement to retrieve all units.
      */
     private PreparedStatement getUnits;
@@ -114,6 +119,8 @@ public class DBStatements {
 
     private PreparedStatement updateUnitAssetQuantity;
 
+    private PreparedStatement getUnitUsers;
+
     /**
      * Creates a DBStatements object.
      */
@@ -143,6 +150,8 @@ public class DBStatements {
             getAssetById = connection.prepareStatement(DBQueries.GET_ASSET_BY_ID);
             createUnitAsset = connection.prepareStatement(DBQueries.ADD_UNIT_ASSET);
             updateUnitAssetQuantity = connection.prepareStatement(DBQueries.UPDATE_UNIT_ASSET);
+            getHistoricTrades = connection.prepareStatement(DBQueries.GET_HISTORIC_TRADES);
+            getUnitUsers = connection.prepareStatement(DBQueries.GET_UNIT_USERS);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -341,12 +350,50 @@ public class DBStatements {
                 );
                 trades.add(trade);
             }
-            System.out.println(trades);
             return trades;
         } catch (SQLException exception) {
             exception.printStackTrace();
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return trades;
+    }
+
+    public ArrayList<Trade> fetchHistoricTrades() {
+        ResultSet tradeResultSet;
+        ArrayList<Trade> trades = new ArrayList<>();
+
+        try {
+            tradeResultSet = getHistoricTrades.executeQuery();
+
+            while (tradeResultSet.next()) {
+                Trade trade = new Trade(
+                        tradeResultSet.getString("id"),
+                        tradeResultSet.getString("unit_id"),
+                        new Asset(
+                                tradeResultSet.getString("asset_id"),
+                                tradeResultSet.getString("name")
+                        ),
+                        new User(
+                                tradeResultSet.getString("users.id"),
+                                tradeResultSet.getString("users.username"),
+                                tradeResultSet.getString("users.password"),
+                                tradeResultSet.getBoolean("users.admin")
+                        ),
+                        tradeResultSet.getDate("date_listed").toLocalDate(),
+                        TradeType.valueOf(tradeResultSet.getString("type")),
+                        tradeResultSet.getInt("quantity"),
+                        tradeResultSet.getInt("price"),
+                        tradeResultSet.getInt("quantity_filled"),
+                        null
+                );
+                trades.add(trade);
+            }
+
+            return trades;
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
 
@@ -654,5 +701,31 @@ public class DBStatements {
         createUnitAsset.setString(2, unitAsset.getAsset().getAssetId());
         createUnitAsset.setInt(3, unitAsset.getQuantity());
         createUnitAsset.execute();
+    }
+
+    public ArrayList<User> fetchUnitUsers(String unitId) {
+        ResultSet userResultSet;
+        ArrayList<User> users = new ArrayList<>();
+
+        try {
+            getUnitUsers.setString(1, unitId);
+            userResultSet = getUnitUsers.executeQuery();
+
+            while (userResultSet.next()) {
+                User user = new User(
+                        userResultSet.getString("id"),
+                        userResultSet.getString("username"),
+                        userResultSet.getString("password"),
+                        userResultSet.getBoolean("admin")
+                );
+                users.add(user);
+            }
+
+            return users;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return users;
     }
 }

@@ -201,6 +201,22 @@ public class RequestHandler extends Thread {
             return;
         }
 
+        if (object instanceof GetHistoricTradesDTO) {
+            GetHistoricTradesDTO getHistoricTradesDTO = (GetHistoricTradesDTO) object;
+            GetHistoricTradesHandler getHistoricTradesHandler = new GetHistoricTradesHandler(dbStatements);
+            ArrayList<Trade> historicTrades = getHistoricTradesHandler.handle(getHistoricTradesDTO);
+            sendOutput(historicTrades);
+            return;
+        }
+
+        if (object instanceof GetUnitUsersDTO) {
+            GetUnitUsersDTO getUnitUsersDTO = (GetUnitUsersDTO) object;
+            GetUnitUsersHandler getUnitUsersHandler = new GetUnitUsersHandler(dbStatements);
+            ArrayList<User> users = getUnitUsersHandler.handle(getUnitUsersDTO);
+            sendOutput(users);
+            return;
+        }
+
         throw new IOException();
     }
 

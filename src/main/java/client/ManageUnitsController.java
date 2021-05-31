@@ -80,6 +80,16 @@ public class ManageUnitsController extends Controller implements Initializable {
         setupUnitAssetTable();
     }
 
+    private ArrayList<Trade> fetchHistoricTrades(Unit unit) {
+        String unitId = unit.getUnitId();
+        sendObject(new GetHistoricTradesDTO(unitId));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            return new ArrayList<>();
+        }
+    }
+
     private ArrayList<Unit> fetchUnits() {
         sendObject(new GetUnitsDTO(null));
         try {
@@ -111,6 +121,17 @@ public class ManageUnitsController extends Controller implements Initializable {
     private ArrayList<UnitAsset> fetchUnitAssets(Unit unit) {
         String unitId = unit.getUnitId();
         sendObject(new GetUnitAssetsDTO(unitId));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    private ArrayList<User> fetchUnitUsers(Unit unit) {
+        String unitId = unit.getUnitId();
+        sendObject(new GetUnitUsersDTO(unitId));
         try {
             return readObject();
         } catch (NullResultException e) {
@@ -163,7 +184,7 @@ public class ManageUnitsController extends Controller implements Initializable {
     }
 
     @FXML
-    private void onSelectUnit() {
+    private void selectUnit() {
         Unit selectedUnit = unitComboBox.getValue();
         if (selectedUnit == null) {
             disableInputs();
@@ -180,12 +201,19 @@ public class ManageUnitsController extends Controller implements Initializable {
 
         populateUnitAssetTable(unit);
 
-        ArrayList<Trade> trades = fetchUnitTrades(unit);
-        pendingTrades.setText("Pending Trades: " + trades.size());
+        ArrayList<User> unitUsers = fetchUnitUsers(unit);
+        userCountLabel.setText("Users: " + unitUsers.size());
+
+        ArrayList<UnitAsset> unitAssets = fetchUnitAssets(unit);
+        assetsHeldLabel.setText("Assets Held: " + unitAssets.size());
+
+        ArrayList<Trade> tradesPending = fetchUnitTrades(unit);
+        pendingTrades.setText("Pending Trades: " + tradesPending.size());
+
+        ArrayList<Trade> tradesHistoric = fetchHistoricTrades(unit);
+        completedTrades.setText("Completed Trades: " + tradesHistoric.size());
 
         unitIdLabel.setText("Unit ID: " + unit.getUnitId());
-        userCountLabel.setText("Users: " + unit.getUsers().size());
-        assetsHeldLabel.setText("Assets Held: " + unit.getUnitAssets().size());
         creditsLabel.setText("Credits: " + unit.getCredits());
         enableInputs();
     }
@@ -259,8 +287,7 @@ public class ManageUnitsController extends Controller implements Initializable {
             readObject();
         } catch (NullResultException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             addAssetTextField.clear();
             allAssetsComboBox.setValue(null);
         }
