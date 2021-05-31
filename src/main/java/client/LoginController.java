@@ -1,5 +1,6 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import common.domain.User;
 import common.dto.LoginDTO;
@@ -55,10 +56,7 @@ public class LoginController extends Controller {
                 alert.showAndWait();
             }
         } catch (NullResultException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Contact an IT admin for an account.", ButtonType.OK);
-            alert.setHeaderText("No such username exists.");
-            alert.showAndWait();
+            AlertDialog.warning("No such username exists", "Contact an IT admin for an account");
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.WARNING, "If problem persists restart the client.", ButtonType.OK);
