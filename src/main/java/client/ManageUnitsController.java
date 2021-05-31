@@ -9,6 +9,7 @@ import common.dto.*;
 import common.exceptions.NullResultException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -52,6 +53,15 @@ public class ManageUnitsController extends Controller implements Initializable {
 
     @FXML
     private Label completedTrades;
+
+    @FXML
+    private Button addAssetButton;
+
+    @FXML
+    private TextField addAssetTextField;
+
+    @FXML
+    private Button removeAssetButton;
 
     @FXML
     private TableView<UnitAsset> unitAssetTableView;
@@ -159,7 +169,7 @@ public class ManageUnitsController extends Controller implements Initializable {
     private void onSelectUnit() {
         Unit selectedUnit = unitComboBox.getValue();
         if (selectedUnit == null) {
-            disableSaveCredits();
+            disableInputs();
             return;
         }
 
@@ -176,7 +186,7 @@ public class ManageUnitsController extends Controller implements Initializable {
         userCountLabel.setText("Users: " + unit.getUsers().size());
         assetsHeldLabel.setText("Assets Held: " + unit.getUnitAssets().size());
         creditsLabel.setText("Credits: " + unit.getCredits());
-        enableSaveCredits();
+        enableInputs();
     }
 
     @FXML
@@ -205,16 +215,37 @@ public class ManageUnitsController extends Controller implements Initializable {
         unitComboBox.setItems(FXCollections.observableArrayList(units));
     }
 
+    @FXML
+    private void removeAsset() {
+        UnitAsset selectedUnitAsset = unitAssetTableView.getSelectionModel().getSelectedItem();
+        if (selectedUnitAsset == null) return;
+
+        RemoveUnitAssetDTO dto = new RemoveUnitAssetDTO(selectedUnitAsset.getUnitId(), selectedUnitAsset.getAsset().getAssetId());
+        sendObject(dto);
+
+        try {
+            Boolean success = readObject();
+            if (!success) {
+                // TODO show alert here
+                return;
+            }
+            ObservableList<UnitAsset> visibleUnitAssets = unitAssetTableView.getItems().filtered(unitAsset -> !unitAsset.getAsset().getAssetId().equals(selectedUnitAsset.getAsset().getAssetId()) && !unitAsset.getUnitId().equals(selectedUnitAsset.getUnitId()));
+            unitAssetTableView.setItems(visibleUnitAssets);
+        } catch (NullResultException e) {
+            // TODO show alert here
+        }
+    }
+
     public void goBack() {
         switchToPage(Page.myAccount);
     }
 
-    private void disableSaveCredits() {
+    private void disableInputs() {
         creditsTextField.setDisable(true);
         saveCreditsButton.setDisable(true);
     }
 
-    private void enableSaveCredits() {
+    private void enableInputs() {
         creditsTextField.setDisable(false);
         saveCreditsButton.setDisable(false);
     }

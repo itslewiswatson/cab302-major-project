@@ -85,6 +85,10 @@ public class RequestHandler extends Thread {
      * @throws IOException An error occurred when writing the object to the stream.
      */
     private void handleRequest(Object object) throws IOException {
+        if (!(object instanceof DTO)) {
+            throw new IOException();
+        }
+
         if (object instanceof LoginDTO) {
             LoginDTO loginDTO = (LoginDTO) object;
             LoginHandler loginHandler = new LoginHandler(dbStatements);
@@ -178,6 +182,14 @@ public class RequestHandler extends Thread {
             GetUnitAssetsHandler getUnitAssetsHandler = new GetUnitAssetsHandler(dbStatements);
             ArrayList<UnitAsset> unitAssets = getUnitAssetsHandler.handle(getUnitAssetsDTO);
             sendOutput(unitAssets);
+            return;
+        }
+
+        if (object instanceof RemoveUnitAssetDTO) {
+            RemoveUnitAssetDTO removeUnitAssetDTO = (RemoveUnitAssetDTO) object;
+            RemoveUnitAssetHandler removeUnitAssetHandler = new RemoveUnitAssetHandler(dbStatements);
+            Boolean unitAssetRemoved = removeUnitAssetHandler.handle(removeUnitAssetDTO);
+            sendOutput(unitAssetRemoved);
             return;
         }
 

@@ -96,6 +96,16 @@ public class DBStatements {
     private PreparedStatement getUnitAssetsById;
 
     /**
+     * A precompiled to get a unit asset by its composite key.
+     */
+    private PreparedStatement getUnitAsset;
+
+    /**
+     * A precompiled SQL statement to remove a unit asset.
+     */
+    private PreparedStatement deleteUnitAsset;
+
+    /**
      * Creates a DBStatements object.
      */
     public DBStatements() {
@@ -119,6 +129,8 @@ public class DBStatements {
             getUnitById = connection.prepareStatement(DBQueries.GET_UNIT_BY_ID);
             updateUnit = connection.prepareStatement(DBQueries.UPDATE_UNIT);
             getUnitAssetsById = connection.prepareStatement(DBQueries.GET_UNIT_ASSETS_BY_UNIT);
+            getUnitAsset = connection.prepareStatement(DBQueries.GET_UNIT_ASSET);
+            deleteUnitAsset = connection.prepareStatement(DBQueries.REMOVE_UNIT_ASSET);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -562,5 +574,41 @@ public class DBStatements {
         }
 
         return unitAssets;
+    }
+
+    public UnitAsset findUnitAsset(String unitId, String assetId) {
+        ResultSet unitAssetResultSet;
+        UnitAsset unitAsset = null;
+
+        try {
+            getUnitAsset.setString(1, unitId);
+            getUnitAsset.setString(2, assetId);
+            unitAssetResultSet = getUnitAsset.executeQuery();
+
+            if (unitAssetResultSet.isBeforeFirst()) {
+                unitAssetResultSet.next();
+
+                unitAsset = new UnitAsset(
+                        unitAssetResultSet.getString("unit_id"),
+                        new Asset(
+                                unitAssetResultSet.getString("A.id"),
+                                unitAssetResultSet.getString("name")
+                        ),
+                        unitAssetResultSet.getInt("quantity")
+                );
+
+                return unitAsset;
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return unitAsset;
+    }
+
+    public void removeUnitAsset(UnitAsset unitAsset) throws SQLException {
+        deleteUnitAsset.setString(1, unitAsset.getUnitId());
+        deleteUnitAsset.setString(2, unitAsset.getAsset().getAssetId());
+        deleteUnitAsset.executeQuery();
     }
 }

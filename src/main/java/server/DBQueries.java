@@ -95,4 +95,14 @@ public class DBQueries {
      * SQL statement to fetch unit assets by unit ID;
      */
     public static final String GET_UNIT_ASSETS_BY_UNIT = "SELECT * FROM unitassets INNER JOIN assets A ON asset_id = A.id WHERE unit_id = ?";
+
+    /**
+     * SQL statement to fetch a user asset by its ID.
+     */
+    public static final String GET_UNIT_ASSET = "SELECT * FROM unitassets INNER JOIN assets A ON asset_id = A.id WHERE unit_id = ? AND asset_id = ?";
+
+    /**
+     * SQL statement to remove a unit asset by its ID.
+     */
+    public static final String REMOVE_UNIT_ASSET = "DELETE FROM unitassets WHERE unit_id = ? AND asset_id = ?";
 }

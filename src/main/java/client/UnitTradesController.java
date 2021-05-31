@@ -158,7 +158,7 @@ public class UnitTradesController extends Controller implements Initializable {
     }
 
     @FXML
-    public void onDeleteTrade() {
+    public void deleteTrade() {
         Trade selectedTrade = tableView.getSelectionModel().getSelectedItem();
         // TODO show alert here
         if (selectedTrade == null) return;
