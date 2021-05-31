@@ -33,8 +33,9 @@ class Server {
 
                 ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
                 ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                RoutesMap routesMap = new RoutesMap();
 
-                Thread thread = new RequestHandler(clientSocket, inputStream, outputStream, dbStatements);
+                Thread thread = new RequestHandler(clientSocket, inputStream, outputStream, dbStatements, routesMap);
 
                 System.out.println("\tConnection sent to thread.");
                 thread.start();

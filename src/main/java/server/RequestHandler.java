@@ -1,14 +1,14 @@
 package server;
 
-import common.domain.*;
-import common.dto.*;
-import server.handlers.*;
+import common.dto.DTO;
+import common.exceptions.RouteNotFoundException;
+import server.handlers.Handler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * This class represents a request handler.
@@ -36,18 +36,25 @@ public class RequestHandler extends Thread {
     private final DBStatements dbStatements;
 
     /**
+     * The routes map.
+     */
+    private final RoutesMap routesMap;
+
+    /**
      * Creates a RequestHandler object when a new thread is created.
      *
      * @param clientSocket The client socket.
      * @param inputStream  The server socket input stream.
      * @param outputStream The server socket output stream.
      * @param dbStatements The database controller.
+     * @param routesMap    The routes map.
      */
-    public RequestHandler(Socket clientSocket, ObjectInputStream inputStream, ObjectOutputStream outputStream, DBStatements dbStatements) {
+    public RequestHandler(Socket clientSocket, ObjectInputStream inputStream, ObjectOutputStream outputStream, DBStatements dbStatements, RoutesMap routesMap) {
         this.clientSocket = clientSocket;
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         this.dbStatements = dbStatements;
+        this.routesMap = routesMap;
     }
 
     /**
@@ -75,6 +82,8 @@ public class RequestHandler extends Thread {
                 System.out.println("Connection closed.\n");
             } catch (IOException ignored) {
             }
+        } catch (RouteNotFoundException e) {
+            System.out.println("Route not found.\n");
         }
     }
 
@@ -84,140 +93,28 @@ public class RequestHandler extends Thread {
      * @param object The object received by the server.
      * @throws IOException An error occurred when writing the object to the stream.
      */
-    private void handleRequest(Object object) throws IOException {
+    private void handleRequest(Object object) throws IOException, RouteNotFoundException {
         if (!(object instanceof DTO)) {
             throw new IOException();
         }
 
-        if (object instanceof LoginDTO) {
-            LoginDTO loginDTO = (LoginDTO) object;
-            LoginHandler loginHandler = new LoginHandler(dbStatements);
-            User user = loginHandler.handle(loginDTO);
-            sendOutput(user);
-            return;
+        try {
+            Class<Handler<Object, DTO>> handlerClass = getHandlerClass(object);
+            Handler<Object, DTO> handler = createHandlerFromClass(handlerClass);
+            Object result = handler.handle((DTO) object);
+            sendOutput(result);
+        } catch (Exception e) {
+            throw new RouteNotFoundException();
         }
+    }
 
-        if (object instanceof CreateAccountDTO) {
-            CreateAccountDTO createAccountDTO = (CreateAccountDTO) object;
-            CreateAccountHandler createAccountHandler = new CreateAccountHandler(dbStatements);
-            User user = createAccountHandler.handle(createAccountDTO);
-            sendOutput(user);
-            return;
-        }
+    private Handler<Object, DTO> createHandlerFromClass(Class<Handler<Object, DTO>> handlerClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        return handlerClass.getDeclaredConstructor(DBStatements.class).newInstance(dbStatements);
+    }
 
-        if (object instanceof NewTradeDTO) {
-            NewTradeDTO newTradeDTO = (NewTradeDTO) object;
-            NewTradeHandler newTradeHandler = new NewTradeHandler(dbStatements);
-            Trade newTrade = newTradeHandler.handle(newTradeDTO);
-            sendOutput(newTrade);
-            return;
-        }
-
-        if (object instanceof UpdatePasswordDTO) {
-            UpdatePasswordDTO updatePasswordDTO = (UpdatePasswordDTO) object;
-            UpdatePasswordHandler updatePasswordHandler = new UpdatePasswordHandler(dbStatements);
-            User user = updatePasswordHandler.handle(updatePasswordDTO);
-            sendOutput(user);
-            return;
-        }
-
-        if (object instanceof GetTradesDTO) {
-            GetTradesDTO getTradesDTO = (GetTradesDTO) object;
-            GetTradesHandler getTradesHandler = new GetTradesHandler(dbStatements);
-            ArrayList<Trade> trades = getTradesHandler.handle(getTradesDTO);
-            sendOutput(trades);
-            return;
-        }
-
-        if (object instanceof GetUnitsDTO) {
-            GetUnitsDTO getUnitsDTO = (GetUnitsDTO) object;
-            GetUnitsHandler getUnitsHandler = new GetUnitsHandler(dbStatements);
-            ArrayList<Unit> units = getUnitsHandler.handle(getUnitsDTO);
-            sendOutput(units);
-            return;
-        }
-
-        if (object instanceof GetAssetsDTO) {
-            GetAssetsDTO getAssetsDTO = (GetAssetsDTO) object;
-            GetAssetsHandler getAssetsHandler = new GetAssetsHandler(dbStatements);
-            ArrayList<FullAsset> assets = getAssetsHandler.handle(getAssetsDTO);
-            sendOutput(assets);
-            return;
-        }
-
-        if (object instanceof AddAssetDTO) {
-            AddAssetDTO addAssetDTO = (AddAssetDTO) object;
-            AddAssetHandler addAssetHandler = new AddAssetHandler(dbStatements);
-            ArrayList<FullAsset> assets = addAssetHandler.handle(addAssetDTO);
-            sendOutput(assets);
-            return;
-        }
-
-        if (object instanceof GetUnitTradesDTO) {
-            GetUnitTradesDTO getUnitTradesDTO = (GetUnitTradesDTO) object;
-            GetUnitTradesHandler getUnitTradesHandler = new GetUnitTradesHandler(dbStatements);
-            ArrayList<Trade> trades = getUnitTradesHandler.handle(getUnitTradesDTO);
-            sendOutput(trades);
-            return;
-        }
-
-        if (object instanceof RemoveTradeDTO) {
-            RemoveTradeDTO removeTradeDTO = (RemoveTradeDTO) object;
-            RemoveTradeHandler removeTradeHandler = new RemoveTradeHandler(dbStatements);
-            Boolean tradeRemoved = removeTradeHandler.handle(removeTradeDTO);
-            sendOutput(tradeRemoved);
-            return;
-        }
-
-        if (object instanceof UpdateCreditsDTO) {
-            UpdateCreditsDTO updateCreditsDTO = (UpdateCreditsDTO) object;
-            UpdateCreditsHandler updateCreditsHandler = new UpdateCreditsHandler(dbStatements);
-            Unit unit = updateCreditsHandler.handle(updateCreditsDTO);
-            sendOutput(unit);
-            return;
-        }
-
-        if (object instanceof GetUnitAssetsDTO) {
-            GetUnitAssetsDTO getUnitAssetsDTO = (GetUnitAssetsDTO) object;
-            GetUnitAssetsHandler getUnitAssetsHandler = new GetUnitAssetsHandler(dbStatements);
-            ArrayList<UnitAsset> unitAssets = getUnitAssetsHandler.handle(getUnitAssetsDTO);
-            sendOutput(unitAssets);
-            return;
-        }
-
-        if (object instanceof RemoveUnitAssetDTO) {
-            RemoveUnitAssetDTO removeUnitAssetDTO = (RemoveUnitAssetDTO) object;
-            RemoveUnitAssetHandler removeUnitAssetHandler = new RemoveUnitAssetHandler(dbStatements);
-            Boolean unitAssetRemoved = removeUnitAssetHandler.handle(removeUnitAssetDTO);
-            sendOutput(unitAssetRemoved);
-            return;
-        }
-
-        if (object instanceof CreateOrUpdateUnitAssetDTO) {
-            CreateOrUpdateUnitAssetDTO createOrUpdateUnitAssetDTO = (CreateOrUpdateUnitAssetDTO) object;
-            CreateOrUpdateUnitAssetHandler createOrUpdateUnitAssetHandler = new CreateOrUpdateUnitAssetHandler(dbStatements);
-            ArrayList<UnitAsset> unitAssets = createOrUpdateUnitAssetHandler.handle(createOrUpdateUnitAssetDTO);
-            sendOutput(unitAssets);
-            return;
-        }
-
-        if (object instanceof GetHistoricTradesDTO) {
-            GetHistoricTradesDTO getHistoricTradesDTO = (GetHistoricTradesDTO) object;
-            GetHistoricTradesHandler getHistoricTradesHandler = new GetHistoricTradesHandler(dbStatements);
-            ArrayList<Trade> historicTrades = getHistoricTradesHandler.handle(getHistoricTradesDTO);
-            sendOutput(historicTrades);
-            return;
-        }
-
-        if (object instanceof GetUnitUsersDTO) {
-            GetUnitUsersDTO getUnitUsersDTO = (GetUnitUsersDTO) object;
-            GetUnitUsersHandler getUnitUsersHandler = new GetUnitUsersHandler(dbStatements);
-            ArrayList<User> users = getUnitUsersHandler.handle(getUnitUsersDTO);
-            sendOutput(users);
-            return;
-        }
-
-        throw new IOException();
+    @SuppressWarnings("all")
+    private Class<Handler<Object, DTO>> getHandlerClass(Object object) {
+        return (Class<Handler<Object, DTO>>) routesMap.getMap().get(object.getClass());
     }
 
     private void sendOutput(Object object) throws IOException {
