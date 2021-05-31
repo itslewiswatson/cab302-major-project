@@ -2,12 +2,12 @@ package common.domain;
 
 public class UnitAsset extends Entity {
     private final String unitId;
-    private final String assetId;
+    private final Asset asset;
     private int quantity;
 
-    public UnitAsset(String unitId, String assetId, int quantity) {
+    public UnitAsset(String unitId, Asset asset, int quantity) {
         this.unitId = unitId;
-        this.assetId = assetId;
+        this.asset = asset;
         this.quantity = quantity;
     }
 
@@ -15,8 +15,8 @@ public class UnitAsset extends Entity {
         return unitId;
     }
 
-    public String getAssetId() {
-        return assetId;
+    public Asset getAsset() {
+        return asset;
     }
 
     public int getQuantity() {

@@ -86,7 +86,13 @@ public class DBQueries {
      */
     public static final String DELETE_TRADE = "DELETE FROM trades WHERE id = ?";
 
+    /**
+     * SQL statement to update the credit's of a specified unit.
+     */
     public static final String UPDATE_UNIT = "UPDATE units SET credits = ? WHERE id = ?";
 
-    public static final String GET_UNIT_ASSETS_BY_UNIT = "SELECT * FROM unitassets WHERE unit_id = ?";
+    /**
+     * SQL statement to fetch unit assets by unit ID;
+     */
+    public static final String GET_UNIT_ASSETS_BY_UNIT = "SELECT * FROM unitassets INNER JOIN assets A ON asset_id = A.id WHERE unit_id = ?";
 }

@@ -547,7 +547,10 @@ public class DBStatements {
             while (unitAssetResultSet.next()) {
                 UnitAsset unitAsset = new UnitAsset(
                         unitAssetResultSet.getString("unit_id"),
-                        unitAssetResultSet.getString("asset_id"),
+                        new Asset(
+                                unitAssetResultSet.getString("A.id"),
+                                unitAssetResultSet.getString("name")
+                        ),
                         unitAssetResultSet.getInt("quantity")
                 );
                 unitAssets.add(unitAsset);

@@ -37,21 +37,6 @@ public class Unit extends Entity {
         return unitAssets;
     }
 
-    public UnitAsset addUnitAsset(String assetId, int quantity) {
-        UnitAsset newAsset = new UnitAsset(this.getUnitId(), assetId, quantity);
-        this.unitAssets.add(newAsset);
-        return newAsset;
-    }
-
-    public UnitAsset findAssetById(String assetId) {
-        for (UnitAsset unitAsset : this.unitAssets) {
-            if (unitAsset.getAssetId().equals(assetId)) {
-                return unitAsset;
-            }
-        }
-        return null;
-    }
-
     public ArrayList<User> getUsers() {
         return users;
     }
