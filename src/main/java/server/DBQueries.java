@@ -118,4 +118,6 @@ public class DBQueries {
     public static final String GET_HISTORIC_TRADES = "SELECT * FROM trades INNER JOIN assets ON asset_id = assets.id INNER JOIN users ON users.id = user_id WHERE date_filled IS NOT NULL";
 
     public static final String GET_UNIT_USERS = "SELECT * FROM users WHERE id IN (SELECT user_id FROM unitusers WHERE unit_id = ?)";
+
+    public static final String UPDATE_TRADE = "UPDATE trades SET quantity_filled = ?, date_filled = ? WHERE id = ?";
 }
