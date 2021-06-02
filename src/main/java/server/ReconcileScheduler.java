@@ -16,10 +16,11 @@ public class ReconcileScheduler extends Thread {
 
     @Override
     public void run() {
+        int periodSec = 5;
+
         Timer timer = new Timer();
+        TimerTask reconcile = new Reconciler(dbStatements);
 
-        TimerTask task = new Reconciler(dbStatements);
-
-        timer.schedule(task, 10000, 10000);
+        timer.schedule(reconcile, periodSec*1000, periodSec*1000);
     }
 }
