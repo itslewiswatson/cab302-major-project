@@ -52,12 +52,12 @@ public class Trade extends Entity {
     /**
      * The quantity current filled.
      */
-    private final int quantityFilled;
+    private int quantityFilled;
 
     /**
      * The date when the entire trade has been fulfilled.
      */
-    private final LocalDate dateFilled;
+    private LocalDate dateFilled;
 
     /**
      * Creates a Trade object when a trade offer is retrieved from the database.
@@ -167,6 +167,10 @@ public class Trade extends Entity {
         return quantityFilled;
     }
 
+    public void setDateFilled(LocalDate dateFilled) {
+        this.dateFilled = dateFilled;
+    }
+
     /**
      * Get the trade's date fulfilled
      *
@@ -174,5 +178,13 @@ public class Trade extends Entity {
      */
     public LocalDate getDateFilled() {
         return dateFilled;
+    }
+
+    public void setQuantityFilled(int quantityFilled) {
+        this.quantityFilled = quantityFilled;
+    }
+
+    public void addQuantityFilled(int quantity) {
+        quantityFilled += quantity;
     }
 }
