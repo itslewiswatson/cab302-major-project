@@ -121,6 +121,8 @@ public class DBStatements {
 
     private PreparedStatement getUnitUsers;
 
+    private PreparedStatement updateTrade;
+
     /**
      * Creates a DBStatements object.
      */
@@ -152,6 +154,7 @@ public class DBStatements {
             updateUnitAssetQuantity = connection.prepareStatement(DBQueries.UPDATE_UNIT_ASSET);
             getHistoricTrades = connection.prepareStatement(DBQueries.GET_HISTORIC_TRADES);
             getUnitUsers = connection.prepareStatement(DBQueries.GET_UNIT_USERS);
+            updateTrade = connection.prepareStatement(DBQueries.UPDATE_TRADE);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -508,7 +511,7 @@ public class DBStatements {
 
     public Trade findTradeById(String tradeId) {
         ResultSet tradeResultSet;
-        Trade trade = null;
+        Trade trade;
 
         try {
             getTradeById.setString(1, tradeId);
@@ -544,7 +547,7 @@ public class DBStatements {
             exception.printStackTrace();
         }
 
-        return trade;
+        return null;
     }
 
     public ArrayList<Unit> findUnits() {
@@ -574,15 +577,21 @@ public class DBStatements {
         return units;
     }
 
-    public void updateUnitCredits(Unit unit) throws SQLException {
-        updateUnit.setInt(1, unit.getCredits());
-        updateUnit.setString(2, unit.getUnitId());
-        updateUnit.executeQuery();
+    public boolean updateUnitCredits(Unit unit) {
+        try {
+            updateUnit.setInt(1, unit.getCredits());
+            updateUnit.setString(2, unit.getUnitId());
+            updateUnit.executeQuery();
+        } catch (SQLException exception) {
+            return false;
+        }
+
+        return true;
     }
 
     public Unit findUnitById(String unitId) {
         ResultSet unitResultSet;
-        Unit unit = null;
+        Unit unit;
 
         try {
             getUnitById.setString(1, unitId);
@@ -599,12 +608,11 @@ public class DBStatements {
 
                 return unit;
             }
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
 
-        return unit;
+        return null;
     }
 
     public ArrayList<UnitAsset> findUnitAssetsByUnit(String unitId) {
@@ -637,7 +645,7 @@ public class DBStatements {
 
     public UnitAsset findUnitAsset(String unitId, String assetId) {
         ResultSet unitAssetResultSet;
-        UnitAsset unitAsset = null;
+        UnitAsset unitAsset;
 
         try {
             getUnitAsset.setString(1, unitId);
@@ -662,7 +670,7 @@ public class DBStatements {
             exception.printStackTrace();
         }
 
-        return unitAsset;
+        return null;
     }
 
     public void removeUnitAsset(UnitAsset unitAsset) throws SQLException {
@@ -689,18 +697,26 @@ public class DBStatements {
         return null;
     }
 
-    public void updateUnitAsset(UnitAsset unitAsset) throws SQLException {
-        updateUnitAssetQuantity.setInt(1, unitAsset.getQuantity());
-        updateUnitAssetQuantity.setString(2, unitAsset.getUnitId());
-        updateUnitAssetQuantity.setString(3, unitAsset.getAsset().getAssetId());
-        updateUnitAssetQuantity.execute();
+    public void updateUnitAsset(UnitAsset unitAsset) {
+        try {
+            updateUnitAssetQuantity.setInt(1, unitAsset.getQuantity());
+            updateUnitAssetQuantity.setString(2, unitAsset.getUnitId());
+            updateUnitAssetQuantity.setString(3, unitAsset.getAsset().getAssetId());
+            updateUnitAssetQuantity.execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
-    public void addUnitAsset(UnitAsset unitAsset) throws SQLException {
-        createUnitAsset.setString(1, unitAsset.getUnitId());
-        createUnitAsset.setString(2, unitAsset.getAsset().getAssetId());
-        createUnitAsset.setInt(3, unitAsset.getQuantity());
-        createUnitAsset.execute();
+    public void addUnitAsset(UnitAsset unitAsset) {
+        try {
+            createUnitAsset.setString(1, unitAsset.getUnitId());
+            createUnitAsset.setString(2, unitAsset.getAsset().getAssetId());
+            createUnitAsset.setInt(3, unitAsset.getQuantity());
+            createUnitAsset.execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public ArrayList<User> fetchUnitUsers(String unitId) {
@@ -727,5 +743,23 @@ public class DBStatements {
         }
 
         return users;
+    }
+
+    public void updateTrade(Trade trade) {
+        try {
+            updateTrade.setInt(1, trade.getQuantityFilled());
+
+            if (trade.getDateFilled() != null) {
+                updateTrade.setDate(2, Date.valueOf(trade.getDateFilled()));
+            }
+            else {
+                updateTrade.setDate(2, null);
+            }
+
+            updateTrade.setString(3, trade.getTradeId());
+            updateTrade.execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 }
