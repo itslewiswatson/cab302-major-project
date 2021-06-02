@@ -4,7 +4,7 @@ import common.dto.DTO;
 import server.DBStatements;
 
 abstract public class Handler<T, U extends DTO> {
-    protected DBStatements dbStatements;
+    protected final DBStatements dbStatements;
 
     public Handler(DBStatements dbStatements) {
         this.dbStatements = dbStatements;
