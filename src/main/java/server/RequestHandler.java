@@ -80,8 +80,7 @@ public class RequestHandler extends Thread {
                 clientSocket.close();
 
                 System.out.println("Connection closed.\n");
-            } catch (IOException ignored) {
-            }
+            } catch (IOException ignored) {}
         } catch (RouteNotFoundException e) {
             System.out.println("Route not found.\n");
         }
