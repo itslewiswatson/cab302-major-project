@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS trades (
   PRIMARY KEY (id),
   FOREIGN KEY (unit_id) REFERENCES units(id),
   FOREIGN KEY (asset_id) REFERENCES assets(id),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES unitusers(user_id)
 );
 
 -- Add initial entries.
