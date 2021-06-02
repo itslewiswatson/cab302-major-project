@@ -50,7 +50,7 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
         return null;
     }
 
-    private void updateUnitAsset(UnitAsset existingUnitAsset, CreateOrUpdateUnitAssetDTO dto) throws SQLException {
+    private void updateUnitAsset(UnitAsset existingUnitAsset, CreateOrUpdateUnitAssetDTO dto) {
         existingUnitAsset.setQuantity(dto.getQuantity());
         dbStatements.updateUnitAsset(existingUnitAsset);
     }
