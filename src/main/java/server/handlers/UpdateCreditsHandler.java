@@ -4,8 +4,6 @@ import common.domain.Unit;
 import common.dto.UpdateCreditsDTO;
 import server.DBStatements;
 
-import java.sql.SQLException;
-
 public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
     public UpdateCreditsHandler(DBStatements dbStatements) {
         super(dbStatements);
@@ -22,13 +20,8 @@ public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
         }
 
         unit.setCredits(newCredits);
-        try {
-            dbStatements.updateUnitCredits(unit);
-        } catch (SQLException exception) {
-            return null;
-        }
 
-        return unit;
+        return (dbStatements.updateUnitCredits(unit)) ?  unit : null;
     }
 
     private Unit resolveUnit(String unitId) {
