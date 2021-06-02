@@ -53,6 +53,7 @@ final class DBConnection {
      *
      * @return The database connection.
      */
+    @SuppressWarnings("InstantiationOfUtilityClass")
     public static Connection getConnection() {
         if (connection == null) {
             new DBConnection();
