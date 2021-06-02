@@ -26,4 +26,12 @@ public class UnitAsset extends Entity {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public void addQuantity(int quantity) {
+        this.quantity += quantity;
+    }
+
+    public void removeQuantity(int quantity) {
+        this.quantity -= quantity;
+    }
 }
