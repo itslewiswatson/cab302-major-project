@@ -164,7 +164,7 @@ public class UnitTradesController extends Controller implements Initializable {
         if (selectedTrade == null) {
             AlertDialog.info("You must select a trade to remove", "Click on any item in the list, then navigate and click 'Remove'");
             return;
-        };
+        }
 
         sendObject(new RemoveTradeDTO(selectedTrade.getTradeId()));
         try {
