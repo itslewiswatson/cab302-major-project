@@ -41,7 +41,7 @@ public class User extends Entity {
         this.username = username;
         this.password = password; // Hash by using (new PasswordHasher()).hashPassword(password)
         this.admin = admin;
-        this.units = new ArrayList<String>();
+        this.units = new ArrayList<>();
     }
 
     /**
