@@ -13,7 +13,11 @@ public class PasswordHasher {
      * @param password Password
      * @return String
      */
-    public String hashPassword(String password) {
+    public static String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public static boolean checkPassword(String plaintextPassword, String hashedPassword) {
+        return BCrypt.checkpw(plaintextPassword, hashedPassword);
     }
 }

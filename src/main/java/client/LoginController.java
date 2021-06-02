@@ -5,10 +5,10 @@ import client.config.Page;
 import common.domain.User;
 import common.dto.LoginDTO;
 import common.exceptions.NullResultException;
+import common.services.PasswordHasher;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * This class is the Login GUI controller.
@@ -45,7 +45,7 @@ public class LoginController extends Controller {
             sendObject(loginDTO);
             User user = readObject();
 
-            if (user.getUsername() != null && BCrypt.checkpw(password, user.getPassword())) {
+            if (user.getUsername() != null && PasswordHasher.checkPassword(password, user.getPassword())) {
                 setUser(user);
                 switchToPage(Page.myAccount);
             } else {

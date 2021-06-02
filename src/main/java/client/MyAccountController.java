@@ -7,6 +7,7 @@ import common.domain.User;
 import common.dto.GetUnitsDTO;
 import common.dto.UpdatePasswordDTO;
 import common.exceptions.NullResultException;
+import common.services.PasswordHasher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,7 +17,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class MyAccountController extends Controller implements Initializable {
                 return;
             }
 
-            if (!BCrypt.checkpw(currentPassword, getUser().getPassword())) {
+            if (!PasswordHasher.checkPassword(currentPassword, getUser().getPassword())) {
                 AlertDialog.info("Current password is incorrect", "Please try again");
                 return;
             }
@@ -76,7 +76,7 @@ public class MyAccountController extends Controller implements Initializable {
             }
 
             User currentUser = getUser();
-            String newPasswordHashed = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+            String newPasswordHashed = PasswordHasher.hashPassword(newPassword);
 
             UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO(
                     currentUser.getUserId(),
@@ -89,7 +89,7 @@ public class MyAccountController extends Controller implements Initializable {
 
             currentUser.setPassword(existingUser.getPassword());
 
-            if (BCrypt.checkpw(newPassword, existingUser.getPassword())) {
+            if (PasswordHasher.checkPassword(newPassword, existingUser.getPassword())) {
                 AlertDialog.info("Password changed successfully");
             } else {
                 AlertDialog.error("Password could not be updated", "Please contact an IT administrator");
