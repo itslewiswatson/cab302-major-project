@@ -31,6 +31,7 @@ Should Have
 -----------
 - Server
     - Port number is retrieved from a configuration file.
+    - Support in the domain for a user being in one or more units.
 - Client
   - The server’s IP address and port number are retrieved from a configuration file.
   - Passwords are hashed before being sent to the server.
@@ -38,6 +39,7 @@ Should Have
   - Users are presented with helpful and informative error messages when the system is unable to perform their desired action.
   - Large numbers (ie quantities and unit prices) are comma-formatted (eg: 10,000,00) for easier reading.
   - Empty states (ie no trades, no units, etc) are presented nicely to the user and the user is informed of these gracefully.
+  - Intuitive handling for users who may be a part of one or more units.
 
 Nice to Have
 ------------
@@ -49,6 +51,7 @@ Nice to Have
     - Ability to sort trade history and current active trades.
     - Helpful tool tips on various GUI elements to guide and provide additional context for users.
     - Appropriate iconography to assist those who may find text too overwhelming - push for accessibility.
+    - Notifications when trades within their unit(s) have been reconciled.
   - Admins:
     - Can remove assets if they are unused.
 
