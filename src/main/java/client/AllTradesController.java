@@ -62,9 +62,12 @@ public class AllTradesController extends Controller implements Initializable {
         setupColumns();
         setupRows();
         populateTable();
+
+        Thread refreshThread = new AllTradesRefreshScheduler(this);
+        refreshThread.start();
     }
 
-    private void populateTable() {
+    public void populateTable() {
         ArrayList<Trade> trades = fetchActiveTrades();
         tableView.setItems(FXCollections.observableArrayList(trades));
     }
