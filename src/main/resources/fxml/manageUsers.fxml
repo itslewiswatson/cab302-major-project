@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ManageUsersController">
    <children>
-      <TableView layoutX="14.0" layoutY="14.0" prefHeight="333.0" prefWidth="276.0">
+      <TableView fx:id="usersTableView" layoutX="14.0" layoutY="14.0" prefHeight="333.0" prefWidth="276.0">
         <columns>
-          <TableColumn prefWidth="153.0" text="Username" />
-          <TableColumn minWidth="5.0" prefWidth="98.0" text="Admin" />
+          <TableColumn fx:id="usernameTableColumn" prefWidth="153.0" text="Username" />
+          <TableColumn fx:id="adminTableColumn" minWidth="5.0" prefWidth="98.0" text="Admin" />
         </columns>
       </TableView>
       <TableView layoutX="310.0" layoutY="14.0" prefHeight="189.0" prefWidth="276.0">

@@ -123,6 +123,8 @@ public class DBStatements {
 
     private PreparedStatement updateTrade;
 
+    private PreparedStatement getUsers;
+
     /**
      * Creates a DBStatements object.
      */
@@ -155,6 +157,7 @@ public class DBStatements {
             getHistoricTrades = connection.prepareStatement(DBQueries.GET_HISTORIC_TRADES);
             getUnitUsers = connection.prepareStatement(DBQueries.GET_UNIT_USERS);
             updateTrade = connection.prepareStatement(DBQueries.UPDATE_TRADE);
+            getUsers = connection.prepareStatement(DBQueries.GET_USERS);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -761,5 +764,30 @@ public class DBStatements {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public ArrayList<User> fetchUsers() {
+        ResultSet userResultSet;
+        ArrayList<User> users = new ArrayList<>();
+
+        try {
+            userResultSet = getUsers.executeQuery();
+
+            while (userResultSet.next()) {
+                User user = new User(
+                        userResultSet.getString("id"),
+                        userResultSet.getString("username"),
+                        userResultSet.getString("password"),
+                        userResultSet.getBoolean("admin")
+                );
+                users.add(user);
+            }
+
+            return users;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return users;
     }
 }

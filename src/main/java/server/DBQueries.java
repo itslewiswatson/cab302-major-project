@@ -120,4 +120,6 @@ public class DBQueries {
     public static final String GET_UNIT_USERS = "SELECT * FROM users WHERE id IN (SELECT user_id FROM unitusers WHERE unit_id = ?)";
 
     public static final String UPDATE_TRADE = "UPDATE trades SET quantity_filled = ?, date_filled = ? WHERE id = ?";
+
+    public static final String GET_USERS = "SELECT * FROM users";
 }
