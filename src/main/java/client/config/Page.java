@@ -6,7 +6,8 @@ public enum Page {
     allTrades("allTrades.fxml", "client.AllTradesController"),
     unitTrades("unitTrades.fxml", "client.UnitTradesController"),
     assets("assets.fxml", "client.AssetsController"),
-    manageUnits("manageUnits.fxml", "client.ManageUnitsController");
+    manageUnits("manageUnits.fxml", "client.ManageUnitsController"),
+    manageUsers("manageUsers.fxml", "client.ManageUsersController");
 
     public final String path;
     public final String namespace;

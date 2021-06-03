@@ -55,6 +55,9 @@ public class MyAccountController extends Controller implements Initializable {
     @FXML
     private Button manageUnitsButton;
 
+    @FXML
+    private Button manageUsersButton;
+
     public void changePassword() {
         String currentPassword = currentPasswordField.getText();
         String newPassword = newPasswordField.getText();
@@ -117,6 +120,10 @@ public class MyAccountController extends Controller implements Initializable {
 
     public void manageUnits() {
         switchToPage(Page.manageUnits);
+    }
+
+    public void manageUsers() {
+        switchToPage(Page.manageUsers);
     }
 
     private ArrayList<Unit> fetchUserUnits(String userId) {
