@@ -6,6 +6,7 @@ public enum Page {
     myAccount("myAccount.fxml", MyAccountController.class),
     login("login.fxml", LoginController.class),
     allTrades("allTrades.fxml", AllTradesController.class),
+    tradeHistory("tradeHistory.fxml", TradeHistoryController.class),
     unitTrades("unitTrades.fxml", UnitTradesController.class),
     assets("assets.fxml", AssetsController.class),
     manageUnits("manageUnits.fxml", ManageUnitsController.class),

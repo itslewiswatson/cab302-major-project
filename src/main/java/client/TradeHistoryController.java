@@ -1,10 +1,9 @@
 package client;
 
-import client.alert.AlertDialog;
 import client.config.Page;
 import client.dialog.TradeInfoDialogController;
 import common.domain.Trade;
-import common.dto.GetTradesDTO;
+import common.dto.GetHistoricTradesDTO;
 import common.exceptions.NullResultException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -24,8 +23,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AllTradesController extends TableController implements Initializable {
-    public AllTradesController(ClientController clientController) {
+public class TradeHistoryController extends TableController implements Initializable {
+    public TradeHistoryController(ClientController clientController) {
         super(clientController);
     }
 
@@ -34,6 +33,9 @@ public class AllTradesController extends TableController implements Initializabl
 
     @FXML
     private TableColumn<Trade, String> dateListed;
+
+    @FXML
+    private TableColumn<Trade, String> dateFulfilled;
 
     @FXML
     private TableColumn<Trade, String> asset;
@@ -47,12 +49,12 @@ public class AllTradesController extends TableController implements Initializabl
     @FXML
     private TableColumn<Trade, String> tradeType;
 
-    private ArrayList<Trade> fetchActiveTrades() {
-        sendObject(new GetTradesDTO());
+    private ArrayList<Trade> fetchHistoricTrades() {
+        sendObject(new GetHistoricTradesDTO());
         try {
             return readObject();
         } catch (NullResultException e) {
-            //AlertDialog.info("There are no active trades at the moment", "All trades have been fulfilled. Consider making a new trade of your own.");
+            //AlertDialog.info("There are no historic trades at the moment", "No trades have been fulfilled. Check back later.");
             return new ArrayList<>();
         }
     }
@@ -68,13 +70,14 @@ public class AllTradesController extends TableController implements Initializabl
     }
 
     public void populateTable() {
-        ArrayList<Trade> trades = fetchActiveTrades();
+        ArrayList<Trade> trades = fetchHistoricTrades();
         tableView.setItems(FXCollections.observableArrayList(trades));
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
         dateListed.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getDateListed().toString()));
+        dateFulfilled.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getDateFilled().toString()));
         asset.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getAsset().getAssetName()));
         quantity.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getQuantity() - p.getValue().getQuantityFilled()));
         price.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getPrice()));
@@ -101,7 +104,7 @@ public class AllTradesController extends TableController implements Initializabl
     public void viewTradeInfo(Trade trade) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tradeDialog.fxml"));
-            loader.setControllerFactory(c -> new TradeInfoDialogController(trade, false, false));
+            loader.setControllerFactory(c -> new TradeInfoDialogController(trade, false, true));
             Parent parent = loader.load();
 
             Scene scene = new Scene(parent);

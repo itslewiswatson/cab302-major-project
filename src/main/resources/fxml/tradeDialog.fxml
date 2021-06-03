@@ -8,11 +8,11 @@
    <children>
       <Label fx:id="tradeId" layoutX="15.0" layoutY="15.0" text="Trade ID: " />
       <Label fx:id="asset" layoutX="15.0" layoutY="35.0" text="Asset: " />
-      <Label fx:id="unitId" layoutX="15.0" layoutY="55.0" text="Unit ID: " />
+      <Label fx:id="unitOrUser" layoutX="15.0" layoutY="55.0" text="Unit/User: " />
       <Label fx:id="dateListed" layoutX="15.0" layoutY="75.0" text="Date Listed: " />
       <Label fx:id="tradeType" layoutX="15.0" layoutY="95.0" text="Trade Type: " />
       <Label fx:id="initialQty" layoutX="15.0" layoutY="115.0" text="Initial Quantity: " />
-      <Label fx:id="filledQty" layoutX="15.0" layoutY="135.0" text="Quantity Filled: " />
+      <Label fx:id="filledQtyOrDate" layoutX="15.0" layoutY="135.0" text="Quantity/Date Filled: " />
       <Label fx:id="price" layoutX="15.0" layoutY="155.0" text="Price: " />
       <Button fx:id="okButton" layoutX="137.0" layoutY="193.0" mnemonicParsing="false" onAction="#onClickOK" prefHeight="26.0" prefWidth="60.0" text="OK" />
    </children>

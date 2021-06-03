@@ -83,8 +83,7 @@ public class ManageUnitsController extends Controller implements Initializable {
     }
 
     private ArrayList<Trade> fetchHistoricTrades(Unit unit) {
-        String unitId = unit.getUnitId();
-        sendObject(new GetHistoricTradesDTO(unitId));
+        sendObject(new GetHistoricTradesDTO());
         try {
             return readObject();
         } catch (NullResultException e) {
