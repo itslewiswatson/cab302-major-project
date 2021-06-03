@@ -1,6 +1,7 @@
 package common.domain;
 
 import common.dataTypes.TradeType;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 
@@ -57,7 +58,7 @@ public class Trade extends Entity {
     /**
      * The date when the entire trade has been fulfilled.
      */
-    private LocalDate dateFilled;
+    private @Nullable LocalDate dateFilled;
 
     /**
      * Creates a Trade object when a trade offer is retrieved from the database.
@@ -73,7 +74,7 @@ public class Trade extends Entity {
      * @param quantityFilled The quantity current filled (default: 0)
      * @param dateFilled     The date which the entire order was filled.
      */
-    public Trade(String tradeId, Unit unit, Asset asset, User user, LocalDate dateListed, TradeType type, int quantity, int price, int quantityFilled, LocalDate dateFilled) {
+    public Trade(String tradeId, Unit unit, Asset asset, User user, LocalDate dateListed, TradeType type, int quantity, int price, int quantityFilled, @Nullable LocalDate dateFilled) {
         this.tradeId = tradeId;
         this.unit = unit;
         this.asset = asset;
@@ -167,7 +168,7 @@ public class Trade extends Entity {
         return quantityFilled;
     }
 
-    public void setDateFilled(LocalDate dateFilled) {
+    public void setDateFilled(@Nullable LocalDate dateFilled) {
         this.dateFilled = dateFilled;
     }
 
@@ -176,7 +177,7 @@ public class Trade extends Entity {
      *
      * @return Date if filled, null otherwise
      */
-    public LocalDate getDateFilled() {
+    public @Nullable LocalDate getDateFilled() {
         return dateFilled;
     }
 

@@ -178,6 +178,7 @@ public class DBStatements implements DBStrategy {
         }
     }
 
+    @Override
     public void createTrade(Trade trade) {
         try {
             newTrade.setString(1, trade.getTradeId());
@@ -197,6 +198,7 @@ public class DBStatements implements DBStrategy {
         }
     }
 
+    @Override
     public void addAsset(Asset asset) {
         try {
             newAsset.setString(1, asset.getAssetId());
@@ -212,6 +214,7 @@ public class DBStatements implements DBStrategy {
      *
      * @param user A new user account.
      */
+    @Override
     public void addNewUser(User user) {
         try {
             insertUser.setString(1, user.getUserId());
@@ -225,6 +228,7 @@ public class DBStatements implements DBStrategy {
         }
     }
 
+    @Override
     public User findUserById(String userId) {
         User user = null;
         ResultSet userResultSet;
@@ -264,6 +268,7 @@ public class DBStatements implements DBStrategy {
      * @param username A set of login credentials.
      * @return An existing user account.
      */
+    @Override
     public User findUserByUsername(String username) {
         User user = null;
         ResultSet userResultSet;
@@ -302,6 +307,7 @@ public class DBStatements implements DBStrategy {
      *
      * @param user An existing user account.
      */
+    @Override
     public void updatePassword(User user) {
         try {
             updatePassword.setString(1, user.getPassword());
@@ -341,6 +347,7 @@ public class DBStatements implements DBStrategy {
         return units;
     }
 
+    @Override
     public ArrayList<Trade> getActiveTrades() {
         ResultSet tradeResultSet;
         ArrayList<Trade> trades = new ArrayList<>();
@@ -386,6 +393,7 @@ public class DBStatements implements DBStrategy {
         return trades;
     }
 
+    @Override
     public ArrayList<Trade> fetchHistoricTrades() {
         ResultSet tradeResultSet;
         ArrayList<Trade> trades = new ArrayList<>();
@@ -434,6 +442,7 @@ public class DBStatements implements DBStrategy {
      *
      * @return Array of units
      */
+    @Override
     public ArrayList<Unit> findUserUnits(User user) {
         ResultSet unitResultSet;
         ArrayList<Unit> units = new ArrayList<>();
@@ -465,6 +474,7 @@ public class DBStatements implements DBStrategy {
     /**
      * @return
      */
+    @Override
     public ArrayList<FullAsset> findAssets() {
         ResultSet assetResultSet;
         ArrayList<FullAsset> assets = new ArrayList<>();
@@ -490,6 +500,7 @@ public class DBStatements implements DBStrategy {
         return assets;
     }
 
+    @Override
     public ArrayList<Trade> findUnitTrades(String unitId) {
         ResultSet tradeResultSet;
         ArrayList<Trade> trades = new ArrayList<>();
@@ -534,11 +545,13 @@ public class DBStatements implements DBStrategy {
         return trades;
     }
 
+    @Override
     public void removeTrade(Trade trade) throws SQLException {
         deleteTrade.setString(1, trade.getTradeId());
         deleteTrade.executeQuery();
     }
 
+    @Override
     public Trade findTradeById(String tradeId) {
         ResultSet tradeResultSet;
         Trade trade;
@@ -584,6 +597,7 @@ public class DBStatements implements DBStrategy {
         return null;
     }
 
+    @Override
     public ArrayList<Unit> findUnits() {
         ResultSet unitResultSet;
         ArrayList<Unit> units = new ArrayList<>();
@@ -611,6 +625,7 @@ public class DBStatements implements DBStrategy {
         return units;
     }
 
+    @Override
     public boolean updateUnitCredits(Unit unit) {
         try {
             updateUnit.setInt(1, unit.getCredits());
@@ -623,6 +638,7 @@ public class DBStatements implements DBStrategy {
         return true;
     }
 
+    @Override
     public Unit findUnitById(String unitId) {
         ResultSet unitResultSet;
         Unit unit;
@@ -649,6 +665,7 @@ public class DBStatements implements DBStrategy {
         return null;
     }
 
+    @Override
     public ArrayList<UnitAsset> findUnitAssetsByUnit(String unitId) {
         ResultSet unitAssetResultSet;
         ArrayList<UnitAsset> unitAssets = new ArrayList<>();
@@ -677,6 +694,7 @@ public class DBStatements implements DBStrategy {
         return unitAssets;
     }
 
+    @Override
     public UnitAsset findUnitAsset(String unitId, String assetId) {
         ResultSet unitAssetResultSet;
         UnitAsset unitAsset;
@@ -707,12 +725,14 @@ public class DBStatements implements DBStrategy {
         return null;
     }
 
+    @Override
     public void removeUnitAsset(UnitAsset unitAsset) throws SQLException {
         deleteUnitAsset.setString(1, unitAsset.getUnitId());
         deleteUnitAsset.setString(2, unitAsset.getAsset().getAssetId());
         deleteUnitAsset.executeQuery();
     }
 
+    @Override
     public Asset findAssetById(String assetId) {
         ResultSet assetResultSet;
 
@@ -736,6 +756,7 @@ public class DBStatements implements DBStrategy {
         }
     }
 
+    @Override
     public void updateUnitAsset(UnitAsset unitAsset) {
         try {
             updateUnitAssetQuantity.setInt(1, unitAsset.getQuantity());
@@ -747,6 +768,7 @@ public class DBStatements implements DBStrategy {
         }
     }
 
+    @Override
     public void addUnitAsset(UnitAsset unitAsset) {
         try {
             createUnitAsset.setString(1, unitAsset.getUnitId());
@@ -758,6 +780,7 @@ public class DBStatements implements DBStrategy {
         }
     }
 
+    @Override
     public ArrayList<User> fetchUnitUsers(String unitId) {
         ResultSet userResultSet;
         ArrayList<User> users = new ArrayList<>();
@@ -784,6 +807,7 @@ public class DBStatements implements DBStrategy {
         return users;
     }
 
+    @Override
     public void updateTrade(Trade trade) {
         try {
             updateTrade.setInt(1, trade.getQuantityFilled());
@@ -801,6 +825,7 @@ public class DBStatements implements DBStrategy {
         }
     }
 
+    @Override
     public ArrayList<User> fetchUsers() {
         ResultSet userResultSet;
         ArrayList<User> users = new ArrayList<>();
@@ -826,6 +851,7 @@ public class DBStatements implements DBStrategy {
         return users;
     }
 
+    @Override
     public void updateUserPermissions(User user) {
         try {
             updateUserPermissions.setBoolean(1, user.isAdmin());
