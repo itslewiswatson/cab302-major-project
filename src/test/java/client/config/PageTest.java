@@ -1,5 +1,6 @@
 package client.config;
 
+import client.TableController;
 import client.strategy.Controller;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,9 +19,14 @@ public class PageTest {
 
     @Test
     public void testControllerComponent() {
-        for (Page p : Page.values()) {
-            Assert.assertSame(Controller.class, p.namespace.getSuperclass());
-        }
+        Assert.assertEquals(Controller.class, Page.myAccount.namespace.getSuperclass());
+        Assert.assertEquals(Controller.class, Page.login.namespace.getSuperclass());
+        Assert.assertEquals(TableController.class, Page.allTrades.namespace.getSuperclass());
+        Assert.assertEquals(TableController.class, Page.tradeHistory.namespace.getSuperclass());
+        Assert.assertEquals(Controller.class, Page.unitTrades.namespace.getSuperclass());
+        Assert.assertEquals(Controller.class, Page.assets.namespace.getSuperclass());
+        Assert.assertEquals(Controller.class, Page.manageUnits.namespace.getSuperclass());
+        Assert.assertEquals(Controller.class, Page.manageUsers.namespace.getSuperclass());
     }
 
     @Test
