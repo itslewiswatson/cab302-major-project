@@ -172,7 +172,7 @@ public class DBStatements implements DBStrategy {
     public void createTrade(Trade trade) {
         try {
             newTrade.setString(1, trade.getTradeId());
-            newTrade.setString(2, trade.getUnitId());
+            newTrade.setString(2, trade.getUnit().getUnitId());
             newTrade.setString(3, trade.getAsset().getAssetId());
             newTrade.setString(4, trade.getUser().getUserId());
             newTrade.setDate(5, Date.valueOf(trade.getDateListed()));
@@ -341,17 +341,21 @@ public class DBStatements implements DBStrategy {
 
             while (tradeResultSet.next()) {
                 Trade trade = new Trade(
-                        tradeResultSet.getString("id"),
-                        tradeResultSet.getString("unit_id"),
+                        tradeResultSet.getString("trades.id"),
+                        new Unit(
+                                tradeResultSet.getString("unit_id"),
+                                tradeResultSet.getString("units.name"),
+                                tradeResultSet.getInt("credits")
+                        ),
                         new Asset(
                                 tradeResultSet.getString("asset_id"),
-                                tradeResultSet.getString("name")
+                                tradeResultSet.getString("assets.name")
                         ),
                         new User(
-                                tradeResultSet.getString("users.id"),
-                                tradeResultSet.getString("users.username"),
-                                tradeResultSet.getString("users.password"),
-                                tradeResultSet.getBoolean("users.admin")
+                                tradeResultSet.getString("user_id"),
+                                tradeResultSet.getString("username"),
+                                tradeResultSet.getString("password"),
+                                tradeResultSet.getBoolean("admin")
                         ),
                         tradeResultSet.getDate("date_listed").toLocalDate(),
                         TradeType.valueOf(tradeResultSet.getString("type")),
@@ -383,16 +387,20 @@ public class DBStatements implements DBStrategy {
             while (tradeResultSet.next()) {
                 Trade trade = new Trade(
                         tradeResultSet.getString("id"),
-                        tradeResultSet.getString("unit_id"),
+                        new Unit(
+                                tradeResultSet.getString("unit_id"),
+                                tradeResultSet.getString("units.name"),
+                                tradeResultSet.getInt("credits")
+                        ),
                         new Asset(
                                 tradeResultSet.getString("asset_id"),
-                                tradeResultSet.getString("name")
+                                tradeResultSet.getString("assets.name")
                         ),
                         new User(
-                                tradeResultSet.getString("users.id"),
-                                tradeResultSet.getString("users.username"),
-                                tradeResultSet.getString("users.password"),
-                                tradeResultSet.getBoolean("users.admin")
+                                tradeResultSet.getString("user_id"),
+                                tradeResultSet.getString("username"),
+                                tradeResultSet.getString("password"),
+                                tradeResultSet.getBoolean("admin")
                         ),
                         tradeResultSet.getDate("date_listed").toLocalDate(),
                         TradeType.valueOf(tradeResultSet.getString("type")),
@@ -484,13 +492,17 @@ public class DBStatements implements DBStrategy {
             while (tradeResultSet.next()) {
                 Trade trade = new Trade(
                         tradeResultSet.getString("T.id"),
-                        tradeResultSet.getString("T.unit_id"),
+                        new Unit(
+                                tradeResultSet.getString("unit_id"),
+                                tradeResultSet.getString("units.name"),
+                                tradeResultSet.getInt("credits")
+                        ),
                         new Asset(
-                                tradeResultSet.getString("A.id"),
-                                tradeResultSet.getString("A.name")
+                                tradeResultSet.getString("asset_id"),
+                                tradeResultSet.getString("assets.name")
                         ),
                         new User(
-                                tradeResultSet.getString("U.id"),
+                                tradeResultSet.getString("user_id"),
                                 tradeResultSet.getString("username"),
                                 tradeResultSet.getString("password"),
                                 tradeResultSet.getBoolean("admin")
@@ -531,13 +543,17 @@ public class DBStatements implements DBStrategy {
 
                 trade = new Trade(
                         tradeResultSet.getString("T.id"),
-                        tradeResultSet.getString("T.unit_id"),
+                        new Unit(
+                                tradeResultSet.getString("unit_id"),
+                                tradeResultSet.getString("units.name"),
+                                tradeResultSet.getInt("credits")
+                        ),
                         new Asset(
-                                tradeResultSet.getString("A.id"),
-                                tradeResultSet.getString("A.name")
+                                tradeResultSet.getString("asset_id"),
+                                tradeResultSet.getString("assets.name")
                         ),
                         new User(
-                                tradeResultSet.getString("U.id"),
+                                tradeResultSet.getString("user_id"),
                                 tradeResultSet.getString("username"),
                                 tradeResultSet.getString("password"),
                                 tradeResultSet.getBoolean("admin")
@@ -688,22 +704,27 @@ public class DBStatements implements DBStrategy {
         deleteUnitAsset.executeQuery();
     }
 
-    public Asset findAssetById(String assetId) throws SQLException {
+    public Asset findAssetById(String assetId) {
         ResultSet assetResultSet;
 
-        getAssetById.setString(1, assetId);
-        assetResultSet = getAssetById.executeQuery();
+        try {
+            getAssetById.setString(1, assetId);
+            assetResultSet = getAssetById.executeQuery();
 
-        if (assetResultSet.isBeforeFirst()) {
-            assetResultSet.next();
+            if (assetResultSet.isBeforeFirst()) {
+                assetResultSet.next();
 
-            return new Asset(
-                    assetResultSet.getString("id"),
-                    assetResultSet.getString("name")
-            );
+                return new Asset(
+                        assetResultSet.getString("id"),
+                        assetResultSet.getString("name")
+                );
+            }
+
+            return null;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 
     public void updateUnitAsset(UnitAsset unitAsset) {
