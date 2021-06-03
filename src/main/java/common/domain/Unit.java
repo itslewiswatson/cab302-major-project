@@ -33,6 +33,10 @@ public class Unit extends Entity {
         this.credits = credits;
     }
 
+    public void addCredits(int credits) {
+        this.credits += credits;
+    }
+
     public ArrayList<UnitAsset> getUnitAssets() {
         return unitAssets;
     }
