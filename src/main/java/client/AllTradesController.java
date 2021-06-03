@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AllTradesController extends Controller implements Initializable {
+public class AllTradesController extends TableController implements Initializable {
     public AllTradesController(ClientController clientController) {
         super(clientController);
     }
@@ -52,7 +52,7 @@ public class AllTradesController extends Controller implements Initializable {
         try {
             return readObject();
         } catch (NullResultException e) {
-            AlertDialog.info("There are no active trades at the moment", "All trades have been fulfilled. Consider making a new trade of your own.");
+            //AlertDialog.info("There are no active trades at the moment", "All trades have been fulfilled. Consider making a new trade of your own.");
             return new ArrayList<>();
         }
     }
@@ -63,7 +63,7 @@ public class AllTradesController extends Controller implements Initializable {
         setupRows();
         populateTable();
 
-        Thread refreshThread = new AllTradesRefreshScheduler(this);
+        Thread refreshThread = new TableRefreshScheduler<>(this);
         refreshThread.start();
     }
 
@@ -101,7 +101,7 @@ public class AllTradesController extends Controller implements Initializable {
     public void viewTradeInfo(Trade trade) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tradeDialog.fxml"));
-            loader.setControllerFactory(c -> new TradeInfoDialogController(trade, false));
+            loader.setControllerFactory(c -> new TradeInfoDialogController(trade, false, false));
             Parent parent = loader.load();
 
             Scene scene = new Scene(parent);

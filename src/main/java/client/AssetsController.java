@@ -59,7 +59,7 @@ public class AssetsController extends Controller implements Initializable {
         populateTable();
     }
 
-    private void populateTable() {
+    public void populateTable() {
         tableView.setItems(FXCollections.observableList(fetchAssets()));
     }
 
