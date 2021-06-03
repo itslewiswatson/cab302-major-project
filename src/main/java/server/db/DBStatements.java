@@ -424,7 +424,7 @@ public class DBStatements implements DBStrategy {
                         tradeResultSet.getInt("quantity"),
                         tradeResultSet.getInt("price"),
                         tradeResultSet.getInt("quantity_filled"),
-                        null
+                        tradeResultSet.getDate("date_filled").toLocalDate()
                 );
                 trades.add(trade);
             }

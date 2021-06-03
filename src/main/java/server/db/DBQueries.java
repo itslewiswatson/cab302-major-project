@@ -116,11 +116,7 @@ public class DBQueries {
 
     public static final String ADD_UNIT_ASSET = "INSERT INTO unitassets (unit_id, asset_id, quantity) VALUES (?, ?, ?)";
 
-    public static final String GET_HISTORIC_TRADES = "SELECT * FROM trades " +
-            "INNER JOIN assets ON asset_id = assets.id " +
-            "INNER JOIN users ON users.id = user_id " +
-            "INNER JOIN units ON units.id = unit_id " +
-            "WHERE date_filled IS NOT NULL";
+    public static final String GET_HISTORIC_TRADES = "SELECT * FROM trades INNER JOIN assets ON asset_id = assets.id INNER JOIN users ON users.id = user_id WHERE date_filled IS NOT NULL";
 
     public static final String GET_UNIT_USERS = "SELECT * FROM users WHERE id IN (SELECT user_id FROM unitusers WHERE unit_id = ?)";
 
@@ -133,8 +129,4 @@ public class DBQueries {
     public static final String DELETE_ASSET = "DELETE FROM assets WHERE id = ?";
 
     public static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
-
-    public static final String ADD_USER_TO_UNIT = "INSERT INTO unitusers (user_id, unit_id) VALUES (?, ?)";
-
-    public static final String REMOVE_USER_FROM_UNIT = "DELETE FROM unitusers WHERE user_id = ? AND unit_id = ?";
 }
