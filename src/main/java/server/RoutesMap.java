@@ -30,6 +30,7 @@ public class RoutesMap {
         routesMap.put(DeleteAssetDTO.class, DeleteAssetHandler.class);
         routesMap.put(DeleteUserDTO.class, DeleteUserHandler.class);
         routesMap.put(AddUserToUnitDTO.class, AddUserToUnitHandler.class);
+        routesMap.put(RemoveUserFromUnitDTO.class, RemoveUserFromUnitHandler.class);
     }
 
     public HashMap<Class<? extends DTO>, Class<? extends Handler<?, ?>>> getMap() {

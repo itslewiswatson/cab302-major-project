@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class ManageUsersController extends Controller implements Initializable {
     public ManageUsersController(ClientController clientController) {
@@ -97,7 +98,6 @@ public class ManageUsersController extends Controller implements Initializable {
         setupUserUnitsTable();
         setupUnitsComboBox();
         populateUsersTable();
-        populateUnitComboBox();
     }
 
     private void setupUnitsComboBox() {
@@ -114,9 +114,17 @@ public class ManageUsersController extends Controller implements Initializable {
         });
     }
 
-    private void populateUnitComboBox() {
-        ArrayList<Unit> units = fetchUnits();
-        unitComboBox.setItems(FXCollections.observableArrayList(units));
+    private void populateUnitComboBox(User selectedUser) {
+        ArrayList<Unit> allUnits = fetchUnits();
+        ArrayList<Unit> units = fetchUserUnits(selectedUser.getUserId());
+        ArrayList<Unit> unitsNotIn = allUnits.stream()
+                .filter(unit -> units.stream()
+                        .filter(a -> a.getUnitId().equals(unit.getUnitId()))
+                        .collect(Collectors.toCollection(ArrayList::new))
+                        .size() == 0)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        unitComboBox.setItems(FXCollections.observableArrayList(unitsNotIn));
     }
 
     private void setupUsersTable() {
@@ -136,6 +144,7 @@ public class ManageUsersController extends Controller implements Initializable {
                     return;
                 }
                 populateUserUnitsTable(selectedUser);
+                populateUnitComboBox(selectedUser);
                 accountTypeButton.setText(selectedUser.isAdmin() ? "Make Standard" : "Make Admin");
                 enableInputs();
             });
@@ -246,5 +255,54 @@ public class ManageUsersController extends Controller implements Initializable {
 
         AlertDialog.info("Successfully changed password for user " + user.getUsername());
         populateUsersTable();
+    }
+
+    @FXML
+    public void addToUnit() {
+        @Nullable User user = usersTableView.getSelectionModel().getSelectedItem();
+        if (user == null) return;
+
+        @Nullable Unit unit = unitComboBox.getValue();
+        if (unit == null) return;
+
+        sendObject(new AddUserToUnitDTO(user.getUserId(), unit.getUnitId()));
+        try {
+            Boolean success = readObject();
+            if (!success) {
+                AlertDialog.error("Could not add user to unit", "Please try again");
+                return;
+            }
+        } catch (NullResultException e) {
+            AlertDialog.error("Could not add user to unit", "Please try again");
+            return;
+        }
+
+        populateUnitComboBox(user);
+        AlertDialog.info("Successfully added " + user.getUsername() + " to " + unit.getUnitName());
+    }
+
+    @FXML
+    public void removeFromUnit() {
+        @Nullable User user = usersTableView.getSelectionModel().getSelectedItem();
+        if (user == null) return;
+
+        @Nullable Unit unit = unitTableView.getSelectionModel().getSelectedItem();
+        if (unit == null) return;
+
+        sendObject(new RemoveUserFromUnitDTO(user.getUserId(), unit.getUnitId()));
+        try {
+            Boolean success = readObject();
+            if (!success) {
+                AlertDialog.error("Could not remove user from unit", "Please try again");
+                return;
+            }
+        } catch (NullResultException e) {
+            e.printStackTrace();
+            AlertDialog.error("Could not remove user from unit", "Please try again");
+            return;
+        }
+
+        populateUnitComboBox(user);
+        AlertDialog.info("Successfully removed " + user.getUsername() + " from " + unit.getUnitName(), "Please try again");
     }
 }

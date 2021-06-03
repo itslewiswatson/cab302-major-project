@@ -64,4 +64,6 @@ public interface DBStrategy {
     void deleteUser(User user) throws SQLException;
 
     void addUserToUnit(User user, Unit unit) throws SQLException;
+
+    void removeUserFromUnit(User user, Unit unit) throws SQLException;
 }
