@@ -16,8 +16,8 @@
          </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="360.0" mnemonicParsing="false" text="&lt;&lt; Back" onAction="#goBack" />
-      <Button fx:id="removeUnitButton" layoutX="524.0" layoutY="215.0" mnemonicParsing="false" text="Remove" onAction="#removeFromUnit" />
-      <Button fx:id="addUnitButton" layoutX="435.0" layoutY="215.0" mnemonicParsing="false" text="Add" onAction="#addToUnit" />
+      <Button fx:id="removeUnitButton" disable="true" layoutX="524.0" layoutY="215.0" mnemonicParsing="false" text="Remove" onAction="#removeFromUnit" />
+      <Button fx:id="addUnitButton" disable="true" layoutX="435.0" layoutY="215.0" mnemonicParsing="false" text="Add" onAction="#addToUnit" />
       <ComboBox disable="true" fx:id="unitComboBox" layoutX="310.0" layoutY="215.0" prefHeight="26.0" prefWidth="116.0" />
       <Separator layoutX="310.0" layoutY="265.0" prefHeight="0.0" prefWidth="276.0" />
       <Button disable="true" fx:id="accountTypeButton" layoutX="310.0" layoutY="312.0" mnemonicParsing="false" text="Make Admin" onAction="#changeAccountType" />
