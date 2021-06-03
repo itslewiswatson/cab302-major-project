@@ -52,7 +52,7 @@ public class TradeInfoDialogController implements Initializable {
         asset.setText("Asset: " + trade.getAsset().getAssetName());
         unitId.setText(showUserInfo ?
                 "User: " + trade.getUser().getUsername() :
-                "Unit ID: " + trade.getUnitId()
+                "Unit ID: " + trade.getUnit().getUnitId()
         );
         dateListed.setText("Date Listed: " + trade.getDateListed().toString());
         tradeType.setText("Trade Type: " + trade.getType().toString());

@@ -57,7 +57,7 @@ public class Reconciler extends TimerTask {
     private Trade findSuitableTrade(Trade buyTrade) {
          return sellTrades.stream()
                  .filter(sellTrade -> sellTrade.getAsset().getAssetId().equals(buyTrade.getAsset().getAssetId())
-                        && !sellTrade.getUnitId().equals(buyTrade.getUnitId())
+                        && !sellTrade.getUnit().getUnitId().equals(buyTrade.getUnit().getUnitId())
                         && sellTrade.getPrice() <= buyTrade.getPrice())
                 .findFirst()
                 .orElse(null);
@@ -68,8 +68,8 @@ public class Reconciler extends TimerTask {
         int buyQuantity = buyTrade.getQuantity() - buyTrade.getQuantityFilled();
         int sellQuantity = sellTrade.getQuantity() - sellTrade.getQuantityFilled();
         int quantityExchanged = buyQuantity;
-        Unit buyingUnit = dbStatements.findUnitById(buyTrade.getUnitId());
-        Unit sellingUnit = dbStatements.findUnitById(sellTrade.getUnitId());
+        Unit buyingUnit = buyTrade.getUnit();
+        Unit sellingUnit = sellTrade.getUnit();
         UnitAsset buyingUnitAsset = dbStatements.findUnitAsset(buyingUnit.getUnitId(), assetExchanged.getAssetId());
 
         if (buyQuantity == sellQuantity) {
@@ -102,7 +102,7 @@ public class Reconciler extends TimerTask {
             dbStatements.addUnitAsset(new UnitAsset(buyingUnit.getUnitId(), assetExchanged, quantityExchanged));
         }
 
-        sellingUnit.setCredits(sellingUnit.getCredits() + quantityExchanged * sellTrade.getPrice());
+        sellingUnit.addCredits(quantityExchanged * sellTrade.getPrice());
 
         dbStatements.updateUnitCredits(sellingUnit);
         dbStatements.updateTrade(buyTrade);
