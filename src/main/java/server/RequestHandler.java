@@ -112,7 +112,7 @@ public class RequestHandler extends Thread {
         return handlerClass.getDeclaredConstructor(DBStatements.class).newInstance(dbStatements);
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings("unchecked")
     private Class<Handler<Object, DTO>> getHandlerClass(Object object) {
         return (Class<Handler<Object, DTO>>) routesMap.getMap().get(object.getClass());
     }

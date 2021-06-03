@@ -148,7 +148,7 @@ public class UnitTradesController extends Controller implements Initializable {
         }
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
         dateListed.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getDateListed().toString()));
         listedBy.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getUser().getUsername()));

@@ -61,7 +61,7 @@ public class AssetsController extends Controller implements Initializable {
         tableView.setItems(FXCollections.observableList(fetchAssets()));
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
         name.setCellValueFactory(c -> new ReadOnlyObjectWrapper(c.getValue().getAssetName()));
         dateAdded.setCellValueFactory(c -> new ReadOnlyObjectWrapper(c.getValue().getDateAdded().toString()));

@@ -69,7 +69,7 @@ public class AllTradesController extends Controller implements Initializable {
         tableView.setItems(FXCollections.observableArrayList(trades));
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
         dateListed.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getDateListed().toString()));
         asset.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getAsset().getAssetName()));
