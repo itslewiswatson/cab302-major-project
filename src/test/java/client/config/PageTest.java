@@ -1,6 +1,6 @@
 package client.config;
 
-import client.Controller;
+import client.strategy.Controller;
 import org.junit.Assert;
 import org.junit.Test;
 

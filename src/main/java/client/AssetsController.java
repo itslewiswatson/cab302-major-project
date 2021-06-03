@@ -2,6 +2,8 @@ package client;
 
 import client.alert.AlertDialog;
 import client.config.Page;
+import client.strategy.ClientController;
+import client.strategy.Controller;
 import common.domain.FullAsset;
 import common.dto.AddAssetDTO;
 import common.dto.DeleteAssetDTO;

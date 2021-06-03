@@ -1,5 +1,6 @@
 package client;
 
+import client.strategy.ClientController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

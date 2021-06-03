@@ -1,4 +1,4 @@
-package client;
+package client.strategy;
 
 import client.alert.AlertDialog;
 import client.config.Page;
@@ -17,7 +17,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 
-class ClientController {
+public class ClientController {
 
     private User user;
     private ObjectInputStream inputStream;

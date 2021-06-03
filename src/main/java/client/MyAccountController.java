@@ -2,6 +2,8 @@ package client;
 
 import client.alert.AlertDialog;
 import client.config.Page;
+import client.strategy.ClientController;
+import client.strategy.Controller;
 import common.domain.Unit;
 import common.domain.User;
 import common.dto.GetUnitsDTO;

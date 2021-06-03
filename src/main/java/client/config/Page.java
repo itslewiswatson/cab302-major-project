@@ -1,6 +1,7 @@
 package client.config;
 
 import client.*;
+import client.strategy.Controller;
 
 public enum Page {
     myAccount("myAccount.fxml", MyAccountController.class),

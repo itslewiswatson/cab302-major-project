@@ -3,6 +3,8 @@ package client;
 import client.alert.AlertDialog;
 import client.config.Page;
 import client.dialog.TradeInfoDialogController;
+import client.strategy.ClientController;
+import client.strategy.Controller;
 import common.domain.Trade;
 import common.domain.Unit;
 import common.dto.GetUnitTradesDTO;

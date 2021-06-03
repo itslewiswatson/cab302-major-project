@@ -2,6 +2,8 @@ package client;
 
 import client.alert.AlertDialog;
 import client.config.Page;
+import client.strategy.ClientController;
+import client.strategy.Controller;
 import common.domain.*;
 import common.dto.*;
 import common.exceptions.NullResultException;

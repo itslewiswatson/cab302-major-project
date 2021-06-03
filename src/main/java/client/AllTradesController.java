@@ -1,8 +1,8 @@
 package client;
 
-import client.alert.AlertDialog;
 import client.config.Page;
 import client.dialog.TradeInfoDialogController;
+import client.strategy.ClientController;
 import common.domain.Trade;
 import common.dto.GetTradesDTO;
 import common.exceptions.NullResultException;

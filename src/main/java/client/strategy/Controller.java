@@ -1,4 +1,4 @@
-package client;
+package client.strategy;
 
 import client.alert.AlertDialog;
 import client.config.Page;
