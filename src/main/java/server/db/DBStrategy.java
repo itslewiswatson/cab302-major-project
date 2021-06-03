@@ -62,4 +62,6 @@ public interface DBStrategy {
     void removeAsset(Asset asset) throws SQLException;
 
     void deleteUser(User user) throws SQLException;
+
+    void addUserToUnit(User user, Unit unit) throws SQLException;
 }

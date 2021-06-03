@@ -131,6 +131,8 @@ public class DBStatements implements DBStrategy {
 
     private PreparedStatement deleteUser;
 
+    private PreparedStatement addUserToUnit;
+
     /**
      * Creates a DBStatements object.
      */
@@ -167,6 +169,7 @@ public class DBStatements implements DBStrategy {
             updateUserPermissions = connection.prepareStatement(DBQueries.UPDATE_USER_PERMISSION);
             deleteAsset = connection.prepareStatement(DBQueries.DELETE_ASSET);
             deleteUser = connection.prepareStatement(DBQueries.DELETE_USER);
+            addUserToUnit = connection.prepareStatement(DBQueries.ADD_USER_TO_UNIT);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -840,5 +843,12 @@ public class DBStatements implements DBStrategy {
     public void deleteUser(User user) throws SQLException {
         deleteUser.setString(1, user.getUserId());
         deleteUser.execute();
+    }
+
+    @Override
+    public void addUserToUnit(User user, Unit unit) throws SQLException {
+        addUserToUnit.setString(1, user.getUserId());
+        addUserToUnit.setString(2, unit.getUnitId());
+        addUserToUnit.execute();
     }
 }

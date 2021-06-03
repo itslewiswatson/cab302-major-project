@@ -74,6 +74,7 @@ public class DBQueries {
     public static final String GET_UNIT_ACTIVE_TRADES = "SELECT * FROM trades T " +
             "INNER JOIN assets A ON asset_id = A.id " +
             "INNER JOIN users U ON user_id = U.id " +
+            "INNER JOIN units on units.id = unit_id " +
             "WHERE unit_id = ? " +
             "AND date_filled IS NULL";
 
@@ -128,4 +129,6 @@ public class DBQueries {
     public static final String DELETE_ASSET = "DELETE FROM assets WHERE id = ?";
 
     public static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
+
+    public static final String ADD_USER_TO_UNIT = "INSERT INTO unitusers (user_id, unit_id) VALUES (?, ?)";
 }
