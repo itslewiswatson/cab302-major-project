@@ -1,12 +1,14 @@
 package common.domain;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class UserTest extends EntityTestHelper {
-    private final User user;
+    private User user;
 
-    public UserTest() {
+    @Before
+    public void setUp() {
         this.user = new User("ID123", "linus_torvalds", "debian", false);
     }
 

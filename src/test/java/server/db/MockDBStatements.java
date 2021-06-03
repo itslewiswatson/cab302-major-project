@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class DBStatementsMock implements DBStrategy {
+public class MockDBStatements implements DBStrategy {
     public ArrayList<User> users;
     public ArrayList<Trade> trades;
     public ArrayList<Asset> assets;
@@ -17,7 +17,7 @@ public class DBStatementsMock implements DBStrategy {
     public ArrayList<Unit> units;
     public ArrayList<UnitAsset> unitAssets;
 
-    public DBStatementsMock() {
+    public MockDBStatements() {
         this.users = new ArrayList<>();
         users.add(new User("ID1", "Harry", "", false));
         users.add(new User("ID2", "Bruce", "", true));

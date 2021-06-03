@@ -1,14 +1,16 @@
 package common.domain;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
 
 public class FullAssetTest extends EntityTestHelper {
-    private final FullAsset fullAsset;
+    private FullAsset fullAsset;
 
-    public FullAssetTest() {
+    @Before
+    public void setUp() {
         this.fullAsset = new FullAsset("FA_ID", "FA_NAME", LocalDate.EPOCH, 999);
     }
 

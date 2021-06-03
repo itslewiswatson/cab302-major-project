@@ -2,15 +2,17 @@ package server;
 
 import common.dto.DTO;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import server.handlers.Handler;
 
 import java.util.HashMap;
 
 public class RoutesMapTest {
-    private final RoutesMap routesMap;
+    private RoutesMap routesMap;
 
-    public RoutesMapTest() {
+    @Before
+    public void setUp() {
         this.routesMap = new RoutesMap();
     }
 
