@@ -13,6 +13,8 @@ public class GetTradesHandler extends Handler<ArrayList<Trade>, GetTradesDTO> {
 
     @Override
     public ArrayList<Trade> handle(GetTradesDTO dto) {
-        return dbStatements.getActiveTrades();
+        ArrayList<Trade> trades = dbStatements.getActiveTrades();
+
+        return (trades.size() != 0) ? trades : null;
     }
 }
