@@ -2,7 +2,7 @@ package server.handlers;
 
 import common.domain.User;
 import common.dto.UpdatePasswordDTO;
-import server.DBStatements;
+import server.db.DBStatements;
 
 public class UpdatePasswordHandler extends Handler<User, UpdatePasswordDTO> {
     public UpdatePasswordHandler(DBStatements dbStatements) {

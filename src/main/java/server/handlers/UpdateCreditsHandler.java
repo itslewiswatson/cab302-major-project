@@ -2,7 +2,7 @@ package server.handlers;
 
 import common.domain.Unit;
 import common.dto.UpdateCreditsDTO;
-import server.DBStatements;
+import server.db.DBStatements;
 
 public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
     public UpdateCreditsHandler(DBStatements dbStatements) {

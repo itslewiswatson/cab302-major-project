@@ -2,7 +2,7 @@ package server.handlers;
 
 import common.domain.User;
 import common.dto.GetUnitUsersDTO;
-import server.DBStatements;
+import server.db.DBStatements;
 
 import java.util.ArrayList;
 

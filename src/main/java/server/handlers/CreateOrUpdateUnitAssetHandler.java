@@ -4,7 +4,7 @@ import common.domain.Asset;
 import common.domain.UnitAsset;
 import common.dto.CreateOrUpdateUnitAssetDTO;
 import org.jetbrains.annotations.Nullable;
-import server.DBStatements;
+import server.db.DBStatements;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package server.handlers;
 
 import common.domain.Trade;
 import common.dto.GetTradesDTO;
-import server.DBStatements;
+import server.db.DBStatements;
 
 import java.util.ArrayList;
 

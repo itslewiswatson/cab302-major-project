@@ -2,7 +2,7 @@ package server.handlers;
 
 import common.domain.Trade;
 import common.dto.RemoveTradeDTO;
-import server.DBStatements;
+import server.db.DBStatements;
 
 public class RemoveTradeHandler extends Handler<Boolean, RemoveTradeDTO> {
     public RemoveTradeHandler(DBStatements dbStatements) {

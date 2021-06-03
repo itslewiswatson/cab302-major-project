@@ -5,7 +5,7 @@ import common.domain.Trade;
 import common.domain.User;
 import common.dto.NewTradeDTO;
 import common.services.UuidGenerator;
-import server.DBStatements;
+import server.db.DBStatements;
 
 import java.time.LocalDate;
 

@@ -2,7 +2,7 @@ package server.handlers;
 
 import common.domain.User;
 import common.dto.LoginDTO;
-import server.DBStatements;
+import server.db.DBStatements;
 
 public class LoginHandler extends Handler<User, LoginDTO> {
 

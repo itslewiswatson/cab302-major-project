@@ -1,4 +1,4 @@
-package server;
+package server.db;
 
 public class DBQueries {
     /**

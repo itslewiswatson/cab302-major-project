@@ -3,7 +3,7 @@ package server.handlers;
 import common.domain.Unit;
 import common.domain.User;
 import common.dto.GetUnitsDTO;
-import server.DBStatements;
+import server.db.DBStatements;
 
 import java.util.ArrayList;
 

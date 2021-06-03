@@ -4,7 +4,7 @@ import common.domain.Asset;
 import common.domain.FullAsset;
 import common.dto.AddAssetDTO;
 import common.services.UuidGenerator;
-import server.DBStatements;
+import server.db.DBStatements;
 
 import java.util.ArrayList;
 

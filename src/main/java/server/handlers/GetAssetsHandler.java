@@ -2,7 +2,7 @@ package server.handlers;
 
 import common.domain.FullAsset;
 import common.dto.GetAssetsDTO;
-import server.DBStatements;
+import server.db.DBStatements;
 
 import java.util.ArrayList;
 

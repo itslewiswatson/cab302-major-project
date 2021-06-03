@@ -1,4 +1,4 @@
-package server;
+package server.db;
 
 import common.dataTypes.TradeType;
 import common.domain.*;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * This class controls database access and contains its required statements.
  */
-public class DBStatements {
+public class DBStatements implements DBStrategy {
     /**
      * A precompiled SQL statement to insert a user.
      */
