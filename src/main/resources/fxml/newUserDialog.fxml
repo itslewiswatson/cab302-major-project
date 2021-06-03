@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.dialog.NewUserDialogController">
+   <children>
+      <TextField fx:id="usernameTextField" layoutX="20.0" layoutY="25.0" prefHeight="26.0" prefWidth="180.0" promptText="Username" />
+      <TextField fx:id="passwordTextField" layoutX="20.0" layoutY="64.0" prefHeight="26.0" prefWidth="180.0" promptText="Password">
+      </TextField>
+      <Button fx:id="createButton" layoutX="146.0" layoutY="150.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="56.0" text="OK" onAction="#clickCreate" />
+      <Button fx:id="cancelButton" layoutX="83.0" layoutY="150.0" mnemonicParsing="false" onAction="#clickCancel" text="Cancel" />
+      <CheckBox fx:id="isAdminCheckbox" layoutX="20.0" layoutY="102.0" mnemonicParsing="false" text="Admin" />
+   </children>
+</AnchorPane>

@@ -67,7 +67,7 @@ public class TradeInfoDialogController implements Initializable {
         price.setText("Price: " + trade.getPrice());
     }
 
-    public void onClickOK() {
+    public void clickOK() {
         Stage stage = (Stage) okButton.getScene().getWindow();
         stage.close();
     }

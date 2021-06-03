@@ -2,6 +2,7 @@ package client;
 
 import client.alert.AlertDialog;
 import client.config.Page;
+import client.dialog.NewUserDialogController;
 import client.strategy.ClientController;
 import client.strategy.Controller;
 import common.domain.Unit;
@@ -12,11 +13,17 @@ import common.services.PasswordHasher;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -306,5 +313,39 @@ public class ManageUsersController extends Controller implements Initializable {
 
         populateUnitComboBox(user);
         AlertDialog.info("Successfully removed " + user.getUsername() + " from " + unit.getUnitName(), "Please try again");
+    }
+
+    public void viewNewUserDialog() {
+        NewUserDTO dto = new NewUserDTO(null, null, null);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newUserDialog.fxml"));
+            loader.setControllerFactory(c -> new NewUserDialogController(dto));
+            Parent parent = loader.load();
+
+            Scene scene = new Scene(parent);
+            Stage dialog = new Stage();
+            dialog.centerOnScreen();
+            dialog.initOwner(getStage());
+            dialog.setScene(scene);
+            dialog.initModality(Modality.WINDOW_MODAL);
+            dialog.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // TODO more validation
+        if (dto.getUsername() != null && dto.getPassword() != null && dto.isAdmin() != null) {
+            sendObject(dto);
+            try {
+                User user = readObject();
+                AlertDialog.info("Successfully created user " + user.getUsername(), "They can now log in with the password you just entered");
+            } catch (NullResultException e) {
+                AlertDialog.error("Could not create user", "Please try again");
+                e.printStackTrace();
+            }
+
+            populateUsersTable();
+        }
     }
 }
