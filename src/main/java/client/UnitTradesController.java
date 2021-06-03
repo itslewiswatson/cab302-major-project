@@ -109,7 +109,8 @@ public class UnitTradesController extends Controller implements Initializable {
         }
     }
 
-    private void populateTable() {
+    @FXML
+    public void populateTable() {
         Unit selectedUnit = unitComboBox.getValue();
         if (selectedUnit != null) {
             ArrayList<Trade> trades = fetchUnitTrades(selectedUnit.getUnitId());

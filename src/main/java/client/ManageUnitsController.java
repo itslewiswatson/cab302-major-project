@@ -246,7 +246,7 @@ public class ManageUnitsController extends Controller implements Initializable {
             Unit result = readObject();
             showUnitInfo(result);
         } catch (NullResultException e) {
-            // TODO show alert here
+            AlertDialog.error("Could not update unit credits", "Please try again");
         } finally {
             creditsTextField.clear();
         }
