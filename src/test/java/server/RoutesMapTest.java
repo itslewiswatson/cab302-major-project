@@ -26,7 +26,6 @@ public class RoutesMapTest {
 
         for (Object routeDTO : routes.keySet()) {
             Assert.assertTrue(routeDTO instanceof Class<?>);
-
             Class<?> baseDTOClass = ((Class<?>) routeDTO).getSuperclass();
             Assert.assertSame(DTO.class, baseDTOClass);
         }
@@ -38,7 +37,6 @@ public class RoutesMapTest {
 
         for (Object routeHandler : routes.values()) {
             Assert.assertTrue(routeHandler instanceof Class<?>);
-
             Class<?> baseHandlerClass = ((Class<?>) routeHandler).getSuperclass();
             Assert.assertSame(Handler.class, baseHandlerClass);
         }

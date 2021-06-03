@@ -30,8 +30,4 @@ public class UnitAsset extends Entity {
     public void addQuantity(int quantity) {
         this.quantity += quantity;
     }
-
-    public void removeQuantity(int quantity) {
-        this.quantity -= quantity;
-    }
 }
