@@ -80,7 +80,7 @@ class ClientController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + page.path));
 
         try {
-            Constructor<?> controller = Class.forName(page.namespace).getConstructor(ClientController.class);
+            Constructor<?> controller = (page.namespace).getConstructor(ClientController.class);
             loader.setControllerFactory(Controller -> {
                 try {
                     return controller.newInstance(this);
@@ -94,7 +94,7 @@ class ClientController {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } catch (IOException | ClassNotFoundException | NoSuchMethodException exception) {
+        } catch (IOException | NoSuchMethodException exception) {
             exception.printStackTrace();
             AlertDialog.fileError();
         }
