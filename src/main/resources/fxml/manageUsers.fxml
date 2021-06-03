@@ -10,20 +10,20 @@
           <TableColumn fx:id="adminTableColumn" minWidth="5.0" prefWidth="98.0" text="Admin" />
         </columns>
       </TableView>
-      <TableView layoutX="310.0" layoutY="14.0" prefHeight="189.0" prefWidth="276.0">
+      <TableView fx:id="unitTableView" layoutX="310.0" layoutY="14.0" prefHeight="189.0" prefWidth="276.0">
          <columns>
-            <TableColumn prefWidth="254.0" text="Unit" />
+            <TableColumn fx:id="unitNameColumn" prefWidth="254.0" text="Unit" />
          </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="360.0" mnemonicParsing="false" text="&lt;&lt; Back" onAction="#goBack" />
-      <Button layoutX="524.0" layoutY="215.0" mnemonicParsing="false" text="Remove" />
-      <Button layoutX="435.0" layoutY="215.0" mnemonicParsing="false" text="Add" />
-      <ComboBox layoutX="310.0" layoutY="215.0" prefHeight="26.0" prefWidth="116.0" />
+      <Button fx:id="removeUnitButton" layoutX="524.0" layoutY="215.0" mnemonicParsing="false" text="Remove" />
+      <Button fx:id="addUnitButton" layoutX="435.0" layoutY="215.0" mnemonicParsing="false" text="Add" />
+      <ComboBox disable="true" fx:id="unitComboBox" layoutX="310.0" layoutY="215.0" prefHeight="26.0" prefWidth="116.0" />
       <Separator layoutX="310.0" layoutY="265.0" prefHeight="0.0" prefWidth="276.0" />
-      <Button layoutX="310.0" layoutY="312.0" mnemonicParsing="false" text="Make Admin" />
+      <Button disable="true" fx:id="accountTypeButton" layoutX="310.0" layoutY="312.0" mnemonicParsing="false" text="Make Admin" onAction="#changeAccountType" />
       <Label layoutX="314.0" layoutY="283.0" text="With selected user..." />
-      <TextField layoutX="310.0" layoutY="351.0" prefHeight="26.0" prefWidth="147.0" promptText="New password" />
-      <Button layoutX="477.0" layoutY="352.0" mnemonicParsing="false" text="Update Password" />
-      <Button layoutX="508.0" layoutY="311.0" mnemonicParsing="false" text="Delete User" />
+      <TextField fx:id="updatePasswordField" disable="true" layoutX="310.0" layoutY="351.0" prefHeight="26.0" prefWidth="147.0" promptText="New password" />
+      <Button fx:id="updatePasswordButton" disable="true" layoutX="477.0" layoutY="352.0" mnemonicParsing="false" text="Update Password" />
+      <Button fx:id="deleteUserButton" disable="true" layoutX="508.0" layoutY="311.0" mnemonicParsing="false" text="Delete User" />
    </children>
 </AnchorPane>
