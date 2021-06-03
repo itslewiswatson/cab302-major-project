@@ -126,4 +126,6 @@ public class DBQueries {
     public static final String UPDATE_USER_PERMISSION = "UPDATE users SET admin = ? WHERE id = ?";
 
     public static final String DELETE_ASSET = "DELETE FROM assets WHERE id = ?";
+
+    public static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
 }

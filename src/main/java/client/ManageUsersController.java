@@ -4,10 +4,9 @@ import client.alert.AlertDialog;
 import client.config.Page;
 import common.domain.Unit;
 import common.domain.User;
-import common.dto.GetUnitsDTO;
-import common.dto.GetUsersDTO;
-import common.dto.UpdateUserPermissionsDTO;
+import common.dto.*;
 import common.exceptions.NullResultException;
+import common.services.PasswordHasher;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -131,13 +130,11 @@ public class ManageUsersController extends Controller implements Initializable {
                     disableInputs();
                     return;
                 }
-                ;
                 @Nullable User selectedUser = usersTableView.getSelectionModel().getSelectedItem();
                 if (selectedUser == null) {
                     disableInputs();
                     return;
                 }
-                ;
                 populateUserUnitsTable(selectedUser);
                 accountTypeButton.setText(selectedUser.isAdmin() ? "Make Standard" : "Make Admin");
                 enableInputs();
@@ -198,7 +195,56 @@ public class ManageUsersController extends Controller implements Initializable {
         } catch (NullResultException e) {
             AlertDialog.error("Could not update user account type", "Please try again");
         }
+        populateUsersTable();
+    }
 
+    @FXML
+    public void deleteUser() {
+        User user = usersTableView.getSelectionModel().getSelectedItem();
+        if (user == null) return;
+
+        if (user.getUserId().equals(getUser().getUserId())) {
+            AlertDialog.warning("You cannot delete your own account", "Please confer with another IT admin to do this");
+            return;
+        }
+
+        sendObject(new DeleteUserDTO(user.getUserId()));
+        try {
+            Boolean success = readObject();
+            if (!success) {
+                AlertDialog.error("Could not delete user", "Please try again");
+                return;
+            }
+        } catch (NullResultException e) {
+            AlertDialog.error("Could not delete user", "Please try again");
+            return;
+        }
+
+        AlertDialog.info("Successfully deleted user " + user.getUsername());
+        populateUsersTable();
+    }
+
+    @FXML
+    public void updatePassword() {
+        User user = usersTableView.getSelectionModel().getSelectedItem();
+        if (user == null) return;
+
+        String newPassword = updatePasswordField.getText();
+        if (newPassword.length() <= 0) {
+            AlertDialog.info("New password cannot be empty");
+            return;
+        }
+        user.setPassword(PasswordHasher.hashPassword(newPassword));
+
+        sendObject(new UpdatePasswordDTO(user.getUserId(), user.getPassword()));
+        try {
+            readObject();
+        } catch (NullResultException e) {
+            AlertDialog.error("Could not update password", "Please try again");
+            return;
+        }
+
+        AlertDialog.info("Successfully changed password for user " + user.getUsername());
         populateUsersTable();
     }
 }

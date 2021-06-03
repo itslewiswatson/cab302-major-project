@@ -40,6 +40,7 @@ Should Have
   - Large numbers (ie quantities and unit prices) are comma-formatted (eg: 10,000,00) for easier reading.
   - Empty states (ie no trades, no units, etc) are presented nicely to the user and the user is informed of these gracefully.
   - Intuitive handling for users who may be a part of one or more units.
+  - Visual confirmations that require an extra user input for destructive actions like deletions.
 
 Nice to Have
 ------------

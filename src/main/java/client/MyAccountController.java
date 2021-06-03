@@ -83,7 +83,6 @@ public class MyAccountController extends Controller implements Initializable {
 
             UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO(
                     currentUser.getUserId(),
-                    currentUser.getPassword(),
                     newPasswordHashed
             );
 

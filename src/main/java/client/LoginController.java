@@ -54,6 +54,7 @@ public class LoginController extends Controller {
         } catch (NullResultException e) {
             AlertDialog.warning("No such username exists", "Contact an IT admin for an account");
         } catch (Exception e) {
+            e.printStackTrace();
             AlertDialog.serverCommunication();
         }
     }

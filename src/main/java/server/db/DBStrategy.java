@@ -60,4 +60,6 @@ public interface DBStrategy {
     void updateUserPermissions(User user);
 
     void removeAsset(Asset asset) throws SQLException;
+
+    void deleteUser(User user) throws SQLException;
 }
