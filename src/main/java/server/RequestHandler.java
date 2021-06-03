@@ -2,14 +2,10 @@ package server;
 
 import common.dto.DTO;
 import common.exceptions.RouteNotFoundException;
-import server.db.DBStatements;
-import server.db.DBStrategy;
-import server.handlers.Handler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 
 /**
@@ -33,30 +29,23 @@ public class RequestHandler extends Thread {
     private final ObjectOutputStream outputStream;
 
     /**
-     * The database controller.
+     * The request interpreter.
      */
-    private final DBStatements dbStatements;
-
-    /**
-     * The routes map.
-     */
-    private final RoutesMap routesMap;
+    private final RequestInterpreter requestInterpreter;
 
     /**
      * Creates a RequestHandler object when a new thread is created.
      *
-     * @param clientSocket The client socket.
-     * @param inputStream  The server socket input stream.
-     * @param outputStream The server socket output stream.
-     * @param dbStatements The database controller.
-     * @param routesMap    The routes map.
+     * @param clientSocket       The client socket.
+     * @param inputStream        The server socket input stream.
+     * @param outputStream       The server socket output stream.
+     * @param requestInterpreter The request interpreter.
      */
-    public RequestHandler(Socket clientSocket, ObjectInputStream inputStream, ObjectOutputStream outputStream, DBStatements dbStatements, RoutesMap routesMap) {
+    public RequestHandler(Socket clientSocket, ObjectInputStream inputStream, ObjectOutputStream outputStream, RequestInterpreter requestInterpreter) {
         this.clientSocket = clientSocket;
         this.inputStream = inputStream;
         this.outputStream = outputStream;
-        this.dbStatements = dbStatements;
-        this.routesMap = routesMap;
+        this.requestInterpreter = requestInterpreter;
     }
 
     /**
@@ -82,7 +71,8 @@ public class RequestHandler extends Thread {
                 clientSocket.close();
 
                 System.out.println("Connection closed.\n");
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         } catch (RouteNotFoundException e) {
             System.out.println("Route not found.\n");
         }
@@ -100,23 +90,12 @@ public class RequestHandler extends Thread {
         }
 
         try {
-            Class<Handler<Object, DTO>> handlerClass = getHandlerClass(object);
-            Handler<Object, DTO> handler = createHandlerFromClass(handlerClass);
-            Object result = handler.handle((DTO) object);
+            Object result = requestInterpreter.interpret((DTO) object);
             sendOutput(result);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RouteNotFoundException();
         }
-    }
-
-    private Handler<Object, DTO> createHandlerFromClass(Class<Handler<Object, DTO>> handlerClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return handlerClass.getDeclaredConstructor(DBStrategy.class).newInstance(dbStatements);
-    }
-
-    @SuppressWarnings("unchecked")
-    private Class<Handler<Object, DTO>> getHandlerClass(Object object) {
-        return (Class<Handler<Object, DTO>>) routesMap.getMap().get(object.getClass());
     }
 
     private void sendOutput(Object object) throws IOException {

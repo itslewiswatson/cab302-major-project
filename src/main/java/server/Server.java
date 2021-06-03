@@ -1,6 +1,7 @@
 package server;
 
 import server.db.DBStatements;
+import server.handlers.strategy.HandlerResolver;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -38,9 +39,12 @@ class Server {
 
                 ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
                 ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-                RoutesMap routesMap = new RoutesMap();
 
-                Thread requestThread = new RequestHandler(clientSocket, inputStream, outputStream, dbStatements, routesMap);
+                RoutesMap routesMap = new RoutesMap();
+                HandlerResolver handlerResolver = new HandlerResolver(routesMap, dbStatements);
+                RequestInterpreter requestInterpreter = new RequestInterpreter(handlerResolver);
+
+                Thread requestThread = new RequestHandler(clientSocket, inputStream, outputStream, requestInterpreter);
                 requestThread.start();
                 System.out.println("\tConnection sent to thread.");
             }
