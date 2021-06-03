@@ -1,8 +1,7 @@
 package server.handlers;
 
-import common.domain.Asset;
-import common.domain.Trade;
-import common.domain.User;
+import common.dataTypes.TradeType;
+import common.domain.*;
 import common.dto.NewTradeDTO;
 import common.services.UuidGenerator;
 import server.db.DBStrategy;
@@ -21,14 +20,42 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
      */
     @Override
     public Trade handle(NewTradeDTO dto) {
-        // TODO check pricing, check user, check unit, etc
-        String assetId = dto.getAssetId();
-        Asset asset = new Asset(assetId, "");
-        User user = new User(dto.getUserId(), "", "", false);
+
+        Unit unit = resolveUnit(dto.getUnitId());
+        if (unit == null) {
+            return null;
+        }
+
+        Asset asset = resolveAsset(dto.getAssetId());
+        if (asset == null) {
+            return null;
+        }
+
+        User user = resolveUser(dto.getUserId());
+        if (user == null) {
+            return null;
+        }
+
+        if (dto.getType() == TradeType.BUY) {
+            int totalPrice = dto.getPrice() * dto.getQuantity();
+            int unitCredits = dbStatements.findUnitById(dto.getUnitId()).getCredits();
+
+            if (totalPrice > unitCredits)
+            {
+                return null;
+            }
+        }
+        else {
+            UnitAsset unitAsset = dbStatements.findUnitAsset(dto.getUnitId(), dto.getAssetId());
+
+            if (dto.getQuantity() > unitAsset.getQuantity()) {
+                return null;
+            }
+        }
 
         Trade newTrade = new Trade(
                 UuidGenerator.generateUuid(),
-                dto.getUnitId(),
+                unit,
                 asset,
                 user,
                 LocalDate.now(),
@@ -42,5 +69,17 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
         dbStatements.createTrade(newTrade);
 
         return newTrade;
+    }
+
+    private Unit resolveUnit(String unitId) {
+        return dbStatements.findUnitById(unitId);
+    }
+
+    private Asset resolveAsset(String assetId) {
+        return dbStatements.findAssetById(assetId);
+    }
+
+    private User resolveUser(String userId) {
+        return dbStatements.findUserById(userId);
     }
 }
