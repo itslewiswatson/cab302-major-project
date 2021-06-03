@@ -29,7 +29,7 @@ public class DBQueries {
     /**
      * SQL statement to select unfulfilled trades.
      */
-    public static final String GET_ACTIVE_TRADES = "SELECT * FROM trades INNER JOIN assets ON asset_id = assets.id INNER JOIN users ON users.id = user_id WHERE date_filled IS NULL";
+    public static final String GET_ACTIVE_TRADES = "SELECT * FROM trades INNER JOIN units ON unit_id = units.id INNER JOIN assets ON asset_id = assets.id INNER JOIN users ON user_id = users.id WHERE date_filled IS NULL";
 
     /**
      * SQL statement to blindly retrieve all units.
@@ -37,7 +37,7 @@ public class DBQueries {
     public static final String GET_UNITS = "SELECT * FROM units";
 
     /**
-     * SQL statement to retrive a unit by its ID.
+     * SQL statement to retrieve a unit by its ID.
      */
     public static final String GET_UNIT_BY_ID = "SELECT * FROM units WHERE id = ?";
 
