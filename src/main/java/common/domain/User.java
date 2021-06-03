@@ -22,7 +22,7 @@ public class User extends Entity {
     /**
      * An indication of whether the new user account has administrative privileges.
      */
-    private final boolean admin;
+    private boolean admin;
 
     /**
      * The user's organisational unit names.
@@ -87,6 +87,15 @@ public class User extends Entity {
      */
     public boolean isAdmin() {
         return admin;
+    }
+
+    /**
+     * Sets the user account's admin field.
+     *
+     * @param admin Boolean representing whether the user should be an admin or not
+     */
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     /**

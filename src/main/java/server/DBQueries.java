@@ -122,4 +122,6 @@ public class DBQueries {
     public static final String UPDATE_TRADE = "UPDATE trades SET quantity_filled = ?, date_filled = ? WHERE id = ?";
 
     public static final String GET_USERS = "SELECT * FROM users";
+
+    public static final String UPDATE_USER_PERMISSION = "UPDATE users SET admin = ? WHERE id = ?";
 }

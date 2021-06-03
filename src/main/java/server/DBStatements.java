@@ -125,6 +125,8 @@ public class DBStatements {
 
     private PreparedStatement getUsers;
 
+    private PreparedStatement updateUserPermissions;
+
     /**
      * Creates a DBStatements object.
      */
@@ -158,6 +160,7 @@ public class DBStatements {
             getUnitUsers = connection.prepareStatement(DBQueries.GET_UNIT_USERS);
             updateTrade = connection.prepareStatement(DBQueries.UPDATE_TRADE);
             getUsers = connection.prepareStatement(DBQueries.GET_USERS);
+            updateUserPermissions = connection.prepareStatement(DBQueries.UPDATE_USER_PERMISSION);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -754,8 +757,7 @@ public class DBStatements {
 
             if (trade.getDateFilled() != null) {
                 updateTrade.setDate(2, Date.valueOf(trade.getDateFilled()));
-            }
-            else {
+            } else {
                 updateTrade.setDate(2, null);
             }
 
@@ -789,5 +791,15 @@ public class DBStatements {
         }
 
         return users;
+    }
+
+    public void updateUserPermissions(User user) {
+        try {
+            updateUserPermissions.setBoolean(1, user.isAdmin());
+            updateUserPermissions.setString(2, user.getUserId());
+            updateUserPermissions.execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 }

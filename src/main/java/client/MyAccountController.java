@@ -171,5 +171,6 @@ public class MyAccountController extends Controller implements Initializable {
         displayUserDetails(user);
         manageAssetsButton.setDisable(!user.isAdmin());
         manageUnitsButton.setDisable(!user.isAdmin());
+        manageUsersButton.setDisable(!user.isAdmin());
     }
 }
