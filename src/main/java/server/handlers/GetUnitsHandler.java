@@ -3,12 +3,12 @@ package server.handlers;
 import common.domain.Unit;
 import common.domain.User;
 import common.dto.GetUnitsDTO;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
 public class GetUnitsHandler extends Handler<ArrayList<Unit>, GetUnitsDTO> {
-    public GetUnitsHandler(DBStatements dbStatements) {
+    public GetUnitsHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

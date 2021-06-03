@@ -4,12 +4,12 @@ import common.domain.Asset;
 import common.domain.FullAsset;
 import common.dto.AddAssetDTO;
 import common.services.UuidGenerator;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
 public class AddAssetHandler extends Handler<ArrayList<FullAsset>, AddAssetDTO> {
-    public AddAssetHandler(DBStatements dbStatements) {
+    public AddAssetHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

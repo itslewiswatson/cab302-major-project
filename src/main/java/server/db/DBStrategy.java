@@ -58,4 +58,6 @@ public interface DBStrategy {
     ArrayList<User> fetchUsers();
 
     void updateUserPermissions(User user);
+
+    void removeAsset(Asset asset) throws SQLException;
 }

@@ -2,12 +2,12 @@ package server.handlers;
 
 import common.domain.Trade;
 import common.dto.GetHistoricTradesDTO;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
 public class GetHistoricTradesHandler extends Handler<ArrayList<Trade>, GetHistoricTradesDTO> {
-    public GetHistoricTradesHandler(DBStatements dbStatements) {
+    public GetHistoricTradesHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

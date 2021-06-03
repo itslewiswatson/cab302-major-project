@@ -2,10 +2,10 @@ package server.handlers;
 
 import common.domain.Trade;
 import common.dto.RemoveTradeDTO;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 public class RemoveTradeHandler extends Handler<Boolean, RemoveTradeDTO> {
-    public RemoveTradeHandler(DBStatements dbStatements) {
+    public RemoveTradeHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

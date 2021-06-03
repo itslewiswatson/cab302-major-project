@@ -2,11 +2,11 @@ package server.handlers;
 
 import common.domain.User;
 import common.dto.LoginDTO;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 public class LoginHandler extends Handler<User, LoginDTO> {
 
-    public LoginHandler(DBStatements dbStatements) {
+    public LoginHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

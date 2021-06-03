@@ -3,11 +3,11 @@ package server.handlers;
 import common.domain.User;
 import common.dto.CreateAccountDTO;
 import common.services.UuidGenerator;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 public class CreateAccountHandler extends Handler<User, CreateAccountDTO> {
 
-    public CreateAccountHandler(DBStatements dbStatements) {
+    public CreateAccountHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

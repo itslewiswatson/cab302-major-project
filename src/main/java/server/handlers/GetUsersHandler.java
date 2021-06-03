@@ -2,12 +2,12 @@ package server.handlers;
 
 import common.domain.User;
 import common.dto.GetUsersDTO;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
 public class GetUsersHandler extends Handler<ArrayList<User>, GetUsersDTO> {
-    public GetUsersHandler(DBStatements dbStatements) {
+    public GetUsersHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

@@ -2,10 +2,10 @@ package server.handlers;
 
 import common.domain.UnitAsset;
 import common.dto.RemoveUnitAssetDTO;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 public class RemoveUnitAssetHandler extends Handler<Boolean, RemoveUnitAssetDTO> {
-    public RemoveUnitAssetHandler(DBStatements dbStatements) {
+    public RemoveUnitAssetHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

@@ -127,6 +127,8 @@ public class DBStatements implements DBStrategy {
 
     private PreparedStatement updateUserPermissions;
 
+    private PreparedStatement deleteAsset;
+
     /**
      * Creates a DBStatements object.
      */
@@ -161,6 +163,7 @@ public class DBStatements implements DBStrategy {
             updateTrade = connection.prepareStatement(DBQueries.UPDATE_TRADE);
             getUsers = connection.prepareStatement(DBQueries.GET_USERS);
             updateUserPermissions = connection.prepareStatement(DBQueries.UPDATE_USER_PERMISSION);
+            deleteAsset = connection.prepareStatement(DBQueries.DELETE_ASSET);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -801,5 +804,11 @@ public class DBStatements implements DBStrategy {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    @Override
+    public void removeAsset(Asset asset) throws SQLException {
+        deleteAsset.setString(1, asset.getAssetId());
+        deleteAsset.execute();
     }
 }

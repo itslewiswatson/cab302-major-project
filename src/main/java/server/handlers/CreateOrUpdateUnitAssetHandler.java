@@ -32,7 +32,6 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
         UnitAsset existingUnitAsset = resolveUnitAsset(unitId, dto.getAssetId());
 
         if (existingUnitAsset != null) {
-            System.out.println("we have existing asset");
             updateUnitAsset(existingUnitAsset, dto);
             return;
         }

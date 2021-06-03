@@ -2,10 +2,10 @@ package server.handlers;
 
 import common.domain.User;
 import common.dto.UpdateUserPermissionsDTO;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 public class UpdateUserPermissionsHandler extends Handler<User, UpdateUserPermissionsDTO> {
-    public UpdateUserPermissionsHandler(DBStatements dbStatements) {
+    public UpdateUserPermissionsHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 

@@ -2,10 +2,10 @@ package server.handlers;
 
 import common.domain.Unit;
 import common.dto.UpdateCreditsDTO;
-import server.db.DBStatements;
+import server.db.DBStrategy;
 
 public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
-    public UpdateCreditsHandler(DBStatements dbStatements) {
+    public UpdateCreditsHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 
@@ -21,7 +21,7 @@ public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
 
         unit.setCredits(newCredits);
 
-        return (dbStatements.updateUnitCredits(unit)) ?  unit : null;
+        return (dbStatements.updateUnitCredits(unit)) ? unit : null;
     }
 
     private Unit resolveUnit(String unitId) {

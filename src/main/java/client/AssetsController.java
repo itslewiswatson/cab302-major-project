@@ -4,6 +4,7 @@ import client.alert.AlertDialog;
 import client.config.Page;
 import common.domain.FullAsset;
 import common.dto.AddAssetDTO;
+import common.dto.DeleteAssetDTO;
 import common.dto.GetAssetsDTO;
 import common.exceptions.NullResultException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -68,14 +70,32 @@ public class AssetsController extends Controller implements Initializable {
         quantity.setCellValueFactory(c -> new ReadOnlyObjectWrapper(c.getValue().getAmount()));
     }
 
-    public void onAddAsset() {
+    public void addAsset() {
         if (newAssetName.getLength() == 0) return;
         AddAssetDTO addAssetDTO = new AddAssetDTO(newAssetName.getText());
         sendObject(addAssetDTO);
+
         try {
             readObject();
         } catch (NullResultException e) {
             AlertDialog.warning("Could not add asset", "Please try again");
+        }
+        populateTable();
+    }
+
+    public void removeAsset() {
+        @Nullable FullAsset asset = tableView.getSelectionModel().getSelectedItem();
+        if (asset == null) return;
+        if (asset.getAmount() != 0) {
+            AlertDialog.info("Unable to remove asset", "You can only remove assets not in circulation");
+            return;
+        }
+
+        sendObject(new DeleteAssetDTO(asset.getAssetId()));
+        try {
+            readObject();
+        } catch (NullResultException e) {
+            AlertDialog.warning("Could not remove asset", "Please try again");
         }
         populateTable();
     }

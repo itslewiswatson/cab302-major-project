@@ -3,6 +3,7 @@ package server;
 import common.dto.DTO;
 import common.exceptions.RouteNotFoundException;
 import server.db.DBStatements;
+import server.db.DBStrategy;
 import server.handlers.Handler;
 
 import java.io.IOException;
@@ -104,12 +105,13 @@ public class RequestHandler extends Thread {
             Object result = handler.handle((DTO) object);
             sendOutput(result);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RouteNotFoundException();
         }
     }
 
     private Handler<Object, DTO> createHandlerFromClass(Class<Handler<Object, DTO>> handlerClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return handlerClass.getDeclaredConstructor(DBStatements.class).newInstance(dbStatements);
+        return handlerClass.getDeclaredConstructor(DBStrategy.class).newInstance(dbStatements);
     }
 
     @SuppressWarnings("unchecked")
