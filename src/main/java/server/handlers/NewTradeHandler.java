@@ -38,7 +38,7 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
 
         if (dto.getType() == TradeType.BUY) {
             int totalPrice = dto.getPrice() * dto.getQuantity();
-            int unitCredits = dbStatements.findUnitById(dto.getUnitId()).getCredits();
+            int unitCredits = unit.getCredits();
 
             if (totalPrice > unitCredits)
             {
@@ -46,7 +46,10 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
             }
         }
         else {
-            UnitAsset unitAsset = dbStatements.findUnitAsset(dto.getUnitId(), dto.getAssetId());
+            UnitAsset unitAsset = resolveUnitAsset(unit.getUnitId(), asset.getAssetId());
+            if (unitAsset == null) {
+                return null;
+            }
 
             if (dto.getQuantity() > unitAsset.getQuantity()) {
                 return null;
@@ -81,5 +84,9 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
 
     private User resolveUser(String userId) {
         return dbStatements.findUserById(userId);
+    }
+
+    private UnitAsset resolveUnitAsset(String unitId, String assetId) {
+        return dbStatements.findUnitAsset(unitId, assetId);
     }
 }
