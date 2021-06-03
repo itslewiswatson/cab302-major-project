@@ -109,6 +109,10 @@ public class MyAccountController extends Controller implements Initializable {
         switchToPage(Page.allTrades);
     }
 
+    public void tradeHistory() {
+        switchToPage(Page.tradeHistory);
+    }
+
     public void assets() {
         switchToPage(Page.assets);
     }
