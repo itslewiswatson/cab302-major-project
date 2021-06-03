@@ -36,6 +36,24 @@ public class DBStatementsMock implements DBStrategy {
         units.add(new Unit("ID11", "Manufacturing", 170));
         units.add(new Unit("ID12", "Accounting", 90));
 
+        for (Unit unit : units) {
+            User user1 = findUserById("ID1");
+            User user2 = findUserById("ID2");
+            User user3 = findUserById("ID3");
+            User user4 = findUserById("ID4");
+            User user5 = findUserById("ID5");
+            unit.addUser(user1);
+            unit.addUser(user2);
+            unit.addUser(user3);
+            unit.addUser(user4);
+            unit.addUser(user5);
+            user1.addUnit(unit.getUnitId());
+            user2.addUnit(unit.getUnitId());
+            user3.addUnit(unit.getUnitId());
+            user4.addUnit(unit.getUnitId());
+            user5.addUnit(unit.getUnitId());
+        }
+
         this.unitAssets = new ArrayList<>();
         this.unitAssets.add(new UnitAsset("ID10", findAssetById("ID6"), 30));
         this.unitAssets.add(new UnitAsset("ID11", findAssetById("ID8"), 20));
@@ -254,6 +272,7 @@ public class DBStatementsMock implements DBStrategy {
 
     @Override
     public void removeUserFromUnit(User user, Unit unit) throws SQLException {
-
+        unit.getUsers().remove(user);
+        user.getUnits().remove(unit.getUnitId());
     }
 }
