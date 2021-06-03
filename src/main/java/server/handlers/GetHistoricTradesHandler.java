@@ -15,12 +15,6 @@ public class GetHistoricTradesHandler extends Handler<ArrayList<Trade>, GetHisto
     public ArrayList<Trade> handle(GetHistoricTradesDTO dto) {
         ArrayList<Trade> trades = dbStatements.fetchHistoricTrades();
 
-        String unitId = dto.getUnitId();
-        if (unitId != null) {
-            trades.removeIf(trade -> !trade.getUnit().getUnitId().equals(dto.getUnitId()));
-            return trades;
-        }
-
-        return trades;
+        return (trades.size() != 0) ? trades : null;
     }
 }
