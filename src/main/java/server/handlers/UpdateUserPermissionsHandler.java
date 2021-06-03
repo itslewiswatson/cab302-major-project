@@ -11,9 +11,17 @@ public class UpdateUserPermissionsHandler extends Handler<User, UpdateUserPermis
 
     @Override
     public User handle(UpdateUserPermissionsDTO dto) {
-        User user = dbStatements.findUserById(dto.getUserId());
+        User user = resolveUser(dto.getUserId());
+        if (user == null) {
+            return null;
+        }
+
         user.setAdmin(dto.isAdmin());
         dbStatements.updateUserPermissions(user);
         return user;
+    }
+
+    private User resolveUser(String userId) {
+        return dbStatements.findUserById(userId);
     }
 }

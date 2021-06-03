@@ -11,10 +11,18 @@ public class UpdatePasswordHandler extends Handler<User, UpdatePasswordDTO> {
 
     @Override
     public User handle(UpdatePasswordDTO dto) {
-        User user = dbStatements.findUserById(dto.getUserId());
+        User user = resolveUser(dto.getUserId());
+        if (user == null) {
+            return null;
+        }
+
         user.setPassword(dto.getNewPassword());
         dbStatements.updatePassword(user);
 
         return user;
+    }
+
+    private User resolveUser(String userId) {
+        return dbStatements.findUserById(userId);
     }
 }

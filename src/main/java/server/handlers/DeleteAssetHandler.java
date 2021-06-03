@@ -29,11 +29,6 @@ public class DeleteAssetHandler extends Handler<Boolean, DeleteAssetDTO> {
     }
 
     private Asset resolveAsset(String assetId) {
-        try {
-            return dbStatements.findAssetById(assetId);
-        } catch (SQLException ignored) {
-        }
-        
-        return null;
+        return dbStatements.findAssetById(assetId);
     }
 }
