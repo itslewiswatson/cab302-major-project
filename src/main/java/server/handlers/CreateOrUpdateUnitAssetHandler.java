@@ -6,7 +6,6 @@ import common.dto.CreateOrUpdateUnitAssetDTO;
 import org.jetbrains.annotations.Nullable;
 import server.db.DBStatements;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>, CreateOrUpdateUnitAssetDTO> {
@@ -17,17 +16,12 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
     @Override
     public ArrayList<UnitAsset> handle(CreateOrUpdateUnitAssetDTO dto) {
 
-        try {
-            createOrUpdateUnitAsset(dto);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            return null;
-        }
+        createOrUpdateUnitAsset(dto);
 
         return dbStatements.findUnitAssetsByUnit(dto.getUnitId());
     }
 
-    private void createOrUpdateUnitAsset(CreateOrUpdateUnitAssetDTO dto) throws SQLException {
+    private void createOrUpdateUnitAsset(CreateOrUpdateUnitAssetDTO dto) {
         String unitId = dto.getUnitId();
         UnitAsset existingUnitAsset = resolveUnitAsset(unitId, dto.getAssetId());
 
@@ -54,7 +48,7 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
         dbStatements.updateUnitAsset(existingUnitAsset);
     }
 
-    private void createNewUnitAsset(CreateOrUpdateUnitAssetDTO dto) throws SQLException {
+    private void createNewUnitAsset(CreateOrUpdateUnitAssetDTO dto) {
         Asset asset = resolveAsset(dto.getAssetId());
 
         UnitAsset unitAsset = new UnitAsset(
@@ -66,7 +60,7 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
         dbStatements.addUnitAsset(unitAsset);
     }
 
-    private Asset resolveAsset(String assetId) throws SQLException {
+    private Asset resolveAsset(String assetId) {
         return dbStatements.findAssetById(assetId);
     }
 }
