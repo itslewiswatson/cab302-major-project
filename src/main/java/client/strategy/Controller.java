@@ -11,7 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Controller {
-    private final ClientController clientController;
+    protected final ClientController clientController;
 
     public Controller(ClientController clientController) {
         this.clientController = clientController;
