@@ -71,6 +71,17 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
 
         dbStatements.createTrade(newTrade);
 
+        if (newTrade.getType() == TradeType.BUY)
+        {
+            unit.subtractCredits(newTrade.getQuantity() * newTrade.getPrice());
+            dbStatements.updateUnitCredits(unit);
+        }
+        else {
+            UnitAsset unitAsset = resolveUnitAsset(unit.getUnitId(), asset.getAssetId());
+            unitAsset.subtractQuantity(newTrade.getQuantity());
+            dbStatements.updateUnitAsset(unitAsset);
+        }
+
         return newTrade;
     }
 
