@@ -80,10 +80,11 @@ public class DBQueries {
     /**
      * SQL statement to find a single trade by its ID.
      */
-    public static final String FIND_TRADE_BY_ID = "SELECT * FROM trades T " +
-            "INNER JOIN assets A ON asset_id = A.id " +
-            "INNER JOIN users U ON user_id = U.id " +
-            "WHERE T.id = ? " +
+    public static final String FIND_TRADE_BY_ID = "SELECT * FROM trades " +
+            "INNER JOIN units ON unit_id = units.id " +
+            "INNER JOIN assets ON asset_id = assets.id " +
+            "INNER JOIN users ON user_id = users.id " +
+            "WHERE trades.id = ? " +
             "AND date_filled IS NULL";
 
     /**

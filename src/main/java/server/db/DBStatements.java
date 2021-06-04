@@ -517,7 +517,7 @@ public class DBStatements implements DBStrategy {
 
             while (tradeResultSet.next()) {
                 Trade trade = new Trade(
-                        tradeResultSet.getString("T.id"),
+                        tradeResultSet.getString("trades.id"),
                         new Unit(
                                 tradeResultSet.getString("unit_id"),
                                 tradeResultSet.getString("units.name"),
@@ -572,7 +572,7 @@ public class DBStatements implements DBStrategy {
                 tradeResultSet.next();
 
                 trade = new Trade(
-                        tradeResultSet.getString("T.id"),
+                        tradeResultSet.getString("trades.id"),
                         new Unit(
                                 tradeResultSet.getString("unit_id"),
                                 tradeResultSet.getString("units.name"),
