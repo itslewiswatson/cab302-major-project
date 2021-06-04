@@ -96,7 +96,7 @@ public class UnitTradesController extends Controller implements Initializable {
 
         setupColumns();
         setupRows();
-        setupComboBox();
+        setupUnitComboBox();
         populateTable();
 
         refresher = new Timeline(
@@ -110,7 +110,7 @@ public class UnitTradesController extends Controller implements Initializable {
         refresher.play();
     }
 
-    private void setupComboBox() {
+    private void setupUnitComboBox() {
         unitComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Unit unit) {
