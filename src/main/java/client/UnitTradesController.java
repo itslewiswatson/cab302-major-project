@@ -97,8 +97,6 @@ public class UnitTradesController extends Controller implements Initializable {
         setupColumns();
         setupRows();
         setupComboBox();
-        populateUnitComboBox();
-        populateTable();
 
         refresher = new Timeline(
                 new KeyFrame(
@@ -125,7 +123,7 @@ public class UnitTradesController extends Controller implements Initializable {
         });
     }
 
-    private void populateUnitComboBox() {
+    public void populateUnitComboBox() {
         ArrayList<Unit> userUnits = fetchUserUnits();
         unitComboBox.setItems(FXCollections.observableArrayList(userUnits));
         if (userUnits.size() == 1) {
