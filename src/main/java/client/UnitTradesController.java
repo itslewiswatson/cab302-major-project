@@ -97,6 +97,7 @@ public class UnitTradesController extends Controller implements Initializable {
         setupColumns();
         setupRows();
         setupComboBox();
+        populateTable();
 
         refresher = new Timeline(
                 new KeyFrame(
@@ -134,21 +135,28 @@ public class UnitTradesController extends Controller implements Initializable {
     @FXML
     public void populateTable() {
         Unit selectedUnit = unitComboBox.getValue();
+
         if (selectedUnit != null) {
+            Trade selectedTrade;
             int previouslySelectedTrade = tableView.getSelectionModel().getSelectedIndex();
 
             ObservableList<Trade> trades = FXCollections.observableArrayList();
 
             SortedList<Trade> sortedTrades = new SortedList<>(trades);
-
             sortedTrades.comparatorProperty().bind(tableView.comparatorProperty());
 
             tableView.setItems(sortedTrades);
-
             trades.addAll(fetchUnitTrades(selectedUnit.getUnitId()));
 
             tableView.getFocusModel().focus(previouslySelectedTrade);
             tableView.getSelectionModel().select(previouslySelectedTrade);
+
+            selectedTrade = tableView.getSelectionModel().getSelectedItem();
+            if (selectedTrade != null) removeTradeButton.setDisable(selectedTrade.getDateFilled() != null);
+            else removeTradeButton.setDisable(true);
+        }
+        else {
+            removeTradeButton.setDisable(true);
         }
     }
 
@@ -160,10 +168,8 @@ public class UnitTradesController extends Controller implements Initializable {
                 if (!mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() < 1) return;
                 Trade selectedTrade = tableView.getSelectionModel().getSelectedItem();
 
-                if (selectedTrade == null) return;
-
                 if (mouseEvent.getClickCount() != 2) {
-                    removeTradeButton.setDisable(selectedTrade.getDateFilled() != null);
+                    removeTradeButton.setDisable(selectedTrade == null || selectedTrade.getDateFilled() != null);
                     return;
                 }
 
