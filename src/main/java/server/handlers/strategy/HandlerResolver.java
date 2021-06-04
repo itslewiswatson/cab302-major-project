@@ -1,17 +1,17 @@
 package server.handlers.strategy;
 
 import common.dto.DTO;
-import server.RoutesMap;
 import server.db.DBStrategy;
 import server.handlers.Handler;
+import server.handlers.RoutesMapStrategy;
 
 import java.lang.reflect.InvocationTargetException;
 
 public class HandlerResolver {
-    private final RoutesMap routesMap;
+    private final RoutesMapStrategy routesMap;
     private final DBStrategy dbStatements;
 
-    public HandlerResolver(RoutesMap routesMap, DBStrategy dbStatements) {
+    public HandlerResolver(RoutesMapStrategy routesMap, DBStrategy dbStatements) {
         this.routesMap = routesMap;
         this.dbStatements = dbStatements;
     }

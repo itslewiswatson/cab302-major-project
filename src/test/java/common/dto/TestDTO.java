@@ -1,13 +1,15 @@
 package common.dto;
 
-public class TestDTO extends DTO {
-    private final String testId;
+import org.jetbrains.annotations.Nullable;
 
-    public TestDTO(String testId) {
+public class TestDTO extends DTO {
+    private final @Nullable String testId;
+
+    public TestDTO(@Nullable String testId) {
         this.testId = testId;
     }
 
-    public String getTestId() {
+    public @Nullable String getTestId() {
         return testId;
     }
 }

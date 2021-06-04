@@ -9,14 +9,12 @@ import server.db.DBStrategy;
 
 public class TestHandlerTest {
     private TestDTO testDTO;
-    private DBStrategy mockStrategy;
     private TestHandler handler;
 
     @Before
     public void setUp() {
         this.testDTO = new TestDTO("TEST");
-        this.mockStrategy = new MockDBStatements();
-        this.handler = new TestHandler(mockStrategy);
+        this.handler = new TestHandler();
     }
 
     @Test
@@ -31,7 +29,7 @@ public class TestHandlerTest {
     }
 
     @Test
-    public void testDBStrategy() {
-        Assert.assertSame(handler.dbStatements, mockStrategy);
+    public void testDbStrategy() {
+        Assert.assertTrue(handler.dbStatements instanceof MockDBStatements);
     }
 }
