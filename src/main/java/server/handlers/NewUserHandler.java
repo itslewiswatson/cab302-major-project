@@ -10,7 +10,6 @@ public class NewUserHandler extends Handler<User, NewUserDTO> {
         super(dbStatements);
     }
 
-    // TODO more checks here
     @Override
     public User handle(NewUserDTO dto) {
         User user = new User(

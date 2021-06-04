@@ -3,6 +3,7 @@ package server.handlers;
 import common.domain.Unit;
 import common.domain.User;
 import common.dto.GetUnitsDTO;
+import org.jetbrains.annotations.Nullable;
 import server.db.DBStrategy;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class GetUnitsHandler extends Handler<ArrayList<Unit>, GetUnitsDTO> {
     }
 
     public ArrayList<Unit> handle(GetUnitsDTO dto) {
-        String userId = dto.getUserId();
+        @Nullable String userId = dto.getUserId();
 
         if (userId != null) {
             User user = dbStatements.findUserById(userId);

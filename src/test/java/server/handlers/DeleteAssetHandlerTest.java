@@ -4,20 +4,18 @@ import common.dto.DeleteAssetDTO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import server.db.DBStrategy;
 import server.db.MockDBStatements;
 
 public class DeleteAssetHandlerTest {
-    private DBStrategy dbStrategy;
+    private DeleteAssetHandler handler;
 
     @Before
     public void setUp() throws Exception {
-        dbStrategy = new MockDBStatements();
+        handler = new DeleteAssetHandler(new MockDBStatements());
     }
 
     @Test
     public void testHandle() {
-        DeleteAssetHandler handler = new DeleteAssetHandler(dbStrategy);
         DeleteAssetDTO dto = new DeleteAssetDTO("ID9");
         boolean success = handler.handle(dto);
         Assert.assertTrue(success);
@@ -25,9 +23,8 @@ public class DeleteAssetHandlerTest {
 
     @Test
     public void testHandleInvalidAsset() {
-        DeleteAssetHandler handler = new DeleteAssetHandler(dbStrategy);
-
         DeleteAssetDTO badDTO = new DeleteAssetDTO("INVALID");
-        Assert.assertFalse(handler.handle(badDTO));
+        boolean success = handler.handle(badDTO);
+        Assert.assertFalse(success);
     }
 }

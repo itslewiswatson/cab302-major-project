@@ -13,19 +13,17 @@ import java.util.ArrayList;
 public class AddAssetHandlerTest {
     private AddAssetHandler handler;
     private DBStrategy dbStrategy;
-    private AddAssetDTO mockDTO;
 
     @Before
     public void setUp() throws Exception {
         dbStrategy = new MockDBStatements();
-        mockDTO = new AddAssetDTO("ASSET_NAME");
         handler = new AddAssetHandler(dbStrategy);
     }
 
     @Test
     public void testHandle() {
         ArrayList<FullAsset> assets = dbStrategy.findAssets();
-        ArrayList<FullAsset> results = handler.handle(mockDTO);
+        ArrayList<FullAsset> results = handler.handle(new AddAssetDTO("ASSET_NAME"));
 
         Assert.assertNotNull(results);
         Assert.assertSame(assets, results);

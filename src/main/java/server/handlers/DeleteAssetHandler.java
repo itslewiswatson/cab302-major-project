@@ -18,10 +18,11 @@ public class DeleteAssetHandler extends Handler<Boolean, DeleteAssetDTO> {
         try {
             Asset asset = resolveAsset(dto.getAssetId());
             dbStatements.removeAsset(asset);
-            return true;
         } catch (SQLException | NullResultException exception) {
             return false;
         }
+
+        return true;
     }
 
     private Asset resolveAsset(String assetId) throws NullResultException {

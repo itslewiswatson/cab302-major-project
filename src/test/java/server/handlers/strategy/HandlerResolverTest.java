@@ -10,7 +10,7 @@ import server.MockRoutesMap;
 import server.db.DBStrategy;
 import server.db.MockDBStatements;
 import server.handlers.Handler;
-import server.handlers.RoutesMapStrategy;
+import server.RoutesMapStrategy;
 import server.handlers.TestHandler;
 
 import java.lang.reflect.InvocationTargetException;

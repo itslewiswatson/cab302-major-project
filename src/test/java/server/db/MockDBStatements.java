@@ -2,6 +2,7 @@ package server.db;
 
 import common.dataTypes.TradeType;
 import common.domain.*;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
@@ -203,12 +204,19 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public @Nullable Unit findUnitById(String unitId) {
+        for (Unit unit : units) {
+            if (unit.getUnitId().equals(unitId)) {
+                return unit;
+            }
+        }
         return null;
     }
 
     @Override
     public ArrayList<UnitAsset> findUnitAssetsByUnit(String unitId) {
-        return null;
+        return unitAssets.stream()
+                .filter(unitAsset -> unitAsset.getUnitId().equals(unitId))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
@@ -222,7 +230,12 @@ public class MockDBStatements implements DBStrategy {
     }
 
     @Override
-    public @Nullable Asset findAssetById(String assetId) {
+    public @Nullable Asset findAssetById(@NotNull String assetId) {
+        for (Asset asset : assets) {
+            if (asset.getAssetId().equals(assetId)) {
+                return asset;
+            }
+        }
         return null;
     }
 
