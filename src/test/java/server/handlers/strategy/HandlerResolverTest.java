@@ -37,10 +37,7 @@ public class HandlerResolverTest {
     public void testBadDTO() {
         BadTestDTO testDTO = new BadTestDTO();
 
-        Assert.assertThrows(
-                NullPointerException.class,
-                () -> handlerResolver.resolveHandler(testDTO)
-        );
+        Assert.assertThrows(NullPointerException.class, () -> handlerResolver.resolveHandler(testDTO));
     }
 
     @Test

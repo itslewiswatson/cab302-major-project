@@ -31,6 +31,12 @@ public class MockDBStatements implements DBStrategy {
         assets.add(new Asset("ID8", "Staplers"));
         assets.add(new Asset("ID9", "Pencils"));
 
+        this.fullAssets = new ArrayList<>();
+        this.fullAssets.add(new FullAsset("ID6", "Beef", LocalDate.EPOCH, 80));
+        this.fullAssets.add(new FullAsset("ID7", "Lettuce", LocalDate.EPOCH, 80));
+        this.fullAssets.add(new FullAsset("ID8", "Staplers", LocalDate.EPOCH, 80));
+        this.fullAssets.add(new FullAsset("ID9", "Pencils", LocalDate.EPOCH, 80));
+
         this.units = new ArrayList<>();
         units.add(new Unit("ID10", "Engineering", 120));
         units.add(new Unit("ID11", "Manufacturing", 170));
@@ -58,10 +64,6 @@ public class MockDBStatements implements DBStrategy {
         this.unitAssets.add(new UnitAsset("ID10", findAssetById("ID6"), 30));
         this.unitAssets.add(new UnitAsset("ID11", findAssetById("ID8"), 20));
         this.unitAssets.add(new UnitAsset("ID12", findAssetById("ID9"), 100));
-
-        this.fullAssets = new ArrayList<>();
-        this.fullAssets.add(new FullAsset("ID6", "Beef", LocalDate.EPOCH, 80));
-        this.fullAssets.add(new FullAsset("ID7", "Lettuce", LocalDate.EPOCH, 80));
 
         this.trades = new ArrayList<>();
         this.trades.add(
@@ -101,7 +103,9 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public void addAsset(Asset asset) {
+        FullAsset fullAsset = new FullAsset(asset.getAssetId(), asset.getAssetName(), LocalDate.now(), 0);
         assets.add(asset);
+        fullAssets.add(fullAsset);
     }
 
     @Override
