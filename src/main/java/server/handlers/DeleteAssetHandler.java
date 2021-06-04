@@ -2,6 +2,7 @@ package server.handlers;
 
 import common.domain.Asset;
 import common.dto.DeleteAssetDTO;
+import common.exceptions.NullResultException;
 import server.db.DBStrategy;
 
 import java.sql.SQLException;
@@ -13,22 +14,12 @@ public class DeleteAssetHandler extends Handler<Boolean, DeleteAssetDTO> {
 
     @Override
     public Boolean handle(DeleteAssetDTO dto) {
-        Asset asset = resolveAsset(dto.getAssetId());
-        if (asset == null) {
-            return false;
-        }
-
         try {
+            Asset asset = resolveAsset(dto.getAssetId());
             dbStatements.removeAsset(asset);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException | NullResultException exception) {
             return false;
         }
-
         return true;
-    }
-
-    private Asset resolveAsset(String assetId) {
-        return dbStatements.findAssetById(assetId);
     }
 }

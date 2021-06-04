@@ -2,7 +2,10 @@ package server.handlers;
 
 import common.domain.UnitAsset;
 import common.dto.RemoveUnitAssetDTO;
+import common.exceptions.NullResultException;
 import server.db.DBStrategy;
+
+import java.sql.SQLException;
 
 public class RemoveUnitAssetHandler extends Handler<Boolean, RemoveUnitAssetDTO> {
     public RemoveUnitAssetHandler(DBStrategy dbStatements) {
@@ -13,22 +16,14 @@ public class RemoveUnitAssetHandler extends Handler<Boolean, RemoveUnitAssetDTO>
     public Boolean handle(RemoveUnitAssetDTO dto) {
         String unitId = dto.getUnitId();
         String assetId = dto.getAssetId();
-        UnitAsset unitAsset = resolveUnitAsset(unitId, assetId);
-        if (unitAsset == null) {
-            return false;
-        }
 
         try {
+            UnitAsset unitAsset = resolveUnitAsset(unitId, assetId);
             dbStatements.removeUnitAsset(unitAsset);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NullResultException | SQLException e) {
             return false;
         }
 
         return true;
-    }
-
-    private UnitAsset resolveUnitAsset(String unitId, String assetId) {
-        return dbStatements.findUnitAsset(unitId, assetId);
     }
 }

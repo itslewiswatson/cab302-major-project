@@ -3,7 +3,7 @@ package server.handlers.strategy;
 import common.dto.DTO;
 import server.db.DBStrategy;
 import server.handlers.Handler;
-import server.handlers.RoutesMapStrategy;
+import server.RoutesMapStrategy;
 
 import java.lang.reflect.InvocationTargetException;
 

@@ -2,6 +2,7 @@ package server.db;
 
 import common.dataTypes.TradeType;
 import common.domain.*;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
@@ -31,6 +32,12 @@ public class MockDBStatements implements DBStrategy {
         assets.add(new Asset("ID8", "Staplers"));
         assets.add(new Asset("ID9", "Pencils"));
 
+        this.fullAssets = new ArrayList<>();
+        this.fullAssets.add(new FullAsset("ID6", "Beef", LocalDate.EPOCH, 80));
+        this.fullAssets.add(new FullAsset("ID7", "Lettuce", LocalDate.EPOCH, 80));
+        this.fullAssets.add(new FullAsset("ID8", "Staplers", LocalDate.EPOCH, 80));
+        this.fullAssets.add(new FullAsset("ID9", "Pencils", LocalDate.EPOCH, 80));
+
         this.units = new ArrayList<>();
         units.add(new Unit("ID10", "Engineering", 120));
         units.add(new Unit("ID11", "Manufacturing", 170));
@@ -58,10 +65,6 @@ public class MockDBStatements implements DBStrategy {
         this.unitAssets.add(new UnitAsset("ID10", findAssetById("ID6"), 30));
         this.unitAssets.add(new UnitAsset("ID11", findAssetById("ID8"), 20));
         this.unitAssets.add(new UnitAsset("ID12", findAssetById("ID9"), 100));
-
-        this.fullAssets = new ArrayList<>();
-        this.fullAssets.add(new FullAsset("ID6", "Beef", LocalDate.EPOCH, 80));
-        this.fullAssets.add(new FullAsset("ID7", "Lettuce", LocalDate.EPOCH, 80));
 
         this.trades = new ArrayList<>();
         this.trades.add(
@@ -101,7 +104,9 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public void addAsset(Asset asset) {
+        FullAsset fullAsset = new FullAsset(asset.getAssetId(), asset.getAssetName(), LocalDate.now(), 0);
         assets.add(asset);
+        fullAssets.add(fullAsset);
     }
 
     @Override
@@ -194,31 +199,54 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public boolean updateUnitCredits(Unit unit) {
+        for (Unit existingUnit : units) {
+            if (existingUnit.getUnitId().equals(unit.getUnitId())) {
+                existingUnit.setCredits(unit.getCredits());
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public @Nullable Unit findUnitById(String unitId) {
+        for (Unit unit : units) {
+            if (unit.getUnitId().equals(unitId)) {
+                return unit;
+            }
+        }
         return null;
     }
 
     @Override
     public ArrayList<UnitAsset> findUnitAssetsByUnit(String unitId) {
-        return null;
+        return unitAssets.stream()
+                .filter(unitAsset -> unitAsset.getUnitId().equals(unitId))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
     public @Nullable UnitAsset findUnitAsset(String unitId, String assetId) {
+        for (UnitAsset unitAsset : unitAssets) {
+            if (unitAsset.getUnitId().equals(unitId) && unitAsset.getAsset().getAssetId().equals(assetId)) {
+                return unitAsset;
+            }
+        }
         return null;
     }
 
     @Override
     public void removeUnitAsset(UnitAsset unitAsset) throws SQLException {
-
+        unitAssets.remove(unitAsset);
     }
 
     @Override
-    public @Nullable Asset findAssetById(String assetId) {
+    public @Nullable Asset findAssetById(@NotNull String assetId) {
+        for (Asset asset : assets) {
+            if (asset.getAssetId().equals(assetId)) {
+                return asset;
+            }
+        }
         return null;
     }
 
@@ -229,7 +257,7 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public void addUnitAsset(UnitAsset unitAsset) {
-
+        unitAssets.add(unitAsset);
     }
 
     @Override
@@ -251,7 +279,11 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public void updateUserPermissions(User user) {
-
+        for (User existingUser : users) {
+            if (existingUser.getUserId().equals(user.getUserId())) {
+                existingUser.setAdmin(user.isAdmin());
+            }
+        }
     }
 
     @Override

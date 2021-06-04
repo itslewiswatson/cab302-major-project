@@ -10,7 +10,6 @@ public class NewUserHandler extends Handler<User, NewUserDTO> {
         super(dbStatements);
     }
 
-    // TODO more checks here
     @Override
     public User handle(NewUserDTO dto) {
         User user = new User(
@@ -19,6 +18,11 @@ public class NewUserHandler extends Handler<User, NewUserDTO> {
                 dto.getPassword(),
                 dto.isAdmin()
         );
+
+        User existingUser = dbStatements.findUserByUsername(dto.getUsername());
+        if (existingUser != null) {
+            return null;
+        }
 
         dbStatements.addNewUser(user);
         return user;

@@ -3,7 +3,9 @@ package server.handlers;
 import common.dataTypes.TradeType;
 import common.domain.*;
 import common.dto.NewTradeDTO;
+import common.exceptions.NullResultException;
 import common.services.UuidGenerator;
+import org.jetbrains.annotations.Nullable;
 import server.db.DBStrategy;
 
 import java.time.LocalDate;
@@ -21,56 +23,48 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
     @Override
     public Trade handle(NewTradeDTO dto) {
 
-        Unit unit = resolveUnit(dto.getUnitId());
-        if (unit == null) {
-            return null;
-        }
+        try {
+            Unit unit = resolveUnit(dto.getUnitId());
+            Asset asset = resolveAsset(dto.getAssetId());
+            User user = resolveUser(dto.getUserId());
 
-        Asset asset = resolveAsset(dto.getAssetId());
-        if (asset == null) {
-            return null;
-        }
+            if (dto.getType() == TradeType.BUY) {
+                int totalPrice = dto.getPrice() * dto.getQuantity();
+                int unitCredits = unit.getCredits();
 
-        User user = resolveUser(dto.getUserId());
-        if (user == null) {
-            return null;
-        }
+                if (totalPrice > unitCredits) {
+                    return null;
+                }
+            } else {
+                UnitAsset unitAsset = findUnitAsset(unit.getUnitId(), asset.getAssetId());
+                if (unitAsset == null) {
+                    return null;
+                }
 
-        if (dto.getType() == TradeType.BUY) {
-            int totalPrice = dto.getPrice() * dto.getQuantity();
-            int unitCredits = unit.getCredits();
-
-            if (totalPrice > unitCredits)
-            {
-                return null;
-            }
-        }
-        else {
-            UnitAsset unitAsset = resolveUnitAsset(unit.getUnitId(), asset.getAssetId());
-            if (unitAsset == null) {
-                return null;
+                if (dto.getQuantity() > unitAsset.getQuantity()) {
+                    return null;
+                }
             }
 
-            if (dto.getQuantity() > unitAsset.getQuantity()) {
-                return null;
-            }
+            Trade newTrade = new Trade(
+                    UuidGenerator.generateUuid(),
+                    unit,
+                    asset,
+                    user,
+                    LocalDate.now(),
+                    dto.getType(),
+                    dto.getQuantity(),
+                    dto.getPrice(),
+                    0,
+                    null
+            );
+
+            dbStatements.createTrade(newTrade);
+
+            return newTrade;
+        } catch (NullResultException e) {
+            return null;
         }
-
-        Trade newTrade = new Trade(
-                UuidGenerator.generateUuid(),
-                unit,
-                asset,
-                user,
-                LocalDate.now(),
-                dto.getType(),
-                dto.getQuantity(),
-                dto.getPrice(),
-                0,
-                null
-        );
-
-        dbStatements.createTrade(newTrade);
-
         if (newTrade.getType() == TradeType.BUY)
         {
             unit.subtractCredits(newTrade.getQuantity() * newTrade.getPrice());
@@ -89,15 +83,7 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
         return dbStatements.findUnitById(unitId);
     }
 
-    private Asset resolveAsset(String assetId) {
-        return dbStatements.findAssetById(assetId);
-    }
-
-    private User resolveUser(String userId) {
-        return dbStatements.findUserById(userId);
-    }
-
-    private UnitAsset resolveUnitAsset(String unitId, String assetId) {
+    private @Nullable UnitAsset findUnitAsset(String unitId, String assetId) {
         return dbStatements.findUnitAsset(unitId, assetId);
     }
 }

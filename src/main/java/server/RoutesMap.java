@@ -10,7 +10,6 @@ public class RoutesMap implements RoutesMapStrategy {
 
     public RoutesMap() {
         routesMap.put(AddAssetDTO.class, AddAssetHandler.class);
-        routesMap.put(CreateAccountDTO.class, CreateAccountHandler.class);
         routesMap.put(CreateOrUpdateUnitAssetDTO.class, CreateOrUpdateUnitAssetHandler.class);
         routesMap.put(GetAssetsDTO.class, GetAssetsHandler.class);
         routesMap.put(GetHistoricTradesDTO.class, GetHistoricTradesHandler.class);

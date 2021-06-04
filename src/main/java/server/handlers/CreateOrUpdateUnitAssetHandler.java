@@ -1,29 +1,37 @@
 package server.handlers;
 
 import common.domain.Asset;
+import common.domain.Unit;
 import common.domain.UnitAsset;
 import common.dto.CreateOrUpdateUnitAssetDTO;
+import common.exceptions.NullResultException;
 import org.jetbrains.annotations.Nullable;
-import server.db.DBStatements;
+import org.junit.Assert;
+import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
 public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>, CreateOrUpdateUnitAssetDTO> {
-    public CreateOrUpdateUnitAssetHandler(DBStatements dbStatements) {
+    public CreateOrUpdateUnitAssetHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 
     @Override
     public ArrayList<UnitAsset> handle(CreateOrUpdateUnitAssetDTO dto) {
 
-        createOrUpdateUnitAsset(dto);
+        try {
+            createOrUpdateUnitAsset(dto);
+        } catch (NullResultException e) {
+            return null;
+        }
 
         return dbStatements.findUnitAssetsByUnit(dto.getUnitId());
     }
 
-    private void createOrUpdateUnitAsset(CreateOrUpdateUnitAssetDTO dto) {
-        String unitId = dto.getUnitId();
-        UnitAsset existingUnitAsset = resolveUnitAsset(unitId, dto.getAssetId());
+    private void createOrUpdateUnitAsset(CreateOrUpdateUnitAssetDTO dto) throws NullResultException {
+        Unit unit = resolveUnit(dto.getUnitId());
+        Asset asset = resolveAsset(dto.getAssetId());
+        UnitAsset existingUnitAsset = findUnitAsset(unit.getUnitId(), asset.getAssetId());
 
         if (existingUnitAsset != null) {
             updateUnitAsset(existingUnitAsset, dto);
@@ -33,10 +41,10 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
         createNewUnitAsset(dto);
     }
 
-    private @Nullable UnitAsset resolveUnitAsset(String unitId, String assetId) {
+    private @Nullable UnitAsset findUnitAsset(String unitId, String assetId) {
         ArrayList<UnitAsset> unitAssets = dbStatements.findUnitAssetsByUnit(unitId);
         for (UnitAsset unitAsset : unitAssets) {
-            if (unitAsset.getAsset().getAssetId().equals(assetId)) {
+            if (unitAsset.getAsset().getAssetId().equals(assetId) && unitAsset.getUnitId().equals(unitId)) {
                 return unitAsset;
             }
         }
@@ -48,7 +56,7 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
         dbStatements.updateUnitAsset(existingUnitAsset);
     }
 
-    private void createNewUnitAsset(CreateOrUpdateUnitAssetDTO dto) {
+    private void createNewUnitAsset(CreateOrUpdateUnitAssetDTO dto) throws NullResultException {
         Asset asset = resolveAsset(dto.getAssetId());
 
         UnitAsset unitAsset = new UnitAsset(
@@ -58,9 +66,5 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
         );
 
         dbStatements.addUnitAsset(unitAsset);
-    }
-
-    private Asset resolveAsset(String assetId) {
-        return dbStatements.findAssetById(assetId);
     }
 }

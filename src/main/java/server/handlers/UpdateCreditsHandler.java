@@ -2,6 +2,7 @@ package server.handlers;
 
 import common.domain.Unit;
 import common.dto.UpdateCreditsDTO;
+import common.exceptions.NullResultException;
 import server.db.DBStrategy;
 
 public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
@@ -11,20 +12,13 @@ public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
 
     @Override
     public Unit handle(UpdateCreditsDTO dto) {
-        String unitId = dto.getUnitId();
-        int newCredits = dto.getNewCredits();
-
-        Unit unit = resolveUnit(unitId);
-        if (unit == null) {
+        try {
+            String unitId = dto.getUnitId();
+            Unit unit = resolveUnit(unitId);
+            unit.setCredits(dto.getNewCredits());
+            return (dbStatements.updateUnitCredits(unit)) ? unit : null;
+        } catch (NullResultException e) {
             return null;
         }
-
-        unit.setCredits(newCredits);
-
-        return (dbStatements.updateUnitCredits(unit)) ? unit : null;
-    }
-
-    private Unit resolveUnit(String unitId) {
-        return dbStatements.findUnitById(unitId);
     }
 }

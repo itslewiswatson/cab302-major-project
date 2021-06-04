@@ -5,7 +5,6 @@ import common.dto.NonHandlerTestDTO;
 import common.dto.TestDTO;
 import server.handlers.BadTestHandler;
 import server.handlers.Handler;
-import server.handlers.RoutesMapStrategy;
 import server.handlers.TestHandler;
 
 import java.util.HashMap;
