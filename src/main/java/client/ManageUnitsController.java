@@ -84,7 +84,7 @@ public class ManageUnitsController extends Controller implements Initializable {
         setupUnitAssetTable();
     }
 
-    private ArrayList<Trade> fetchHistoricTrades(Unit unit) {
+    private ArrayList<Trade> fetchHistoricTrades() {
         sendObject(new GetHistoricTradesDTO());
         try {
             return readObject();
@@ -222,7 +222,7 @@ public class ManageUnitsController extends Controller implements Initializable {
         ArrayList<Trade> tradesPending = fetchUnitTrades(unit);
         pendingTrades.setText("Pending Trades: " + tradesPending.size());
 
-        ArrayList<Trade> tradesHistoric = fetchHistoricTrades(unit);
+        ArrayList<Trade> tradesHistoric = fetchHistoricTrades();
         completedTrades.setText("Completed Trades: " + tradesHistoric.size());
 
         unitNameLabel.setText("Unit Name: " + unit.getUnitName());
@@ -298,7 +298,7 @@ public class ManageUnitsController extends Controller implements Initializable {
         ObservableList<UnitAsset> currentUnitAssets = unitAssetTableView.getItems();
         FilteredList<UnitAsset> filteredUnitAssets = currentUnitAssets.filtered(unitAsset -> unitAsset.getAsset().getAssetId().equals(asset.getAssetId()));
         if (filteredUnitAssets.size() == 1) {
-            AlertDialog.error("This asset is already owned by this unit", "Please edit the existing value in the table");
+            AlertDialog.warning("This asset is already owned by this unit", "Please edit the existing value in the table");
             return;
         }
 

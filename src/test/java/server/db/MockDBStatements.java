@@ -199,6 +199,12 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public boolean updateUnitCredits(Unit unit) {
+        for (Unit existingUnit : units) {
+            if (existingUnit.getUnitId().equals(unit.getUnitId())) {
+                existingUnit.setCredits(unit.getCredits());
+                return true;
+            }
+        }
         return false;
     }
 
@@ -246,7 +252,7 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public void addUnitAsset(UnitAsset unitAsset) {
-
+        unitAssets.add(unitAsset);
     }
 
     @Override
@@ -268,7 +274,11 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public void updateUserPermissions(User user) {
-
+        for (User existingUser : users) {
+            if (existingUser.getUserId().equals(user.getUserId())) {
+                existingUser.setAdmin(user.isAdmin());
+            }
+        }
     }
 
     @Override

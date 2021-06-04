@@ -14,10 +14,8 @@ public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
     public Unit handle(UpdateCreditsDTO dto) {
         try {
             String unitId = dto.getUnitId();
-            int newCredits = dto.getNewCredits();
-
             Unit unit = resolveUnit(unitId);
-            unit.setCredits(newCredits);
+            unit.setCredits(dto.getNewCredits());
             return (dbStatements.updateUnitCredits(unit)) ? unit : null;
         } catch (NullResultException e) {
             return null;

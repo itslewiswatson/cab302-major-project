@@ -1,16 +1,18 @@
 package server.handlers;
 
 import common.domain.Asset;
+import common.domain.Unit;
 import common.domain.UnitAsset;
 import common.dto.CreateOrUpdateUnitAssetDTO;
 import common.exceptions.NullResultException;
 import org.jetbrains.annotations.Nullable;
-import server.db.DBStatements;
+import org.junit.Assert;
+import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
 public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>, CreateOrUpdateUnitAssetDTO> {
-    public CreateOrUpdateUnitAssetHandler(DBStatements dbStatements) {
+    public CreateOrUpdateUnitAssetHandler(DBStrategy dbStatements) {
         super(dbStatements);
     }
 
@@ -27,8 +29,9 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
     }
 
     private void createOrUpdateUnitAsset(CreateOrUpdateUnitAssetDTO dto) throws NullResultException {
-        String unitId = dto.getUnitId();
-        UnitAsset existingUnitAsset = findUnitAsset(unitId, dto.getAssetId());
+        Unit unit = resolveUnit(dto.getUnitId());
+        Asset asset = resolveAsset(dto.getAssetId());
+        UnitAsset existingUnitAsset = findUnitAsset(unit.getUnitId(), asset.getAssetId());
 
         if (existingUnitAsset != null) {
             updateUnitAsset(existingUnitAsset, dto);
@@ -41,7 +44,7 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
     private @Nullable UnitAsset findUnitAsset(String unitId, String assetId) {
         ArrayList<UnitAsset> unitAssets = dbStatements.findUnitAssetsByUnit(unitId);
         for (UnitAsset unitAsset : unitAssets) {
-            if (unitAsset.getAsset().getAssetId().equals(assetId)) {
+            if (unitAsset.getAsset().getAssetId().equals(assetId) && unitAsset.getUnitId().equals(unitId)) {
                 return unitAsset;
             }
         }
