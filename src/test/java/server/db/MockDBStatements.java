@@ -227,12 +227,17 @@ public class MockDBStatements implements DBStrategy {
 
     @Override
     public @Nullable UnitAsset findUnitAsset(String unitId, String assetId) {
+        for (UnitAsset unitAsset : unitAssets) {
+            if (unitAsset.getUnitId().equals(unitId) && unitAsset.getAsset().getAssetId().equals(assetId)) {
+                return unitAsset;
+            }
+        }
         return null;
     }
 
     @Override
     public void removeUnitAsset(UnitAsset unitAsset) throws SQLException {
-
+        unitAssets.remove(unitAsset);
     }
 
     @Override
