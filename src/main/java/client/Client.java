@@ -19,7 +19,7 @@ public class Client extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            stage.getIcons().add(new Image("icon.png"));
+            stage.getIcons().add(new Image("img/icon.png"));
         } catch (Exception e) {
             AlertDialog.error("Could not load icon");
         }
