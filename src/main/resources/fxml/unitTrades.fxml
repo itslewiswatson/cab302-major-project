@@ -11,19 +11,20 @@
     <children>
         <TableView fx:id="tableView" layoutX="15.0" layoutY="55.0" prefHeight="267.0" prefWidth="569.0">
             <columns>
-                <TableColumn fx:id="dateListed" prefWidth="141.5" text="Date Listed" />
+                <TableColumn fx:id="dateListed" prefWidth="85.0" text="Date Listed" />
                 <TableColumn fx:id="listedBy" prefWidth="101.0" text="Listed By" />
                 <TableColumn fx:id="asset" prefWidth="91.5" text="Asset" />
                 <TableColumn fx:id="quantity" prefWidth="68.5" text="Qty" />
                 <TableColumn fx:id="price" minWidth="8.8690185546875" prefWidth="69.0" text="Price" />
-                <TableColumn fx:id="tradeType" prefWidth="68.0" text="Buy/Sell" />
+                <TableColumn fx:id="tradeType" prefWidth="70.0" text="Buy/Sell" />
+            <TableColumn fx:id="fulfilled" prefWidth="75.0" text="Fulfilled" />
             </columns>
         </TableView>
       <Button layoutX="15.0" layoutY="360.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back" />
       <Label layoutX="15.0" layoutY="334.0" text="Double click on a row to view more information about the trade" />
-      <ComboBox fx:id="unitComboBox" layoutX="85.0" layoutY="14.0" prefWidth="150.0" onAction="#populateTable" />
+      <ComboBox fx:id="unitComboBox" layoutX="85.0" layoutY="14.0" onAction="#populateTable" prefWidth="150.0" />
       <Label layoutX="17.0" layoutY="19.0" text="Select Unit" />
-      <Button layoutX="487.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteTrade" text="Remove Trade" />
+      <Button fx:id="removeTradeButton" layoutX="487.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteTrade" text="Remove Trade" />
       <Button disable="true" layoutX="406.0" layoutY="360.0" mnemonicParsing="false" onAction="#goBack" text="Edit Trade" />
     </children>
 </AnchorPane>
