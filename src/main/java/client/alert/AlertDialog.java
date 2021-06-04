@@ -22,6 +22,10 @@ public class AlertDialog {
         info(header, "");
     }
 
+    public static void error(String header) {
+        error(header, "");
+    }
+
     public static void error(String header, String content) {
         base(Alert.AlertType.ERROR, header, content);
     }

@@ -1,5 +1,6 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.strategy.ClientController;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -17,7 +18,11 @@ public class Client extends Application {
      */
     @Override
     public void start(Stage stage) {
-        stage.getIcons().add(new Image("/icon.png"));
+        try {
+            stage.getIcons().add(new Image("icon.png"));
+        } catch (Exception e) {
+            AlertDialog.error("Could not load icon");
+        }
         stage.setTitle("Electronic Asset Trading Platform");
 
         ClientController clientController = new ClientController(stage);
