@@ -69,14 +69,13 @@ public class DBQueries {
     public static final String NEW_ASSET = "INSERT INTO assets (id, name, date_added) VALUES (?, ?, NOW())";
 
     /**
-     * SQL statement to retrieve all active trades for a specific unit.
+     * SQL statement to retrieve all trades for a specific unit.
      */
-    public static final String GET_UNIT_ACTIVE_TRADES = "SELECT * FROM trades T " +
+    public static final String GET_UNIT_TRADES = "SELECT * FROM trades T " +
             "INNER JOIN assets A ON asset_id = A.id " +
             "INNER JOIN users U ON user_id = U.id " +
             "INNER JOIN units on units.id = unit_id " +
-            "WHERE unit_id = ? " +
-            "AND date_filled IS NULL";
+            "WHERE unit_id = ?";
 
     /**
      * SQL statement to find a single trade by its ID.

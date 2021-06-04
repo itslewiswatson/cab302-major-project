@@ -152,7 +152,7 @@ public class DBStatements implements DBStrategy {
             newTrade = connection.prepareStatement(DBQueries.NEW_TRADE);
             getAssets = connection.prepareStatement(DBQueries.GET_ASSETS);
             newAsset = connection.prepareStatement(DBQueries.NEW_ASSET);
-            getUnitTrades = connection.prepareStatement(DBQueries.GET_UNIT_ACTIVE_TRADES);
+            getUnitTrades = connection.prepareStatement(DBQueries.GET_UNIT_TRADES);
             deleteTrade = connection.prepareStatement(DBQueries.DELETE_TRADE);
             getTradeById = connection.prepareStatement(DBQueries.FIND_TRADE_BY_ID);
             getUnits = connection.prepareStatement(DBQueries.GET_UNITS);
@@ -190,7 +190,13 @@ public class DBStatements implements DBStrategy {
             newTrade.setInt(7, trade.getQuantity());
             newTrade.setInt(8, trade.getPrice());
             newTrade.setInt(9, trade.getQuantityFilled());
-            newTrade.setDate(10, Date.valueOf(trade.getDateFilled()));
+            if (trade.getDateFilled() != null) {
+                newTrade.setDate(10, Date.valueOf(trade.getDateFilled()));
+            }
+            else
+            {
+                newTrade.setDate(10, null);
+            }
 
             newTrade.execute();
         } catch (SQLException exception) {
@@ -532,7 +538,9 @@ public class DBStatements implements DBStrategy {
                         tradeResultSet.getInt("quantity"),
                         tradeResultSet.getInt("price"),
                         tradeResultSet.getInt("quantity_filled"),
-                        null
+                        tradeResultSet.getDate("date_filled") != null ?
+                                tradeResultSet.getDate("date_filled").toLocalDate()
+                                : null
                 );
                 trades.add(trade);
             }
