@@ -90,6 +90,8 @@ public class TradeHistoryController extends Controller implements Initializable 
     }
 
     public void populateTable() {
+        int previouslySelectedTrade = tableView.getSelectionModel().getSelectedIndex();
+
         ObservableList<Trade> trades = FXCollections.observableArrayList();
 
         SortedList<Trade> sortedTrades = new SortedList<>(trades);
@@ -99,6 +101,9 @@ public class TradeHistoryController extends Controller implements Initializable 
         tableView.setItems(sortedTrades);
 
         trades.addAll(fetchHistoricTrades());
+
+        tableView.getFocusModel().focus(previouslySelectedTrade);
+        tableView.getSelectionModel().select(previouslySelectedTrade);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
