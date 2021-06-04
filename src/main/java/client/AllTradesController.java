@@ -1,13 +1,19 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import client.dialog.TradeInfoDialogController;
 import client.strategy.ClientController;
+import client.strategy.Controller;
 import common.domain.Trade;
 import common.dto.GetTradesDTO;
 import common.exceptions.NullResultException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,16 +24,16 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AllTradesController extends TableController implements Initializable {
-    public AllTradesController(ClientController clientController) {
-        super(clientController);
-    }
+public class AllTradesController extends Controller implements Initializable {
+
+    Timeline refresher;
 
     @FXML
     private TableView<Trade> tableView;
@@ -47,6 +53,10 @@ public class AllTradesController extends TableController implements Initializabl
     @FXML
     private TableColumn<Trade, String> tradeType;
 
+    public AllTradesController(ClientController clientController) {
+        super(clientController);
+    }
+
     private ArrayList<Trade> fetchActiveTrades() {
         sendObject(new GetTradesDTO());
         try {
@@ -59,17 +69,33 @@ public class AllTradesController extends TableController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        int refreshPeriod = 5;
+
         setupColumns();
         setupRows();
         populateTable();
 
-        Thread refreshThread = new TableRefreshScheduler<>(this);
-        refreshThread.start();
+        refresher = new Timeline(
+                new KeyFrame(
+                        Duration.seconds(refreshPeriod),
+                        event -> populateTable()
+                )
+        );
+
+        refresher.setCycleCount(Timeline.INDEFINITE);
+        refresher.play();
     }
 
     public void populateTable() {
-        ArrayList<Trade> trades = fetchActiveTrades();
-        tableView.setItems(FXCollections.observableArrayList(trades));
+        ObservableList<Trade> trades = FXCollections.observableArrayList();
+
+        SortedList<Trade> sortedTrades = new SortedList<>(trades);
+
+        sortedTrades.comparatorProperty().bind(tableView.comparatorProperty());
+
+        tableView.setItems(sortedTrades);
+
+        trades.addAll(fetchActiveTrades());
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -95,6 +121,7 @@ public class AllTradesController extends TableController implements Initializabl
     }
 
     public void goBack() {
+        refresher.stop();
         switchToPage(Page.myAccount);
     }
 

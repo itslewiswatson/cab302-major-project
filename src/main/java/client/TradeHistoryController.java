@@ -1,13 +1,19 @@
 package client;
 
+import client.alert.AlertDialog;
 import client.config.Page;
 import client.dialog.TradeInfoDialogController;
 import client.strategy.ClientController;
+import client.strategy.Controller;
 import common.domain.Trade;
 import common.dto.GetHistoricTradesDTO;
 import common.exceptions.NullResultException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,16 +24,16 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class TradeHistoryController extends TableController implements Initializable {
-    public TradeHistoryController(ClientController clientController) {
-        super(clientController);
-    }
+public class TradeHistoryController extends Controller implements Initializable {
+    Timeline refresher;
 
     @FXML
     private TableView<Trade> tableView;
@@ -50,6 +56,10 @@ public class TradeHistoryController extends TableController implements Initializ
     @FXML
     private TableColumn<Trade, String> tradeType;
 
+    public TradeHistoryController(ClientController clientController) {
+        super(clientController);
+    }
+
     private ArrayList<Trade> fetchHistoricTrades() {
         sendObject(new GetHistoricTradesDTO());
         try {
@@ -62,23 +72,39 @@ public class TradeHistoryController extends TableController implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        int refreshPeriod = 5;
+
         setupColumns();
         setupRows();
         populateTable();
 
-        Thread refreshThread = new TableRefreshScheduler<>(this);
-        refreshThread.start();
+        refresher = new Timeline(
+                new KeyFrame(
+                        Duration.seconds(refreshPeriod),
+                        event -> populateTable()
+                )
+        );
+
+        refresher.setCycleCount(Timeline.INDEFINITE);
+        refresher.play();
     }
 
     public void populateTable() {
-        ArrayList<Trade> trades = fetchHistoricTrades();
-        tableView.setItems(FXCollections.observableArrayList(trades));
+        ObservableList<Trade> trades = FXCollections.observableArrayList();
+
+        SortedList<Trade> sortedTrades = new SortedList<>(trades);
+
+        sortedTrades.comparatorProperty().bind(tableView.comparatorProperty());
+
+        tableView.setItems(sortedTrades);
+
+        trades.addAll(fetchHistoricTrades());
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
         dateListed.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getDateListed().toString()));
-        dateFulfilled.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getDateFilled().toString()));
+        dateFulfilled.setCellValueFactory(p -> new ReadOnlyObjectWrapper(Objects.requireNonNull(p.getValue().getDateFilled()).toString()));
         asset.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getAsset().getAssetName()));
         quantity.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getQuantity() - p.getValue().getQuantityFilled()));
         price.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getPrice()));
@@ -99,6 +125,7 @@ public class TradeHistoryController extends TableController implements Initializ
     }
 
     public void goBack() {
+        refresher.stop();
         switchToPage(Page.myAccount);
     }
 
