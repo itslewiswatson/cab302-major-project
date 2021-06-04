@@ -6,7 +6,6 @@ import common.domain.UnitAsset;
 import common.dto.CreateOrUpdateUnitAssetDTO;
 import common.exceptions.NullResultException;
 import org.jetbrains.annotations.Nullable;
-import org.junit.Assert;
 import server.db.DBStrategy;
 
 import java.util.ArrayList;

@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import server.db.MockDBStatements;
-import server.db.DBStrategy;
 
 public class TestHandlerTest {
     private TestDTO testDTO;

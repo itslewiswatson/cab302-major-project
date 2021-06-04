@@ -3,7 +3,6 @@ package server.handlers;
 import common.domain.User;
 import common.dto.DeleteUserDTO;
 import common.exceptions.NullResultException;
-import org.jetbrains.annotations.Nullable;
 import server.db.DBStrategy;
 
 import java.sql.SQLException;

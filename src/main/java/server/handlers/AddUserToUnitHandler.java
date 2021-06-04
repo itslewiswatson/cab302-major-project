@@ -4,7 +4,6 @@ import common.domain.Unit;
 import common.domain.User;
 import common.dto.AddUserToUnitDTO;
 import common.exceptions.NullResultException;
-import org.jetbrains.annotations.Nullable;
 import server.db.DBStrategy;
 
 import java.sql.SQLException;
