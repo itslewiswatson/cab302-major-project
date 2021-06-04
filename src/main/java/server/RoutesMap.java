@@ -5,7 +5,7 @@ import server.handlers.*;
 
 import java.util.HashMap;
 
-public class RoutesMap {
+public class RoutesMap implements RoutesMapStrategy {
     private final HashMap<Class<? extends DTO>, Class<? extends Handler<?, ?>>> routesMap = new HashMap<>();
 
     public RoutesMap() {
@@ -34,6 +34,7 @@ public class RoutesMap {
         routesMap.put(NewUserDTO.class, NewUserHandler.class);
     }
 
+    @Override
     public HashMap<Class<? extends DTO>, Class<? extends Handler<?, ?>>> getMap() {
         return routesMap;
     }
