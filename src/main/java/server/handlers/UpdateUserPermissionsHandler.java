@@ -2,6 +2,7 @@ package server.handlers;
 
 import common.domain.User;
 import common.dto.UpdateUserPermissionsDTO;
+import common.exceptions.NullResultException;
 import server.db.DBStrategy;
 
 public class UpdateUserPermissionsHandler extends Handler<User, UpdateUserPermissionsDTO> {
@@ -11,17 +12,13 @@ public class UpdateUserPermissionsHandler extends Handler<User, UpdateUserPermis
 
     @Override
     public User handle(UpdateUserPermissionsDTO dto) {
-        User user = resolveUser(dto.getUserId());
-        if (user == null) {
+        try {
+            User user = resolveUser(dto.getUserId());
+            user.setAdmin(dto.isAdmin());
+            dbStatements.updateUserPermissions(user);
+            return user;
+        } catch (NullResultException e) {
             return null;
         }
-
-        user.setAdmin(dto.isAdmin());
-        dbStatements.updateUserPermissions(user);
-        return user;
-    }
-
-    private User resolveUser(String userId) {
-        return dbStatements.findUserById(userId);
     }
 }

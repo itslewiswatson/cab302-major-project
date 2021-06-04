@@ -23,12 +23,4 @@ public class DeleteUserHandler extends Handler<Boolean, DeleteUserDTO> {
         }
         return true;
     }
-
-    private User resolveUser(String userId) throws NullResultException {
-        @Nullable User user = dbStatements.findUserById(userId);
-        if (user == null) {
-            throw new NullResultException();
-        }
-        return user;
-    }
 }

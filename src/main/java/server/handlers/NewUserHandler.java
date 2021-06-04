@@ -19,6 +19,11 @@ public class NewUserHandler extends Handler<User, NewUserDTO> {
                 dto.isAdmin()
         );
 
+        User existingUser = dbStatements.findUserByUsername(dto.getUsername());
+        if (existingUser != null) {
+            return null;
+        }
+
         dbStatements.addNewUser(user);
         return user;
     }

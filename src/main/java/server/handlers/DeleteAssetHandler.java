@@ -3,7 +3,6 @@ package server.handlers;
 import common.domain.Asset;
 import common.dto.DeleteAssetDTO;
 import common.exceptions.NullResultException;
-import org.jetbrains.annotations.Nullable;
 import server.db.DBStrategy;
 
 import java.sql.SQLException;
@@ -21,15 +20,6 @@ public class DeleteAssetHandler extends Handler<Boolean, DeleteAssetDTO> {
         } catch (SQLException | NullResultException exception) {
             return false;
         }
-
         return true;
-    }
-
-    private Asset resolveAsset(String assetId) throws NullResultException {
-        @Nullable Asset asset = dbStatements.findAssetById(assetId);
-        if (asset == null) {
-            throw new NullResultException();
-        }
-        return asset;
     }
 }
