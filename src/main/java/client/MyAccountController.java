@@ -41,16 +41,7 @@ public class MyAccountController extends Controller implements Initializable {
     }
 
     @FXML
-    private AnchorPane anchorPane;
-
-    @FXML
-    private Label usernameLabel;
-
-    @FXML
-    private Label accountTypeLabel;
-
-    @FXML
-    private ComboBox<String> unitsComboBox;
+    private Label welcomeMessageLabel;
 
     @FXML
     private PasswordField currentPasswordField;
@@ -67,23 +58,32 @@ public class MyAccountController extends Controller implements Initializable {
     @FXML
     private Button manageUsersButton;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        User user = getUser();
+        displayWelcomeMessage(user.getUsername());
+        manageAssetsButton.setVisible(user.isAdmin());
+        manageUnitsButton.setVisible(user.isAdmin());
+        manageUsersButton.setVisible(user.isAdmin());
+    }
+
     public void changePassword() {
         String currentPassword = currentPasswordField.getText();
         String newPassword = newPasswordField.getText();
 
         try {
             if (currentPassword.length() <= 0 || newPassword.length() <= 0) {
-                AlertDialog.info("Current password and new password cannot be empty", "Please try again");
+                AlertDialog.info("Current password or new password cannot be empty.", "Please try again.");
                 return;
             }
 
             if (!PasswordHasher.checkPassword(currentPassword, getUser().getPassword())) {
-                AlertDialog.info("Current password is incorrect", "Please try again");
+                AlertDialog.info("Current password is incorrect.", "Please try again.");
                 return;
             }
 
             if (currentPassword.equals(newPassword)) {
-                AlertDialog.info("Current password and new password are the same", "Please try again");
+                AlertDialog.info("Current password and new password are the same.", "Please try again.");
                 return;
             }
 
@@ -101,9 +101,9 @@ public class MyAccountController extends Controller implements Initializable {
             currentUser.setPassword(existingUser.getPassword());
 
             if (PasswordHasher.checkPassword(newPassword, existingUser.getPassword())) {
-                AlertDialog.info("Password changed successfully");
+                AlertDialog.info("Password changed successfully.");
             } else {
-                AlertDialog.error("Password could not be updated", "Please contact an IT administrator");
+                AlertDialog.error("Password could not be updated.", "Please contact an IT administrator.");
             }
         } catch (Exception e) {
             AlertDialog.serverCommunication();
@@ -156,51 +156,7 @@ public class MyAccountController extends Controller implements Initializable {
         switchToPage(Page.manageUsers);
     }
 
-    private ArrayList<Unit> fetchUserUnits(String userId) {
-        try {
-            sendObject(new GetUnitsDTO(userId));
-            return readObject();
-        } catch (NullResultException exception) {
-            return new ArrayList<>();
-        }
-    }
-
-    public void displayUserDetails(User user) {
-        try {
-            ArrayList<Unit> units = fetchUserUnits(user.getUserId());
-            String[] unitNames = units.stream().map(Unit::getUnitName).toArray(String[]::new);
-
-            displayUsername(user.getUsername());
-            displayAccountType(user.isAdmin());
-            displayUnits(unitNames);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void displayUsername(String username) {
-        usernameLabel.setText("Username: " + username);
-    }
-
-    private void displayAccountType(boolean isAdmin) {
-        accountTypeLabel.setText("Account Type: " + (isAdmin ? "Administrator" : "Standard"));
-    }
-
-    private void displayUnits(String[] units) {
-        if (units.length > 0) {
-            ObservableList<String> unitsList = FXCollections.observableArrayList(units);
-            unitsComboBox.setItems(unitsList);
-        } else {
-            unitsComboBox.setValue("None");
-        }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        User user = getUser();
-        displayUserDetails(user);
-        manageAssetsButton.setDisable(!user.isAdmin());
-        manageUnitsButton.setDisable(!user.isAdmin());
-        manageUsersButton.setDisable(!user.isAdmin());
+    private void displayWelcomeMessage(String username) {
+        welcomeMessageLabel.setText("Welcome, " + username + "!");
     }
 }
