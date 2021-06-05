@@ -16,7 +16,6 @@ public class EditUnitAssetDialogController extends Controller {
     public void clickCreate() {
         if (dto.getQuantity() == 0) {
             AlertDialog.error("Quantity cannot be 0");
-            return;
         }
     }
 }

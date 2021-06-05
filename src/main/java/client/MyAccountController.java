@@ -5,30 +5,22 @@ import client.config.Page;
 import client.dialog.NewTradeDialogController;
 import client.strategy.ClientController;
 import client.strategy.Controller;
-import common.domain.Unit;
 import common.domain.User;
-import common.dto.GetUnitsDTO;
 import common.dto.UpdatePasswordDTO;
-import common.exceptions.NullResultException;
 import common.services.PasswordHasher;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
