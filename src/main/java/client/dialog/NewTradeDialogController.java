@@ -202,7 +202,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
     }
 
     public void cancel() {
-        Stage stage = (Stage) listButton.getScene().getWindow();
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
