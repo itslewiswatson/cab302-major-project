@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ManageUnitsController">
    <children>
-      <TableView fx:id="unitAssetTableView" layoutX="256.0" layoutY="14.0" prefHeight="335.0" prefWidth="323.0">
+      <TableView fx:id="unitAssetTableView" layoutX="256.0" layoutY="14.0" prefHeight="311.0" prefWidth="323.0">
         <columns>
           <TableColumn fx:id="assetNameTableCol" prefWidth="152.1390380859375" text="Asset" />
           <TableColumn fx:id="quantityTableCol" prefWidth="106.8609619140625" text="Quantity" />
@@ -21,9 +21,9 @@
       <Label layoutX="15.0" layoutY="14.0" text="Select Unit" />
       <Button fx:id="removeAssetButton" disable="true" layoutX="518.0" layoutY="362.0" mnemonicParsing="false" onAction="#removeAsset" text="Remove" />
       <Button layoutX="15.0" layoutY="362.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back" />
-      <ComboBox fx:id="allAssetsComboBox" disable="true" layoutX="257.0" layoutY="362.0" prefHeight="26.0" prefWidth="100.0" promptText="Asset" />
+      <ComboBox fx:id="allAssetsComboBox" disable="true" layoutX="256.0" layoutY="362.0" prefHeight="26.0" prefWidth="98.0" promptText="Asset" />
       <Button fx:id="addAssetButton" disable="true" layoutX="437.0" layoutY="362.0" mnemonicParsing="false" onAction="#addAsset" text="Add" />
-      <TextField fx:id="addAssetTextField" disable="true" layoutX="362.0" layoutY="362.0" prefHeight="26.0" prefWidth="70.0" promptText="Qty" />
+      <TextField fx:id="addAssetTextField" disable="true" layoutX="361.0" layoutY="362.0" prefHeight="26.0" prefWidth="70.0" promptText="Qty" />
       <Separator layoutX="15.0" layoutY="250.0" prefHeight="4.0" prefWidth="213.0" />
       <Label fx:id="unitNameLabel" layoutX="15.0" layoutY="110.0" text="Unit Name: " />
       <Label fx:id="userCountLabel" layoutX="15.0" layoutY="135.0" text="Users: " />
@@ -35,5 +35,6 @@
       <Button fx:id="saveCreditsButton" disable="true" layoutX="169.0" layoutY="299.0" mnemonicParsing="false" onAction="#updateCredits" prefHeight="26.0" prefWidth="60.0" text="Save" />
       <Separator layoutX="15.0" layoutY="88.0" prefHeight="4.0" prefWidth="213.0" />
       <Button layoutX="160.0" layoutY="362.0" mnemonicParsing="false" onAction="#viewNewUnitDialog" text="New Unit" />
+      <Label layoutX="257.0" layoutY="335.0" text="Double-click an asset to edit quantity" />
    </children>
 </AnchorPane>

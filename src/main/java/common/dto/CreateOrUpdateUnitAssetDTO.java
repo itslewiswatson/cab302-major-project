@@ -3,9 +3,9 @@ package common.dto;
 public class CreateOrUpdateUnitAssetDTO extends DTO {
     private final String unitId;
     private final String assetId;
-    private final int quantity;
+    private Integer quantity;
 
-    public CreateOrUpdateUnitAssetDTO(String unitId, String assetId, int quantity) {
+    public CreateOrUpdateUnitAssetDTO(String unitId, String assetId, Integer quantity) {
         this.unitId = unitId;
         this.assetId = assetId;
         this.quantity = quantity;
@@ -19,7 +19,11 @@ public class CreateOrUpdateUnitAssetDTO extends DTO {
         return assetId;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

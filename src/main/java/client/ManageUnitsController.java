@@ -2,6 +2,7 @@ package client;
 
 import client.alert.AlertDialog;
 import client.config.Page;
+import client.dialog.EditUnitAssetDialogController;
 import client.dialog.NewUnitDialogController;
 import client.strategy.ClientController;
 import client.strategy.Controller;
@@ -21,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -196,12 +198,32 @@ public class ManageUnitsController extends Controller implements Initializable {
     private void setupUnitAssetTable() {
         assetNameTableCol.setCellValueFactory(v -> new ReadOnlyObjectWrapper<>(v.getValue().getAsset().getAssetName()));
         quantityTableCol.setCellValueFactory(v -> new ReadOnlyObjectWrapper<>(v.getValue().getQuantity()));
+
+        unitAssetTableView.setRowFactory(tv -> {
+            TableRow<UnitAsset> row = new TableRow<>();
+            row.setOnMouseClicked(mouseEvent -> {
+                if (!mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() != 2) {
+                    return;
+                }
+                @Nullable UnitAsset selectedUnitAsset = tv.getSelectionModel().getSelectedItem();
+                if (selectedUnitAsset == null) return;
+                viewEditQuantityDialog(selectedUnitAsset);
+            });
+            return row;
+        });
     }
 
     private ArrayList<UnitAsset> populateUnitAssetTable(Unit unit) {
         ArrayList<UnitAsset> unitAssets = fetchUnitAssets(unit);
         unitAssetTableView.setItems(FXCollections.observableArrayList(unitAssets));
         return unitAssets;
+    }
+
+    private void populateUnitAssetTable() {
+        Unit unit = unitComboBox.getValue();
+        if (unit == null) return;
+        ArrayList<UnitAsset> unitAssets = fetchUnitAssets(unit);
+        unitAssetTableView.setItems(FXCollections.observableArrayList(unitAssets));
     }
 
     @FXML
@@ -355,6 +377,45 @@ public class ManageUnitsController extends Controller implements Initializable {
         }
 
         populateUnitComboBox();
+    }
+
+    public void viewEditQuantityDialog(UnitAsset unitAsset) {
+        CreateOrUpdateUnitAssetDTO dto = new CreateOrUpdateUnitAssetDTO(
+                unitAsset.getUnitId(),
+                unitAsset.getAsset().getAssetId(),
+                null
+        );
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newUnitDialog.fxml"));
+            loader.setControllerFactory(c -> new EditUnitAssetDialogController(super.clientController, dto));
+            Parent parent = loader.load();
+
+            Scene scene = new Scene(parent);
+            Stage dialog = new Stage();
+            dialog.centerOnScreen();
+            dialog.initOwner(getStage());
+            dialog.setScene(scene);
+            dialog.initModality(Modality.WINDOW_MODAL);
+            dialog.showAndWait();
+        } catch (IOException e) {
+            AlertDialog.fileError();
+        }
+
+        if (dto.getQuantity() == null) {
+            AlertDialog.error("Could not edit unit asset", "Please try again");
+            return;
+        }
+
+        sendObject(dto);
+        try {
+            readObject();
+            AlertDialog.info("Successfully updated quantity of " + unitAsset.getAsset().getAssetName() + " to " + dto.getQuantity());
+        } catch (NullResultException e) {
+            AlertDialog.error("Could not edit unit asset", "Please try again");
+        }
+
+        populateUnitAssetTable();
     }
 
     public void goBack() {
