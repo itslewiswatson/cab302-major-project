@@ -11,9 +11,9 @@ Next, open `cmd` and navigate to the installation's `bin` folder, by default:
 
     cd C:\Program Files\MariaDB 10.5\bin
     
-Then enter the following (where `sql_file` is the absolute file path to the `db.sql` file in the project's root directory):
+Then enter the following (where `%sql_file%` is the absolute file path to the `db.sql` file in the project's root directory):
 
-    mysql -u root -p db < sql_file
+    mysql -u root -p db < %sql_file%
     
 Press `Enter` when prompted for the password.
     
