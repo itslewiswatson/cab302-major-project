@@ -390,19 +390,6 @@ public class ManageUnitsController extends Controller implements Initializable {
             return;
         }
 
-        if (dto.getQuantity() == null) {
-            AlertDialog.error("Could not edit unit asset", "Please try again");
-            return;
-        }
-
-        sendObject(dto);
-        try {
-            readObject();
-            AlertDialog.info("Successfully updated quantity of " + unitAsset.getAsset().getAssetName() + " to " + dto.getQuantity());
-        } catch (NullResultException e) {
-            AlertDialog.error("Could not edit unit asset", "Please try again");
-        }
-
         populateUnitAssetTable();
     }
 

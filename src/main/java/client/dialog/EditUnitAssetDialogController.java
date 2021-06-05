@@ -5,6 +5,7 @@ import client.strategy.ClientController;
 import client.strategy.Controller;
 import common.domain.UnitAsset;
 import common.dto.CreateOrUpdateUnitAssetDTO;
+import common.exceptions.NullResultException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,9 +24,6 @@ public class EditUnitAssetDialogController extends Controller implements Initial
 
     @FXML
     private TextField newQtyTextField;
-
-    @FXML
-    private Button updateButton;
 
     @FXML
     private Button cancelButton;
@@ -51,6 +49,14 @@ public class EditUnitAssetDialogController extends Controller implements Initial
         }
 
         dto.setQuantity(quantity);
+
+        sendObject(dto);
+        try {
+            readObject();
+            AlertDialog.info("Successfully updated quantity of " + unitAsset.getAsset().getAssetName() + " to " + dto.getQuantity());
+        } catch (NullResultException e) {
+            AlertDialog.error("Could not edit unit asset", "Please try again");
+        }
 
         clickCancel();
     }
