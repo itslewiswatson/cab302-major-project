@@ -387,8 +387,8 @@ public class ManageUnitsController extends Controller implements Initializable {
         );
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newUnitDialog.fxml"));
-            loader.setControllerFactory(c -> new EditUnitAssetDialogController(super.clientController, dto));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editUnitAssetDialog.fxml"));
+            loader.setControllerFactory(c -> new EditUnitAssetDialogController(super.clientController, unitAsset, dto));
             Parent parent = loader.load();
 
             Scene scene = new Scene(parent);
@@ -400,6 +400,7 @@ public class ManageUnitsController extends Controller implements Initializable {
             dialog.showAndWait();
         } catch (IOException e) {
             AlertDialog.fileError();
+            return;
         }
 
         if (dto.getQuantity() == null) {
