@@ -85,12 +85,30 @@ public class ManageUnitsController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupUnitComboBox();
-        populateUnitComboBox();
 
         setupAssetComboBox();
         populateAssetComboBox();
 
         setupUnitAssetTable();
+    }
+
+    public void populateUnitComboBox() {
+        unitNameLabel.setText("Unit Name: ");
+        userCountLabel.setText("Users: ");
+        assetsHeldLabel.setText("Assets Held: ");
+        pendingTrades.setText("Pending Trades: ");
+        completedTrades.setText("Completed Trades: ");
+        creditsLabel.setText("Credits: ");
+        creditsTextField.clear();
+        populateUnitAssetTable();
+        allAssetsComboBox.setValue(null);
+        addAssetTextField.clear();
+
+        ArrayList<Unit> units = fetchUnits();
+
+        units.sort(Unit::compareTo);
+
+        unitComboBox.setItems(FXCollections.observableArrayList(units));
     }
 
     private ArrayList<Trade> fetchHistoricTrades() {
@@ -164,6 +182,9 @@ public class ManageUnitsController extends Controller implements Initializable {
 
     private void populateAssetComboBox() {
         ArrayList<FullAsset> assets = fetchAllAssets();
+
+        assets.sort(FullAsset::compareTo);
+
         allAssetsComboBox.setItems(FXCollections.observableArrayList(assets));
     }
 
@@ -221,8 +242,13 @@ public class ManageUnitsController extends Controller implements Initializable {
 
     private void populateUnitAssetTable() {
         Unit unit = unitComboBox.getValue();
-        if (unit == null) return;
-        ArrayList<UnitAsset> unitAssets = fetchUnitAssets(unit);
+        ArrayList<UnitAsset> unitAssets;
+        if (unit == null) {
+            unitAssets = new ArrayList<>();
+        }
+        else {
+            unitAssets = fetchUnitAssets(unit);
+        }
         unitAssetTableView.setItems(FXCollections.observableArrayList(unitAssets));
     }
 
@@ -280,11 +306,6 @@ public class ManageUnitsController extends Controller implements Initializable {
         } finally {
             creditsTextField.clear();
         }
-    }
-
-    private void populateUnitComboBox() {
-        ArrayList<Unit> units = fetchUnits();
-        unitComboBox.setItems(FXCollections.observableArrayList(units));
     }
 
     @FXML

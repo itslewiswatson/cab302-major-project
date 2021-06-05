@@ -17,7 +17,7 @@
           <TableColumn fx:id="quantityTableCol" prefWidth="106.8609619140625" text="Quantity" />
         </columns>
       </TableView>
-      <ComboBox fx:id="unitComboBox" layoutX="15.0" layoutY="41.0" onAction="#selectUnit" prefWidth="150.0" />
+      <ComboBox fx:id="unitComboBox" layoutX="15.0" layoutY="41.0" onAction="#selectUnit" onMouseClicked="#populateUnitComboBox" prefWidth="150.0" />
       <Label layoutX="15.0" layoutY="14.0" text="Select Unit" />
       <Button fx:id="removeAssetButton" disable="true" layoutX="518.0" layoutY="362.0" mnemonicParsing="false" onAction="#removeAsset" text="Remove" />
       <Button layoutX="15.0" layoutY="362.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back" />
@@ -32,7 +32,7 @@
       <Label fx:id="pendingTrades" layoutX="15.0" layoutY="185.0" text="Pending Trades: " />
       <Label fx:id="completedTrades" layoutX="15.0" layoutY="210.0" text="Completed Trades: " />
       <TextField fx:id="creditsTextField" disable="true" layoutX="15.0" layoutY="299.0" prefHeight="26.0" prefWidth="150.0" promptText="Enter credits..." />
-      <Button fx:id="saveCreditsButton" disable="true" layoutX="169.0" layoutY="299.0" mnemonicParsing="false" onAction="#updateCredits" prefHeight="26.0" prefWidth="60.0" text="Save" />
+      <Button fx:id="saveCreditsButton" disable="true" layoutX="169.0" layoutY="299.0" mnemonicParsing="false" onAction="#updateCredits" prefHeight="26.0" prefWidth="60.0" text="Set" />
       <Separator layoutX="15.0" layoutY="88.0" prefHeight="4.0" prefWidth="213.0" />
       <Button layoutX="160.0" layoutY="362.0" mnemonicParsing="false" onAction="#viewNewUnitDialog" text="New Unit" />
       <Label layoutX="257.0" layoutY="335.0" text="Double-click an asset to edit quantity" />
