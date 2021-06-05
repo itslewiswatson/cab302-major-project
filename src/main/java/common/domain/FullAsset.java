@@ -1,8 +1,10 @@
 package common.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDate;
 
-public class FullAsset extends Asset {
+public class FullAsset extends Asset implements Comparable<FullAsset> {
     private final LocalDate dateAdded;
     private final int amount;
 
@@ -18,5 +20,10 @@ public class FullAsset extends Asset {
 
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public int compareTo(@NotNull FullAsset otherFullAsset) {
+        return this.getAssetName().toLowerCase().compareTo(otherFullAsset.getAssetName().toLowerCase());
     }
 }

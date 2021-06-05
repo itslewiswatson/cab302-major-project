@@ -1,8 +1,10 @@
 package common.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
-public class Unit extends Entity {
+public class Unit extends Entity implements Comparable<Unit> {
     public final static int NAME_MIN_LENGTH = 4;
 
     private final String unitId;
@@ -53,5 +55,10 @@ public class Unit extends Entity {
 
     public void addUser(User user) {
         this.users.add(user);
+    }
+
+    @Override
+    public int compareTo(@NotNull Unit otherUnit) {
+        return this.getUnitName().toLowerCase().compareTo(otherUnit.getUnitName().toLowerCase());
     }
 }
