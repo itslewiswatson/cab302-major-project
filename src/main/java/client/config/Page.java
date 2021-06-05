@@ -9,7 +9,7 @@ public enum Page {
     allTrades("allTrades.fxml", AllTradesController.class),
     tradeHistory("tradeHistory.fxml", TradeHistoryController.class),
     unitTrades("unitTrades.fxml", UnitTradesController.class),
-    assets("assets.fxml", AssetsController.class),
+    assets("manageAssets.fxml", ManageAssetsController.class),
     manageUnits("manageUnits.fxml", ManageUnitsController.class),
     manageUsers("manageUsers.fxml", ManageUsersController.class);
 

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.AssetsController">
+            fx:controller="client.ManageAssetsController">
     <children>
         <Button layoutX="15.0" layoutY="362.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back"/>
         <TableView fx:id="tableView" layoutX="15.0" layoutY="15.0" prefHeight="333.0" prefWidth="570.0">
