@@ -363,19 +363,6 @@ public class ManageUnitsController extends Controller implements Initializable {
             AlertDialog.fileError();
         }
 
-        if (dto.getUnitName() == null || dto.getCredits() == null) {
-            AlertDialog.error("Could not create unit", "Please try again");
-            return;
-        }
-
-        sendObject(dto);
-        try {
-            Unit unit = readObject();
-            AlertDialog.info("Successfully created unit " + unit.getUnitName() + " with " + unit.getCredits() + " credits", "You may now add users and assets as you please");
-        } catch (NullResultException e) {
-            AlertDialog.error("Could not create unit", "Please try again");
-        }
-
         populateUnitComboBox();
     }
 
