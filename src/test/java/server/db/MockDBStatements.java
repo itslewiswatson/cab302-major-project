@@ -110,7 +110,7 @@ public class MockDBStatements implements DBStrategy {
     }
 
     @Override
-    public void addNewUser(User user) {
+    public void addUser(User user) {
         users.add(user);
     }
 
@@ -306,5 +306,20 @@ public class MockDBStatements implements DBStrategy {
     public void removeUserFromUnit(User user, Unit unit) throws SQLException {
         unit.getUsers().remove(user);
         user.getUnits().remove(unit.getUnitId());
+    }
+
+    @Override
+    public @Nullable Unit findUnitByName(String unitName) {
+        for (Unit unit : units) {
+            if (unit.getUnitName().equals(unitName)) {
+                return unit;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void addUnit(Unit unit) {
+        units.add(unit);
     }
 }

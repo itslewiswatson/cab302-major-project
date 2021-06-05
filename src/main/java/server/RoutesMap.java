@@ -31,6 +31,7 @@ public class RoutesMap implements RoutesMapStrategy {
         routesMap.put(AddUserToUnitDTO.class, AddUserToUnitHandler.class);
         routesMap.put(RemoveUserFromUnitDTO.class, RemoveUserFromUnitHandler.class);
         routesMap.put(NewUserDTO.class, NewUserHandler.class);
+        routesMap.put(NewUnitDTO.class, NewUnitHandler.class);
     }
 
     @Override

@@ -2,6 +2,7 @@ package server.db;
 
 import common.dataTypes.TradeType;
 import common.domain.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -136,6 +137,13 @@ public class DBStatements implements DBStrategy {
     private PreparedStatement removeUserFromUnit;
 
     /**
+     * A precompiled SQL statement to remove a unit asset.
+     */
+    private PreparedStatement getUnitByName;
+
+    private PreparedStatement newUnit;
+
+    /**
      * Creates a DBStatements object.
      */
     public DBStatements() {
@@ -173,6 +181,8 @@ public class DBStatements implements DBStrategy {
             deleteUser = connection.prepareStatement(DBQueries.DELETE_USER);
             addUserToUnit = connection.prepareStatement(DBQueries.ADD_USER_TO_UNIT);
             removeUserFromUnit = connection.prepareStatement(DBQueries.REMOVE_USER_FROM_UNIT);
+            getUnitByName = connection.prepareStatement(DBQueries.FIND_UNIT_BY_NAME);
+            newUnit = connection.prepareStatement(DBQueries.NEW_UNIT);
         } catch (SQLException exception) {
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         }
@@ -192,9 +202,7 @@ public class DBStatements implements DBStrategy {
             newTrade.setInt(9, trade.getQuantityFilled());
             if (trade.getDateFilled() != null) {
                 newTrade.setDate(10, Date.valueOf(trade.getDateFilled()));
-            }
-            else
-            {
+            } else {
                 newTrade.setDate(10, null);
             }
 
@@ -221,17 +229,13 @@ public class DBStatements implements DBStrategy {
      * @param user A new user account.
      */
     @Override
-    public void addNewUser(User user) {
-        try {
-            insertUser.setString(1, user.getUserId());
-            insertUser.setString(2, user.getUsername());
-            insertUser.setString(3, user.getPassword());
-            insertUser.setString(4, user.getAdmin());
+    public void addUser(User user) throws SQLException {
+        insertUser.setString(1, user.getUserId());
+        insertUser.setString(2, user.getUsername());
+        insertUser.setString(3, user.getPassword());
+        insertUser.setString(4, user.getAdmin());
 
-            insertUser.execute();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+        insertUser.execute();
     }
 
     @Override
@@ -477,9 +481,6 @@ public class DBStatements implements DBStrategy {
         return units;
     }
 
-    /**
-     * @return
-     */
     @Override
     public ArrayList<FullAsset> findAssets() {
         ResultSet assetResultSet;
@@ -894,5 +895,34 @@ public class DBStatements implements DBStrategy {
         removeUserFromUnit.setString(1, user.getUserId());
         removeUserFromUnit.setString(2, unit.getUnitId());
         removeUserFromUnit.execute();
+    }
+
+    @Override
+    public @Nullable Unit findUnitByName(String unitName) {
+        try {
+            getUnitByName.setString(1, unitName);
+            ResultSet unitResultSet = getUnitByName.executeQuery();
+
+            if (unitResultSet.isBeforeFirst()) {
+                unitResultSet.next();
+
+                return new Unit(
+                        unitResultSet.getString("id"),
+                        unitResultSet.getString("name"),
+                        unitResultSet.getInt("credits")
+                );
+            }
+        } catch (SQLException exception) {
+            return null;
+        }
+
+        return null;
+    }
+
+    @Override
+    public void addUnit(Unit unit) throws SQLException {
+        newUnit.setString(1, unit.getUnitId());
+        newUnit.setString(2, unit.getUnitName());
+        newUnit.setInt(3, unit.getCredits());
     }
 }

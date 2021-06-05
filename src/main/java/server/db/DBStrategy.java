@@ -11,7 +11,7 @@ public interface DBStrategy {
 
     void addAsset(Asset asset);
 
-    void addNewUser(User user);
+    void addUser(User user) throws SQLException;
 
     @Nullable User findUserById(String userId);
 
@@ -66,4 +66,8 @@ public interface DBStrategy {
     void addUserToUnit(User user, Unit unit) throws SQLException;
 
     void removeUserFromUnit(User user, Unit unit) throws SQLException;
+
+    @Nullable Unit findUnitByName(String unitName);
+
+    void addUnit(Unit unit) throws SQLException;
 }
