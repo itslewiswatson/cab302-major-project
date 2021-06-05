@@ -6,6 +6,9 @@ import java.util.ArrayList;
  * This class represents a user account.
  */
 public class User extends Entity {
+    public static final int USERNAME_MIN_LENGTH = 4;
+    public static final int USERNAME_MAX_LENGTH = 16;
+    public static final int PASSWORD_MIN_LENGTH = 4;
 
     private final String userId;
 

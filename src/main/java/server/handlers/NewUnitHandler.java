@@ -24,7 +24,7 @@ public class NewUnitHandler extends Handler<Unit, NewUnitDTO> {
             Unit unit = new Unit(
                     UuidGenerator.generateUuid(),
                     dto.getUnitName(),
-                    0
+                    dto.getCredits()
             );
 
             dbStatements.addUnit(unit);

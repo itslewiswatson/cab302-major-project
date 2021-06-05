@@ -2,6 +2,7 @@ package client;
 
 import client.alert.AlertDialog;
 import client.config.Page;
+import client.dialog.NewUnitDialogController;
 import client.strategy.ClientController;
 import client.strategy.Controller;
 import common.domain.*;
@@ -12,10 +13,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -313,6 +320,41 @@ public class ManageUnitsController extends Controller implements Initializable {
         }
 
         populateUnitAssetTable(selectedUnit);
+    }
+
+    public void viewNewUnitDialog() {
+        NewUnitDTO dto = new NewUnitDTO(null, null);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newUnitDialog.fxml"));
+            loader.setControllerFactory(c -> new NewUnitDialogController(super.clientController, dto));
+            Parent parent = loader.load();
+
+            Scene scene = new Scene(parent);
+            Stage dialog = new Stage();
+            dialog.centerOnScreen();
+            dialog.initOwner(getStage());
+            dialog.setScene(scene);
+            dialog.initModality(Modality.WINDOW_MODAL);
+            dialog.showAndWait();
+        } catch (IOException e) {
+            AlertDialog.fileError();
+        }
+
+        if (dto.getUnitName() == null || dto.getCredits() == null) {
+            AlertDialog.error("Could not create unit", "Please try again");
+            return;
+        }
+
+        sendObject(dto);
+        try {
+            Unit unit = readObject();
+            AlertDialog.info("Successfully created unit " + unit.getUnitName() + " with " + unit.getCredits() + " credits", "You may now add users and assets as you please");
+        } catch (NullResultException e) {
+            AlertDialog.error("Could not create unit", "Please try again");
+        }
+
+        populateUnitComboBox();
     }
 
     public void goBack() {

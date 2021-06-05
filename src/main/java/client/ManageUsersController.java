@@ -320,7 +320,7 @@ public class ManageUsersController extends Controller implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newUserDialog.fxml"));
-            loader.setControllerFactory(c -> new NewUserDialogController(dto));
+            loader.setControllerFactory(c -> new NewUserDialogController(super.clientController, dto));
             Parent parent = loader.load();
 
             Scene scene = new Scene(parent);
@@ -331,21 +331,22 @@ public class ManageUsersController extends Controller implements Initializable {
             dialog.initModality(Modality.WINDOW_MODAL);
             dialog.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            AlertDialog.fileError();
         }
 
-        // TODO more validation
-        if (dto.getUsername() != null && dto.getPassword() != null && dto.isAdmin() != null) {
-            sendObject(dto);
-            try {
-                User user = readObject();
-                AlertDialog.info("Successfully created user " + user.getUsername(), "They can now log in with the password you just entered");
-            } catch (NullResultException e) {
-                AlertDialog.error("Could not create user", "Please try again");
-                e.printStackTrace();
-            }
-
-            populateUsersTable();
+        if (dto.getUsername() == null || dto.getPassword() == null || dto.isAdmin() == null) {
+            AlertDialog.error("Could not create user", "Please try again");
+            return;
         }
+
+        sendObject(dto);
+        try {
+            User user = readObject();
+            AlertDialog.info("Successfully created user " + user.getUsername(), "They can now log in with the password you just entered");
+        } catch (NullResultException e) {
+            AlertDialog.error("Could not create user", "Please try again");
+        }
+
+        populateUsersTable();
     }
 }
