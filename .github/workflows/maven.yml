@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build-upload:
 
     runs-on: windows-latest
 
@@ -23,16 +23,10 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn package --f pom.xml
-      
-  upload:
-  
-      runs-on: windows-latest
-      
-      steps:
-      - name: Populate Staging Directory
-        run: mkdir staging && cp target/* staging
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: cab302-major-project
-          path: staging
+    - name: Populate Staging Directory
+      run: mkdir staging && cp target/* staging
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: cab302-major-project
+        path: staging
