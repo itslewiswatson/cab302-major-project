@@ -4,7 +4,7 @@ import client.*;
 import client.strategy.Controller;
 
 public enum Page {
-    myAccount("myAccount.fxml", MyAccountController.class),
+    myAccount("landing.fxml", LandingController.class),
     login("login.fxml", LoginController.class),
     allTrades("allTrades.fxml", AllTradesController.class),
     tradeHistory("tradeHistory.fxml", TradeHistoryController.class),

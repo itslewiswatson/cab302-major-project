@@ -26,9 +26,9 @@ import java.util.ResourceBundle;
 /**
  * This class is the My Account GUI controller.
  */
-public class MyAccountController extends Controller implements Initializable {
+public class LandingController extends Controller implements Initializable {
 
-    public MyAccountController(ClientController clientController) {
+    public LandingController(ClientController clientController) {
         super(clientController);
     }
 
