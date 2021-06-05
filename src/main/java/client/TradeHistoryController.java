@@ -64,7 +64,6 @@ public class TradeHistoryController extends Controller implements Initializable 
         try {
             return readObject();
         } catch (NullResultException e) {
-            //AlertDialog.info("There are no historic trades at the moment", "No trades have been fulfilled. Check back later.");
             return new ArrayList<>();
         }
     }
