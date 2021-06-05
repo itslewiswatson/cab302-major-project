@@ -1,8 +1,12 @@
 package server.db;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -29,7 +33,12 @@ final class DBConnection {
         FileInputStream fileInputStream;
 
         try {
-            fileInputStream = new FileInputStream("./src/main/resources/db.props");
+            URI jarFileURI = DBConnection.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+
+            File jarFile = Paths.get(jarFileURI).toFile();
+            File propertiesFile = new File(jarFile.getParentFile(), "db.properties");
+
+            fileInputStream = new FileInputStream(propertiesFile);
             properties.load(fileInputStream);
             fileInputStream.close();
 
@@ -40,11 +49,13 @@ final class DBConnection {
 
             connection = DriverManager.getConnection(url + "/" + schema, username, password);
         } catch (FileNotFoundException exception) {
-            System.err.println("db.props is not where it is expected to be. Rebuild the program and ensure db.props is in /src/main/resources.");
+            System.err.println("db.properties is not where it is expected to be. Rebuild the program and ensure db.properties is in /src/main/config.");
         } catch (IOException exception) {
-            System.err.println("db.props has become corrupted. Rebuild the program.");
+            System.err.println("db.properties has become corrupted. Rebuild the program.");
         } catch (SQLException exception) {
             System.err.println("Could not connect to SQL database. Ensure MySQL server is running and database instructions in README.md have been followed.");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 
