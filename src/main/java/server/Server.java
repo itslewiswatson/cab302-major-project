@@ -1,7 +1,5 @@
 package server;
 
-import client.Client;
-import client.Main;
 import server.db.DBStatements;
 import server.handlers.strategy.HandlerResolver;
 
