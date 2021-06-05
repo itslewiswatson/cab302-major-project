@@ -518,15 +518,15 @@ public class DBStatements implements DBStrategy {
 
             while (tradeResultSet.next()) {
                 Trade trade = new Trade(
-                        tradeResultSet.getString("trades.id"),
+                        tradeResultSet.getString("t.id"),
                         new Unit(
                                 tradeResultSet.getString("unit_id"),
                                 tradeResultSet.getString("units.name"),
                                 tradeResultSet.getInt("credits")
                         ),
                         new Asset(
-                                tradeResultSet.getString("asset_id"),
-                                tradeResultSet.getString("assets.name")
+                                tradeResultSet.getString("a.id"),
+                                tradeResultSet.getString("a.name")
                         ),
                         new User(
                                 tradeResultSet.getString("user_id"),
@@ -924,5 +924,6 @@ public class DBStatements implements DBStrategy {
         newUnit.setString(1, unit.getUnitId());
         newUnit.setString(2, unit.getUnitName());
         newUnit.setInt(3, unit.getCredits());
+        newUnit.execute();
     }
 }

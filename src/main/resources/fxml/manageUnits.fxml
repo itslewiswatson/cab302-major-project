@@ -22,7 +22,7 @@
       <Button fx:id="removeAssetButton" disable="true" layoutX="518.0" layoutY="362.0" mnemonicParsing="false" onAction="#removeAsset" text="Remove" />
       <Button layoutX="15.0" layoutY="362.0" mnemonicParsing="false" onAction="#goBack" text="&lt;&lt; Back" />
       <ComboBox fx:id="allAssetsComboBox" disable="true" layoutX="257.0" layoutY="362.0" prefHeight="26.0" prefWidth="100.0" promptText="Asset" />
-      <Button fx:id="addAssetButton" disable="true" layoutX="437.0" layoutY="362.0" mnemonicParsing="false" text="Add" onAction="#addAsset" />
+      <Button fx:id="addAssetButton" disable="true" layoutX="437.0" layoutY="362.0" mnemonicParsing="false" onAction="#addAsset" text="Add" />
       <TextField fx:id="addAssetTextField" disable="true" layoutX="362.0" layoutY="362.0" prefHeight="26.0" prefWidth="70.0" promptText="Qty" />
       <Separator layoutX="15.0" layoutY="250.0" prefHeight="4.0" prefWidth="213.0" />
       <Label fx:id="unitNameLabel" layoutX="15.0" layoutY="110.0" text="Unit Name: " />
@@ -34,5 +34,6 @@
       <TextField fx:id="creditsTextField" disable="true" layoutX="15.0" layoutY="299.0" prefHeight="26.0" prefWidth="150.0" promptText="Enter credits..." />
       <Button fx:id="saveCreditsButton" disable="true" layoutX="169.0" layoutY="299.0" mnemonicParsing="false" onAction="#updateCredits" prefHeight="26.0" prefWidth="60.0" text="Save" />
       <Separator layoutX="15.0" layoutY="88.0" prefHeight="4.0" prefWidth="213.0" />
+      <Button layoutX="160.0" layoutY="362.0" mnemonicParsing="false" onAction="#viewNewUnitDialog" text="New Unit" />
    </children>
 </AnchorPane>

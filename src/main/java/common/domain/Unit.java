@@ -3,6 +3,8 @@ package common.domain;
 import java.util.ArrayList;
 
 public class Unit extends Entity {
+    public final static int NAME_MIN_LENGTH = 4;
+
     private final String unitId;
     private final String unitName;
     private int credits;

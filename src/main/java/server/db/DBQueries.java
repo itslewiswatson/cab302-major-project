@@ -138,7 +138,7 @@ public class DBQueries {
 
     public static final String REMOVE_USER_FROM_UNIT = "DELETE FROM unitusers WHERE user_id = ? AND unit_id = ?";
 
-    public static final String FIND_UNIT_BY_NAME = "SELECT * FROM units WHERE unitName = ?";
+    public static final String FIND_UNIT_BY_NAME = "SELECT * FROM units WHERE name = ?";
 
     public static final String NEW_UNIT = "INSERT INTO units (id, name, credits) VALUES (?, ?, ?)";
 }
