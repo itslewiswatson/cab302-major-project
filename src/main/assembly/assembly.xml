@@ -13,19 +13,19 @@
         </file>
         <file>
             <source> ${project.build.directory}/server.jar</source>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>./</outputDirectory>
         </file>
         <file>
             <source> ${project.build.directory}/client.properties</source>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>./</outputDirectory>
         </file>
         <file>
             <source> ${project.build.directory}/server.properties</source>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>./</outputDirectory>
         </file>
         <file>
             <source> ${project.build.directory}/db.properties</source>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>./</outputDirectory>
         </file>
     </files>
 </assembly>
