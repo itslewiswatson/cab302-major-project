@@ -126,6 +126,9 @@ public class UnitTradesController extends Controller implements Initializable {
 
     public void populateUnitComboBox() {
         ArrayList<Unit> userUnits = fetchUserUnits();
+
+        userUnits.sort(Unit::compareTo);
+
         unitComboBox.setItems(FXCollections.observableArrayList(userUnits));
         if (userUnits.size() == 1) {
             unitComboBox.setValue(userUnits.get(0));
