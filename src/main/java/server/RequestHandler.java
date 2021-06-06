@@ -85,6 +85,7 @@ public class RequestHandler extends Thread {
      * @throws IOException An error occurred when writing the object to the stream.
      */
     private void handleRequest(Object object) throws IOException, RouteNotFoundException {
+        // Only accept DTO objects
         if (!(object instanceof DTO)) {
             throw new IOException();
         }
