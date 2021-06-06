@@ -5,7 +5,6 @@ import common.domain.*;
 import common.dto.NewTradeDTO;
 import common.exceptions.NullResultException;
 import common.services.UuidGenerator;
-import org.jetbrains.annotations.Nullable;
 import server.db.DBStrategy;
 
 import java.time.LocalDate;
@@ -36,7 +35,7 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
                     return null;
                 }
             } else {
-                UnitAsset unitAsset = findUnitAsset(unit.getUnitId(), asset.getAssetId());
+                UnitAsset unitAsset = resolveUnitAsset(unit.getUnitId(), asset.getAssetId());
                 if (unitAsset == null) {
                     return null;
                 }
@@ -76,13 +75,5 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
         } catch (NullResultException e) {
             return null;
         }
-    }
-
-    protected Unit resolveUnit(String unitId) {
-        return dbStatements.findUnitById(unitId);
-    }
-
-    private @Nullable UnitAsset findUnitAsset(String unitId, String assetId) {
-        return dbStatements.findUnitAsset(unitId, assetId);
     }
 }
