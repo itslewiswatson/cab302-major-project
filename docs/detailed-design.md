@@ -55,10 +55,16 @@ Once administrators log in, they are taken to the same landing page but with a c
 
 ![Landing - Admin](/docs/images/gui-landing-admin.png)
 
+From the manage assets page, administrators can view a table of all listed assets. Here they can add new assets or remove those that are no longer in circulation.
+
 ![Manage Assets](/docs/images/gui-manage-assets.png)
+
+The manage units page allows administrators to create new and update existing units. 
 
 ![Manage Units](/docs/images/gui-manage-units.png)
 ![New Unit](/docs/images/gui-new-unit.png)
+
+The manage users page allows administrators to create new and update & remove existing users. 
 
 ![Manage Users](/docs/images/gui-manage-users.png)
 ![New User](/docs/images/gui-new-user.png)
