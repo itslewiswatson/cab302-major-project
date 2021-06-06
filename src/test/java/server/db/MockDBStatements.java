@@ -251,6 +251,16 @@ public class MockDBStatements implements DBStrategy {
     }
 
     @Override
+    public @Nullable Asset findAssetByName(String assetName) {
+        for (Asset asset : assets) {
+            if (asset.getAssetName().equals(assetName)) {
+                return asset;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void updateUnitAsset(UnitAsset unitAsset) {
 
     }
