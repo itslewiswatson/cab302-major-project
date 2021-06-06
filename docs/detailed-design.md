@@ -18,31 +18,37 @@ Database Schema
 ### Entity Relationship Diagram
 ![Entity Relationship Diagram](/docs/images/erd.png)
 ### Tables & Columns
-- User 
-  - username – {PK} CHAR(255)
-  - password – CHAR(255)
-  - admin – BOOL 
-- Unit
-  - name – {PK} CHAR(255)
+- users 
+  - id - {PK} VARCHAR(255)
+  - username – VARCHAR(255)
+  - password – VARCHAR(255)
+  - admin – BOOLEAN
+- units
+  - id - {PK} VARCHAR(255)
+  - name – VARCHAR(255)
   - credits – INT
-- UnitUsers
-  - username – {PK} {FK} CHAR(255) 
-  - unitName – {PK} {FK} CHAR(255)
-- Asset
-  - name – {PK} CHAR(255)
-- UnitAssets
-  - unitName – {PK} {FK} CHAR(255)
-  - assetName – {PK} {FK} CHAR(255)
+- unitusers
+  - user_id – {PK} {FK} VARCHAR(255) 
+  - unit_id – {PK} {FK} VARCHAR(255)
+- assets
+  - id - VARCHAR(255) {PK}
+  - name – VARCHAR(255)
+  - date_added - DATE
+- unitassets
+  - unit_id – {PK} {FK} VARCHAR(255)
+  - asset_id – {PK} {FK} VARCHAR(255)
   - quantity – INT 
-- Trade
-  - id – {PK} INT
-  - unitName – {FK} CHAR(255)
-  - assetName – {FK} CHAR(255)
-  - date – DATE 
-  - type – CHAR(4)
+- trades
+  - id – {PK} VARCHAR(255)
+  - unit_id – {FK} VARCHAR(255)
+  - asset_id – {FK} VARCHAR(255)
+  - user_id – {FK} VARCHAR(255)
+  - date_listed – DATE 
+  - type – VARCHAR(4)
   - quantity – INT 
   - price – INT 
-  - completed – BOOL
+  - quantity_filled - INT
+  - date_filled - DATE
 
 Network Protocol
 ----------------
