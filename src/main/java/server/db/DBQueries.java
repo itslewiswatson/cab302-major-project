@@ -61,7 +61,7 @@ public class DBQueries {
     /**
      * SQL statement to retrieve an asset by its ID.
      */
-    public static final String GET_ASSET_BY_ID = "SELECT * FROM assets WHERE id = ?";
+    public static final String GET_ASSET_BY_ID = "SELECT A.id, A.name, A.date_added, COALESCE(SUM(quantity), 0) AS qty FROM assets A LEFT JOIN unitassets u on A.id = u.asset_id WHERE A.id = ? GROUP BY A.id;";
 
     /**
      * SQL statement to retrieve an asset by its name.

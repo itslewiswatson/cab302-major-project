@@ -747,7 +747,7 @@ public class DBStatements implements DBStrategy {
     }
 
     @Override
-    public Asset findAssetById(String assetId) {
+    public FullAsset findAssetById(String assetId) {
         ResultSet assetResultSet;
 
         try {
@@ -757,9 +757,11 @@ public class DBStatements implements DBStrategy {
             if (assetResultSet.isBeforeFirst()) {
                 assetResultSet.next();
 
-                return new Asset(
+                return new FullAsset(
                         assetResultSet.getString("id"),
-                        assetResultSet.getString("name")
+                        assetResultSet.getString("name"),
+                        assetResultSet.getDate("A.date_added").toLocalDate(),
+                        assetResultSet.getInt("qty")
                 );
             }
 

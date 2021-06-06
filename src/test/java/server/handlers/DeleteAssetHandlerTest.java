@@ -16,7 +16,7 @@ public class DeleteAssetHandlerTest {
 
     @Test
     public void testHandle() {
-        DeleteAssetDTO dto = new DeleteAssetDTO("ID9");
+        DeleteAssetDTO dto = new DeleteAssetDTO("ID404");
         boolean success = handler.handle(dto);
         Assert.assertTrue(success);
     }
@@ -24,6 +24,13 @@ public class DeleteAssetHandlerTest {
     @Test
     public void testHandleInvalidAsset() {
         DeleteAssetDTO badDTO = new DeleteAssetDTO("INVALID");
+        boolean success = handler.handle(badDTO);
+        Assert.assertFalse(success);
+    }
+
+    @Test
+    public void testOnlyDeleteEmptyAssets() {
+        DeleteAssetDTO badDTO = new DeleteAssetDTO("ID9");
         boolean success = handler.handle(badDTO);
         Assert.assertFalse(success);
     }

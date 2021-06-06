@@ -29,8 +29,7 @@ public class RemoveTradeHandler extends Handler<Boolean, RemoveTradeDTO> {
             if (trade.getType() == TradeType.BUY) {
                 unit.addCredits(remainingQuantity * trade.getPrice());
                 dbStatements.updateUnitCredits(unit);
-            }
-            else {
+            } else {
                 UnitAsset unitAsset = resolveUnitAsset(unit.getUnitId(), asset.getAssetId());
                 if (unitAsset == null) {
                     return null;

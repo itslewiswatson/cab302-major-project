@@ -1,6 +1,7 @@
 package server.handlers;
 
 import common.domain.Asset;
+import common.domain.FullAsset;
 import common.domain.Unit;
 import common.domain.UnitAsset;
 import common.dto.CreateOrUpdateUnitAssetDTO;
@@ -29,7 +30,7 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
 
     private void createOrUpdateUnitAsset(CreateOrUpdateUnitAssetDTO dto) throws NullResultException {
         Unit unit = resolveUnit(dto.getUnitId());
-        Asset asset = resolveAsset(dto.getAssetId());
+        FullAsset asset = resolveAsset(dto.getAssetId());
         UnitAsset existingUnitAsset = findUnitAsset(unit.getUnitId(), asset.getAssetId());
 
         if (existingUnitAsset != null) {
@@ -56,7 +57,7 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
     }
 
     private void createNewUnitAsset(CreateOrUpdateUnitAssetDTO dto) throws NullResultException {
-        Asset asset = resolveAsset(dto.getAssetId());
+        FullAsset asset = resolveAsset(dto.getAssetId());
 
         UnitAsset unitAsset = new UnitAsset(
                 dto.getUnitId(),

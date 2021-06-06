@@ -1,6 +1,6 @@
 package server.handlers;
 
-import common.domain.Asset;
+import common.domain.FullAsset;
 import common.dto.DeleteAssetDTO;
 import common.exceptions.NullResultException;
 import server.db.DBStrategy;
@@ -15,7 +15,11 @@ public class DeleteAssetHandler extends Handler<Boolean, DeleteAssetDTO> {
     @Override
     public Boolean handle(DeleteAssetDTO dto) {
         try {
-            Asset asset = resolveAsset(dto.getAssetId());
+            FullAsset asset = resolveAsset(dto.getAssetId());
+            if (asset.getAmount() > 0) {
+                return false;
+            }
+
             dbStatements.removeAsset(asset);
         } catch (SQLException | NullResultException exception) {
             return false;

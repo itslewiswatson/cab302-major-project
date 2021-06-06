@@ -1,6 +1,6 @@
 package server.handlers;
 
-import common.domain.Asset;
+import common.domain.FullAsset;
 import common.domain.Unit;
 import common.domain.UnitAsset;
 import common.domain.User;
@@ -24,8 +24,8 @@ abstract public class Handler<T, U extends DTO> {
         return unit;
     }
 
-    protected Asset resolveAsset(String assetId) throws NullResultException {
-        @Nullable Asset asset = dbStatements.findAssetById(assetId);
+    protected FullAsset resolveAsset(String assetId) throws NullResultException {
+        @Nullable FullAsset asset = dbStatements.findAssetById(assetId);
         if (asset == null) throw new NullResultException();
         return asset;
     }

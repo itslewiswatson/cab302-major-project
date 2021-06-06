@@ -45,7 +45,7 @@ public interface DBStrategy {
 
     void removeUnitAsset(UnitAsset unitAsset) throws SQLException;
 
-    @Nullable Asset findAssetById(String assetId);
+    @Nullable FullAsset findAssetById(String assetId);
 
     @Nullable Asset findAssetByName(String assetName);
 
