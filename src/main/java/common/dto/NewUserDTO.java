@@ -1,5 +1,8 @@
 package common.dto;
 
+/**
+ * This class represents the new user DTO
+ */
 public class NewUserDTO extends DTO {
     private final String username;
     private final String password;
