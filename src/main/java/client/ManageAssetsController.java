@@ -98,7 +98,7 @@ public class ManageAssetsController extends Controller implements Initializable 
             readObject();
             populateTable();
         } catch (NullResultException e) {
-            AlertDialog.warning("Could not add asset.", "Ensure an asset with the same name doesn't " +
+            AlertDialog.error("Could not add asset.", "Ensure an asset with the same name doesn't " +
                     "already exist and try again.");
         }
     }
@@ -110,7 +110,7 @@ public class ManageAssetsController extends Controller implements Initializable 
             return;
         }
         if (asset.getAmount() != 0) {
-            AlertDialog.info("Unable to remove asset.", "You can only remove assets that aren't in " +
+            AlertDialog.warning("Unable to remove asset.", "You can only remove assets that aren't in " +
                     "circulation.");
             return;
         }
@@ -119,7 +119,7 @@ public class ManageAssetsController extends Controller implements Initializable 
         try {
             readObject();
         } catch (NullResultException e) {
-            AlertDialog.warning("Could not remove asset.", "Please try again.");
+            AlertDialog.error("Could not remove asset.", "Please try again.");
         }
         populateTable();
     }

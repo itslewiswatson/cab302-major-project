@@ -131,7 +131,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
     public void populateTradeTypeComboBox() {
         if (unitComboBox.getValue() == null)
         {
-            AlertDialog.info("Unit not selected.", "Please select a unit before selecting a trade type.");
+            AlertDialog.warning("Unit not selected.", "Please select a unit before selecting a trade type.");
             return;
         }
 
@@ -187,7 +187,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
                     .map(UnitAsset::getAsset).collect(Collectors.toCollection(ArrayList::new));
         }
         else {
-            AlertDialog.info("Trade type not selected.", "Please select a trade type before selecting an asset.");
+            AlertDialog.warning("Trade type not selected.", "Please select a trade type before selecting an asset.");
             return;
         }
 
@@ -217,7 +217,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
 
         if (unit == null || tradeType == null || asset == null)
         {
-            AlertDialog.info("Incomplete new trade form.", "Please enter any empty fields and try again.");
+            AlertDialog.warning("Incomplete new trade form.", "Please enter any empty fields and try again.");
             return;
         }
 
@@ -238,7 +238,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
                 AlertDialog.info("Trade listed successfully!", "");
                 stage.close();
             } catch (NullResultException e) {
-                AlertDialog.info("Could not list trade!", "Please try again.");
+                AlertDialog.error("Could not list trade!", "Please try again.");
 
                 unitComboBox.setValue(null);
                 tradeTypeComboBox.setValue(null);
@@ -262,14 +262,14 @@ public class NewTradeDialogController extends Controller implements Initializabl
             quantity = Integer.parseInt(quantityString);
 
             if (quantity < 0) {
-                AlertDialog.info("Invalid quantity!", "Please enter a quantity greater than zero.");
+                AlertDialog.warning("Invalid quantity!", "Please enter a quantity greater than zero.");
                 return false;
             }
 
             if (tradeTypeComboBox.getValue() == TradeType.SELL) {
                 if (quantity > fetchUnitAssetQuantity())
                 {
-                    AlertDialog.info("Unit " + unitComboBox.getValue().getUnitName()
+                    AlertDialog.warning("Unit " + unitComboBox.getValue().getUnitName()
                             + " has insufficient quantity of asset " + assetComboBox.getValue().getAssetName()
                             + " to list trade!", "Please enter a quantity less than "
                             + fetchUnitAssetQuantity() + ".");
@@ -277,7 +277,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
                 }
             }
         } catch (NumberFormatException exception) {
-            AlertDialog.info("Invalid quantity!", "Please enter a number greater than 0 but less " +
+            AlertDialog.warning("Invalid quantity!", "Please enter a number greater than 0 but less " +
                     "than 2,147,483,647.");
             return false;
         }
@@ -286,13 +286,13 @@ public class NewTradeDialogController extends Controller implements Initializabl
             int price = Integer.parseInt(priceString);
 
             if (price < 0) {
-                AlertDialog.info("Invalid price!", "Please enter a price greater than zero.");
+                AlertDialog.warning("Invalid price!", "Please enter a price greater than zero.");
                 return false;
             }
 
             if (tradeTypeComboBox.getValue() == TradeType.BUY) {
                 if (unitComboBox.getValue().getCredits() == 0) {
-                    AlertDialog.info("Unit " + unitComboBox.getValue().getUnitName()
+                    AlertDialog.error("Unit " + unitComboBox.getValue().getUnitName()
                             + " has insufficient credits to list trade!", "Please try again when unit "
                             + unitComboBox.getValue().getUnitName() + " has sufficient credits.");
                     return false;
@@ -300,7 +300,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
 
                 if (quantity * price > unitComboBox.getValue().getCredits())
                 {
-                    AlertDialog.info("Unit " + unitComboBox.getValue().getUnitName()
+                    AlertDialog.error("Unit " + unitComboBox.getValue().getUnitName()
                             + " has insufficient credits to list trade!", "Please enter a quantity and price"
                             + " combination that results in a total price less than "
                             + unitComboBox.getValue().getCredits() + ".");
@@ -310,7 +310,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
 
             return true;
         } catch (NumberFormatException exception) {
-            AlertDialog.info("Invalid price!", "Please enter a number greater than 0 but less " +
+            AlertDialog.warning("Invalid price!", "Please enter a number greater than 0 but less " +
                     "than 2,147,483,647.");
             return false;
         }
