@@ -5,8 +5,19 @@ Java Classes
 ------------
 [JavaDoc](https://mitchelljqegan.github.io/javadoc/)
 
-Class Diagram
+Class Diagrams
 -------------
+  - client
+
+![client](/docs/images/client-uml-class-diagram.svg)
+
+  - common
+
+![common](/docs/images/common-uml-class-diagram.svg)
+
+  - server
+
+![server](/docs/images/common-uml-class-diagram.svg)
 
 GUI Design
 ----------
