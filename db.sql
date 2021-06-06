@@ -122,18 +122,18 @@ VALUES
   ('b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', 60),
   ('cdf64dd1-a541-4b1f-a71b-8f5fa191defa', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 2500),
   ('a0a7d0de-c7b5-4150-b9a9-c93e34f89c79', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 1987),
-  ('bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 500)
+  ('bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 500);
 
 INSERT INTO
-    trades (id, unit_id, asset_id, user_id, date_listed, type, quantity, price, quantity_filled, date_filled)
+   trades (id, unit_id, asset_id, user_id, date_listed, type, quantity, price, quantity_filled, date_filled)
 VALUES
-    ('ecb9a5c3-d12a-444a-b571-be8908794116', 'b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-04-02', 'BUY', 100, 4, 100, '2021-04-02'),
-    ('8620a21b-43e3-4685-88e0-d39705608af5', 'b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-04-07', 'SELL', 40, 5, 40, '2021-04-07'),
-    ('07238804-48e5-46f6-9af5-f699c7684fb3', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-04-10', 'BUY', 500, 7, 500, '2021-04-11'),
-    ('b29a7acf-4cdf-47e1-8ab6-0153af5c63ec', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '5d4e2de1-fe49-4515-8a2d-937cca7a51ac', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-04-10', 'BUY', 10, 20, 5, '2021-04-11'),
-    ('9555652f-0249-429b-b28b-67cae018363d', 'a0a7d0de-c7b5-4150-b9a9-c93e34f89c79', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '495e92e4-b039-46c9-b17d-839a32431bc4', '2021-04-10', 'SELL', 50, 5, 13, '2021-04-11'),
-    ('80f6ff58-6e9b-44d5-8c42-273a0d4ea097', 'f9ccfcdb-4de9-4302-be7c-a0cbd6a944fa', '5df5d01a-39b0-4313-910e-692984e5e0ec', '96814e6b-f875-49d1-bfd8-f523b124ade5', '2021-04-10', 'SELL', 120, 1, 120, '2021-04-10'),
-    ('c29de9da-3064-4acb-8505-c1cd6c6c4267', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-05-02', 'SELL', 500, 30, 500, '2021-05-12'),
-    ('d428b9c8-68f7-4bbb-9917-dcfb2932581f', 'a0a7d0de-c7b5-4150-b9a9-c93e34f89c79', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '515b5522-b8b6-4fb0-9f64-099ced9cd288', '2021-05-14', 'BUY', 100, 27, 0, NULL),
-    ('e39e9d1b-ad20-4368-be1a-088697f7b721', 'ea5bddad-d974-4c9b-9c75-8b2fb392cdb5', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 'd57c2ff0-592f-4107-849e-f3cc571395b9', '2021-05-16', 'BUY', 150, 27, 0, NULL),
-    ('0d090200-999c-4af7-bb62-facc80400a69', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-05-16', 'BUY', 10, 25, 0, NULL);
+   ('ecb9a5c3-d12a-444a-b571-be8908794116', 'b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-04-02', 'BUY', 100, 4, 100, '2021-04-02'),
+   ('8620a21b-43e3-4685-88e0-d39705608af5', 'b7313567-395b-424b-b130-ea413f8fba1a', 'b2f27a46-c324-42d0-a242-36b88c279fff', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-04-07', 'SELL', 40, 5, 40, '2021-04-07'),
+   ('07238804-48e5-46f6-9af5-f699c7684fb3', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-04-10', 'BUY', 500, 7, 500, '2021-04-11'),
+   ('b29a7acf-4cdf-47e1-8ab6-0153af5c63ec', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '5d4e2de1-fe49-4515-8a2d-937cca7a51ac', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-04-10', 'BUY', 10, 20, 5, '2021-04-11'),
+   ('9555652f-0249-429b-b28b-67cae018363d', 'a0a7d0de-c7b5-4150-b9a9-c93e34f89c79', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '495e92e4-b039-46c9-b17d-839a32431bc4', '2021-04-10', 'SELL', 50, 5, 50, '2021-04-11'),
+   ('80f6ff58-6e9b-44d5-8c42-273a0d4ea097', 'f9ccfcdb-4de9-4302-be7c-a0cbd6a944fa', '5df5d01a-39b0-4313-910e-692984e5e0ec', '96814e6b-f875-49d1-bfd8-f523b124ade5', '2021-04-10', 'SELL', 120, 1, 120, '2021-04-10'),
+   ('c29de9da-3064-4acb-8505-c1cd6c6c4267', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-05-02', 'SELL', 500, 30, 500, '2021-05-12'),
+   ('d428b9c8-68f7-4bbb-9917-dcfb2932581f', 'a0a7d0de-c7b5-4150-b9a9-c93e34f89c79', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '515b5522-b8b6-4fb0-9f64-099ced9cd288', '2021-05-14', 'BUY', 100, 27, 0, NULL),
+   ('e39e9d1b-ad20-4368-be1a-088697f7b721', 'ea5bddad-d974-4c9b-9c75-8b2fb392cdb5', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', 'd57c2ff0-592f-4107-849e-f3cc571395b9', '2021-05-16', 'BUY', 150, 27, 0, NULL),
+   ('0d090200-999c-4af7-bb62-facc80400a69', 'bd609f6d-baa9-476d-b50d-e833f40bbec7', '4a1d4bf3-339d-48ba-a5fa-461ef2b13e81', '11b7526a-a6e3-4f38-bdf4-51e1f5e727e0', '2021-05-16', 'BUY', 10, 25, 0, NULL);
