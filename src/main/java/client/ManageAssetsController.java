@@ -86,23 +86,32 @@ public class ManageAssetsController extends Controller implements Initializable 
     }
 
     public void addAsset() {
-        if (newAssetName.getLength() == 0) return;
+        if (newAssetName.getLength() == 0) {
+            AlertDialog.warning("Empty asset name field.", "Please enter an asset name and try again.");
+            return;
+        }
+
         AddAssetDTO addAssetDTO = new AddAssetDTO(newAssetName.getText());
         sendObject(addAssetDTO);
 
         try {
             readObject();
+            populateTable();
         } catch (NullResultException e) {
-            AlertDialog.warning("Could not add asset", "Please try again");
+            AlertDialog.warning("Could not add asset.", "Ensure an asset with the same name doesn't " +
+                    "already exist and try again.");
         }
-        populateTable();
     }
 
     public void removeAsset() {
         @Nullable FullAsset asset = tableView.getSelectionModel().getSelectedItem();
-        if (asset == null) return;
+        if (asset == null) {
+            AlertDialog.warning("No asset selected.", "Please select an asset and try again.");
+            return;
+        }
         if (asset.getAmount() != 0) {
-            AlertDialog.info("Unable to remove asset", "You can only remove assets not in circulation");
+            AlertDialog.info("Unable to remove asset.", "You can only remove assets that aren't in " +
+                    "circulation.");
             return;
         }
 
@@ -110,7 +119,7 @@ public class ManageAssetsController extends Controller implements Initializable 
         try {
             readObject();
         } catch (NullResultException e) {
-            AlertDialog.warning("Could not remove asset", "Please try again");
+            AlertDialog.warning("Could not remove asset.", "Please try again.");
         }
         populateTable();
     }
