@@ -142,6 +142,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
         xAxis.setAnimated(false);
         xAxis.setCache(false);
         xAxis.setAutoRanging(true);
+        xAxis.setForceZeroInRange(false);
     }
 
     public void populateUnitComboBox() {
