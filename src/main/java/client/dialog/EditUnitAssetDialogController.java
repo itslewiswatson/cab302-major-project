@@ -37,25 +37,21 @@ public class EditUnitAssetDialogController extends Controller implements Initial
     public void clickCreate() {
         String textQuantity = newQtyTextField.getText();
         if (!textQuantity.matches("[0-9]+")) {
-            AlertDialog.error("Quantity invalid", "Quantity may only be a positive numeric value");
+            AlertDialog.warning("Invalid quantity.", "Please enter a positive numeric value.");
             return;
         }
 
         int quantity = Integer.parseInt(textQuantity);
-
-        if (quantity <= 0) {
-            AlertDialog.error("Quantity cannot be less than or equal to zero");
-            return;
-        }
 
         dto.setQuantity(quantity);
 
         sendObject(dto);
         try {
             readObject();
-            AlertDialog.info("Successfully updated quantity of " + unitAsset.getAsset().getAssetName() + " to " + dto.getQuantity());
+            AlertDialog.info("Successfully updated quantity of " + unitAsset.getAsset().getAssetName() + " to " +
+                    dto.getQuantity() + ".");
         } catch (NullResultException e) {
-            AlertDialog.error("Could not edit unit asset", "Please try again");
+            AlertDialog.error("Could not edit unit asset.", "Please try again.");
         }
 
         clickCancel();

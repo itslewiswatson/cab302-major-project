@@ -85,10 +85,7 @@ public class ManageUnitsController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupUnitComboBox();
-
         setupAssetComboBox();
-        populateAssetComboBox();
-
         setupUnitAssetTable();
     }
 
@@ -106,9 +103,30 @@ public class ManageUnitsController extends Controller implements Initializable {
 
         ArrayList<Unit> units = fetchUnits();
 
+        if (units.isEmpty()) {
+            AlertDialog.info("No units currently exist.", "Try adding some.");
+            return;
+        }
+
         units.sort(Unit::compareTo);
 
         unitComboBox.setItems(FXCollections.observableArrayList(units));
+        if (units.size() == 1) {
+            unitComboBox.setValue(units.get(0));
+        }
+    }
+
+    public void populateAssetComboBox() {
+        ArrayList<FullAsset> assets = fetchAllAssets();
+
+        if (assets.isEmpty()) {
+            AlertDialog.info("No assets currently exist.", "Try adding some.");
+            return;
+        }
+
+        assets.sort(FullAsset::compareTo);
+
+        allAssetsComboBox.setItems(FXCollections.observableArrayList(assets));
     }
 
     private ArrayList<Trade> fetchHistoricTrades() {
@@ -178,14 +196,6 @@ public class ManageUnitsController extends Controller implements Initializable {
             e.printStackTrace();
             return new ArrayList<>();
         }
-    }
-
-    private void populateAssetComboBox() {
-        ArrayList<FullAsset> assets = fetchAllAssets();
-
-        assets.sort(FullAsset::compareTo);
-
-        allAssetsComboBox.setItems(FXCollections.observableArrayList(assets));
     }
 
     private void setupAssetComboBox() {
@@ -292,7 +302,8 @@ public class ManageUnitsController extends Controller implements Initializable {
 
         String textCredits = creditsTextField.getText();
         if (!textCredits.matches("[0-9]+")) {
-            AlertDialog.error("Invalid input for credits", "Please enter a numeric value");
+            AlertDialog.warning("Invalid number of credits.", "Please enter a numeric value greater than " +
+                    "zero.");
             return;
         }
         int credits = Integer.parseInt(textCredits);
@@ -311,7 +322,10 @@ public class ManageUnitsController extends Controller implements Initializable {
     @FXML
     private void removeAsset() {
         UnitAsset selectedUnitAsset = unitAssetTableView.getSelectionModel().getSelectedItem();
-        if (selectedUnitAsset == null) return;
+        if (selectedUnitAsset == null) {
+            AlertDialog.info("No asset selected.", "Please select an asset and try again.");
+            return;
+        }
 
         RemoveUnitAssetDTO dto = new RemoveUnitAssetDTO(selectedUnitAsset.getUnitId(), selectedUnitAsset.getAsset().getAssetId());
         sendObject(dto);
@@ -319,36 +333,38 @@ public class ManageUnitsController extends Controller implements Initializable {
         try {
             Boolean success = readObject();
             if (!success) {
-                AlertDialog.warning("Could not remove asset from unit", "Please try again");
+                AlertDialog.error("Could not remove asset from unit.", "Please try again.");
                 return;
             }
 
             ArrayList<UnitAsset> unitAssets = fetchUnitAssets(selectedUnitAsset.getUnitId());
             unitAssetTableView.setItems(FXCollections.observableArrayList(unitAssets));
         } catch (NullResultException e) {
-            AlertDialog.warning("Could not remove asset from unit", "Please try again");
+            AlertDialog.error("Could not remove asset from unit.", "Please try again.");
         }
     }
 
     @FXML
     private void addAsset() {
         Unit selectedUnit = unitComboBox.getValue();
-        if (selectedUnit == null) return;
 
         String textQty = addAssetTextField.getText();
         if (!textQty.matches("[0-9]+")) {
-            AlertDialog.error("Invalid input for quantity", "Please enter a numeric value");
+            AlertDialog.warning("Invalid quantity.", "Please enter a numeric value greater than 0.");
             return;
         }
         int qty = Integer.parseInt(textQty);
 
         Asset asset = allAssetsComboBox.getValue();
-        if (asset == null) return;
+        if (asset == null) {
+            AlertDialog.info("No asset selected.", "Please select an asset and try again.");
+            return;
+        }
 
         ObservableList<UnitAsset> currentUnitAssets = unitAssetTableView.getItems();
         FilteredList<UnitAsset> filteredUnitAssets = currentUnitAssets.filtered(unitAsset -> unitAsset.getAsset().getAssetId().equals(asset.getAssetId()));
         if (filteredUnitAssets.size() == 1) {
-            AlertDialog.warning("This asset is already owned by this unit", "Please edit the existing value in the table");
+            AlertDialog.warning("This asset is already owned by this unit.", "Please edit the existing value in the table.");
             return;
         }
 
@@ -383,8 +399,6 @@ public class ManageUnitsController extends Controller implements Initializable {
         } catch (IOException e) {
             AlertDialog.fileError();
         }
-
-        populateUnitComboBox();
     }
 
     public void viewEditQuantityDialog(UnitAsset unitAsset) {

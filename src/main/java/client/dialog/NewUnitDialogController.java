@@ -33,12 +33,14 @@ public class NewUnitDialogController extends Controller {
         String textCredits = creditsTextField.getText();
 
         if (unitName.length() < Unit.NAME_MIN_LENGTH) {
-            AlertDialog.warning("Unit name invalid", "Unit name must be at least " + Unit.NAME_MIN_LENGTH + " characters");
+            AlertDialog.warning("Invalid unit name.", "Unit name must be at least " + Unit.NAME_MIN_LENGTH
+                    + " characters long.");
             return;
         }
 
         if (!textCredits.matches("[0-9]+")) {
-            AlertDialog.warning("Credits invalid", "Credits may only be a whole number zero or greater");
+            AlertDialog.warning("Invalid number of credits.", "Credits must be a whole number which " +
+                    "greater than zero.");
             return;
         }
 
@@ -48,7 +50,7 @@ public class NewUnitDialogController extends Controller {
         dto.setCredits(credits);
 
         if (dto.getUnitName() == null || dto.getCredits() == null) {
-            AlertDialog.error("Could not create unit", "Please try again");
+            AlertDialog.error("Could not create unit.", "Please try again.");
             return;
         }
 
@@ -57,7 +59,8 @@ public class NewUnitDialogController extends Controller {
             Unit unit = readObject();
             AlertDialog.info("Successfully created unit " + unit.getUnitName() + " with " + unit.getCredits() + " credits", "You may now add users and assets as you please");
         } catch (NullResultException e) {
-            AlertDialog.error("Could not create unit", "Please try again");
+            AlertDialog.error("Could not create unit.", "Ensure a unit with the same name doesn't already " +
+                    "exist and try again.");
         }
 
         clickCancel();
