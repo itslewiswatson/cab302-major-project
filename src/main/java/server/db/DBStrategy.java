@@ -47,6 +47,8 @@ public interface DBStrategy {
 
     @Nullable Asset findAssetById(String assetId);
 
+    @Nullable Asset findAssetByName(String assetName);
+
     void updateUnitAsset(UnitAsset unitAsset);
 
     void addUnitAsset(UnitAsset unitAsset);

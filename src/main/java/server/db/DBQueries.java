@@ -64,6 +64,11 @@ public class DBQueries {
     public static final String GET_ASSET_BY_ID = "SELECT * FROM assets WHERE id = ?";
 
     /**
+     * SQL statement to retrieve an asset by its name.
+     */
+    public static final String GET_ASSET_BY_NAME = "SELECT * FROM assets WHERE name = ?";
+
+    /**
      * SQL statement to insert a new a asset.
      */
     public static final String NEW_ASSET = "INSERT INTO assets (id, name, date_added) VALUES (?, ?, NOW())";

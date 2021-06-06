@@ -77,6 +77,11 @@ public class DBStatements implements DBStrategy {
     private PreparedStatement getAssetById;
 
     /**
+     * A precompiled SQL statement to retrieve an asset by its name.
+     */
+    private PreparedStatement getAssetByName;
+
+    /**
      * A precompiled SQL statement to insert a new asset.
      */
     private PreparedStatement newAsset;
@@ -170,6 +175,7 @@ public class DBStatements implements DBStrategy {
             getUnitAsset = connection.prepareStatement(DBQueries.GET_UNIT_ASSET);
             deleteUnitAsset = connection.prepareStatement(DBQueries.REMOVE_UNIT_ASSET);
             getAssetById = connection.prepareStatement(DBQueries.GET_ASSET_BY_ID);
+            getAssetByName = connection.prepareStatement(DBQueries.GET_ASSET_BY_NAME);
             createUnitAsset = connection.prepareStatement(DBQueries.ADD_UNIT_ASSET);
             updateUnitAssetQuantity = connection.prepareStatement(DBQueries.UPDATE_UNIT_ASSET);
             getHistoricTrades = connection.prepareStatement(DBQueries.GET_HISTORIC_TRADES);
@@ -748,6 +754,30 @@ public class DBStatements implements DBStrategy {
         try {
             getAssetById.setString(1, assetId);
             assetResultSet = getAssetById.executeQuery();
+
+            if (assetResultSet.isBeforeFirst()) {
+                assetResultSet.next();
+
+                return new Asset(
+                        assetResultSet.getString("id"),
+                        assetResultSet.getString("name")
+                );
+            }
+
+            return null;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Asset findAssetByName(String assetName) {
+        ResultSet assetResultSet;
+
+        try {
+            getAssetByName.setString(1, assetName);
+            assetResultSet = getAssetByName.executeQuery();
 
             if (assetResultSet.isBeforeFirst()) {
                 assetResultSet.next();
