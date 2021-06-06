@@ -27,6 +27,10 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
             FullAsset asset = resolveAsset(dto.getAssetId());
             User user = resolveUser(dto.getUserId());
 
+            if (dto.getPrice() < 0 || dto.getQuantity() < 0) {
+                return null;
+            }
+
             if (dto.getType() == TradeType.BUY) {
                 int totalPrice = dto.getPrice() * dto.getQuantity();
                 int unitCredits = unit.getCredits();
