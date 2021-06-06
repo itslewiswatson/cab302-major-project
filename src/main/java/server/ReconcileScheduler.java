@@ -5,6 +5,9 @@ import server.db.DBStatements;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * This class represents the scheduler of the reconciler
+ */
 public class ReconcileScheduler extends Thread {
 
     /**
@@ -12,10 +15,18 @@ public class ReconcileScheduler extends Thread {
      */
     private final DBStatements dbStatements;
 
+    /**
+     * Creates an instance of the reconcile scheduler
+     *
+     * @param dbStatements DB strategy to use
+     */
     public ReconcileScheduler(DBStatements dbStatements) {
         this.dbStatements = dbStatements;
     }
 
+    /**
+     * Runs the reconciler on a timer
+     */
     @Override
     public void run() {
         int periodSec = 5;
