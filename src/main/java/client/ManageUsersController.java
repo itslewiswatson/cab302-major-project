@@ -70,6 +70,30 @@ public class ManageUsersController extends Controller implements Initializable {
     @FXML
     private Button addUnitButton;
 
+    public void populateUnitComboBox() {
+        @Nullable User selectedUser = usersTableView.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            disableInputs();
+            return;
+        }
+
+        ArrayList<Unit> allUnits = fetchUnits();
+        ArrayList<Unit> units = fetchUserUnits(selectedUser.getUserId());
+        ArrayList<Unit> unitsNotIn = allUnits.stream()
+                .filter(unit -> units.stream()
+                        .filter(a -> a.getUnitId().equals(unit.getUnitId()))
+                        .collect(Collectors.toCollection(ArrayList::new))
+                        .isEmpty())
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (unitsNotIn.isEmpty())
+        {
+            AlertDialog.info("User " + selectedUser.getUsername() + " is already in all units.");
+        }
+
+        unitComboBox.setItems(FXCollections.observableArrayList(unitsNotIn));
+    }
+
     private ArrayList<User> fetchUsers() {
         sendObject(new GetUsersDTO());
         try {
@@ -123,19 +147,6 @@ public class ManageUsersController extends Controller implements Initializable {
         });
     }
 
-    private void populateUnitComboBox(User selectedUser) {
-        ArrayList<Unit> allUnits = fetchUnits();
-        ArrayList<Unit> units = fetchUserUnits(selectedUser.getUserId());
-        ArrayList<Unit> unitsNotIn = allUnits.stream()
-                .filter(unit -> units.stream()
-                        .filter(a -> a.getUnitId().equals(unit.getUnitId()))
-                        .collect(Collectors.toCollection(ArrayList::new))
-                        .isEmpty())
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        unitComboBox.setItems(FXCollections.observableArrayList(unitsNotIn));
-    }
-
     private void setupUsersTable() {
         usernameTableColumn.setCellValueFactory(v -> new ReadOnlyObjectWrapper<>(v.getValue().getUsername()));
         adminTableColumn.setCellValueFactory(v -> new ReadOnlyObjectWrapper<>(v.getValue().isAdmin() ? "Yes" : "No"));
@@ -143,7 +154,7 @@ public class ManageUsersController extends Controller implements Initializable {
         usersTableView.setRowFactory(tv -> {
             TableRow<User> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent -> {
-                if (!mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() != 1) {
+                if (!mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() < 1) {
                     disableInputs();
                     return;
                 }
@@ -153,7 +164,6 @@ public class ManageUsersController extends Controller implements Initializable {
                     return;
                 }
                 populateUserUnitsTable(selectedUser);
-                populateUnitComboBox(selectedUser);
                 accountTypeButton.setText(selectedUser.isAdmin() ? "Make Standard" : "Make Admin");
                 enableInputs();
             });
@@ -167,11 +177,23 @@ public class ManageUsersController extends Controller implements Initializable {
 
     public void populateUsersTable() {
         ArrayList<User> users = fetchUsers();
+
         usersTableView.setItems(FXCollections.observableArrayList(users));
+
+        populateUserUnitsTable(null);
+        disableInputs();
     }
 
     public void populateUserUnitsTable(User selectedUser) {
-        ArrayList<Unit> units = fetchUserUnits(selectedUser.getUserId());
+        ArrayList<Unit> units;
+
+        if (selectedUser == null) {
+            units = new ArrayList<>();
+        }
+        else {
+            units = fetchUserUnits(selectedUser.getUserId());
+        }
+
         unitTableView.setItems(FXCollections.observableArrayList(units));
     }
 
@@ -198,10 +220,15 @@ public class ManageUsersController extends Controller implements Initializable {
     @FXML
     public void changeAccountType() {
         User user = usersTableView.getSelectionModel().getSelectedItem();
-        if (user == null) return;
+        if (user == null) {
+            AlertDialog.info("No user selected.", "Please select a user and try again.");
+            disableInputs();
+            return;
+        }
 
         if (user.getUserId().equals(getUser().getUserId())) {
-            AlertDialog.warning("You cannot change your own account type", "Please confer with another IT admin to do this");
+            AlertDialog.warning("You cannot change your own account type.", "Please confer with another " +
+                    "IT admin to do this.");
             return;
         }
 
@@ -219,7 +246,11 @@ public class ManageUsersController extends Controller implements Initializable {
     @FXML
     public void deleteUser() {
         User user = usersTableView.getSelectionModel().getSelectedItem();
-        if (user == null) return;
+        if (user == null) {
+            AlertDialog.info("No user selected.", "Please select a user and try again.");
+            disableInputs();
+            return;
+        }
 
         if (user.getUserId().equals(getUser().getUserId())) {
             AlertDialog.warning("You cannot delete your own account", "Please confer with another IT admin to do this");
@@ -245,7 +276,11 @@ public class ManageUsersController extends Controller implements Initializable {
     @FXML
     public void updatePassword() {
         User user = usersTableView.getSelectionModel().getSelectedItem();
-        if (user == null) return;
+        if (user == null) {
+            AlertDialog.info("No user selected.", "Please select a user and try again.");
+            disableInputs();
+            return;
+        }
 
         String newPassword = updatePasswordField.getText();
         if (newPassword.length() <= 0) {
@@ -269,58 +304,72 @@ public class ManageUsersController extends Controller implements Initializable {
     @FXML
     public void addToUnit() {
         @Nullable User user = usersTableView.getSelectionModel().getSelectedItem();
-        if (user == null) return;
+        if (user == null) {
+            AlertDialog.info("No user selected.", "Please select a user and try again.");
+            return;
+        }
 
         @Nullable Unit unit = unitComboBox.getValue();
-        if (unit == null) return;
+        if (unit == null) {
+            AlertDialog.info("No unit selected.", "Please select a unit and try again.");
+            return;
+        }
 
         sendObject(new AddUserToUnitDTO(user.getUserId(), unit.getUnitId()));
         try {
             Boolean success = readObject();
             if (!success) {
-                AlertDialog.error("Could not add user to unit", "Please try again");
+                AlertDialog.error("Could not add user to unit.", "Ensure they are not already in the " +
+                        "selected unit and try again.");
                 return;
             }
         } catch (NullResultException e) {
-            AlertDialog.error("Could not add user to unit", "Please try again");
+            AlertDialog.error("Could not add user to unit.", "Please try again.");
             return;
         }
 
-        populateUnitComboBox(user);
-        AlertDialog.info("Successfully added " + user.getUsername() + " to " + unit.getUnitName());
+        populateUserUnitsTable(user);
+        populateUnitComboBox();
+        AlertDialog.info("Successfully added user " + user.getUsername() + " to unit " + unit.getUnitName() + ".");
     }
 
     @FXML
     public void removeFromUnit() {
         @Nullable User user = usersTableView.getSelectionModel().getSelectedItem();
-        if (user == null) return;
+        if (user == null) {
+            AlertDialog.info("No user selected.", "Please select a user and try again.");
+            disableInputs();
+            return;
+        }
 
         @Nullable Unit unit = unitTableView.getSelectionModel().getSelectedItem();
-        if (unit == null) return;
+        if (unit == null) {
+            AlertDialog.info("No unit selected.", "Please select a unit and try again.");
+            return;
+        }
 
         sendObject(new RemoveUserFromUnitDTO(user.getUserId(), unit.getUnitId()));
         try {
             Boolean success = readObject();
             if (!success) {
-                AlertDialog.error("Could not remove user from unit", "Please try again");
+                AlertDialog.error("Could not remove user from unit.", "Note: users cannot be removed " +
+                        "if they have active or historical trades.");
                 return;
             }
         } catch (NullResultException e) {
             e.printStackTrace();
-            AlertDialog.error("Could not remove user from unit", "Please try again");
+            AlertDialog.error("Could not remove user from unit.", "Please try again.");
             return;
         }
 
-        populateUnitComboBox(user);
         AlertDialog.info("Successfully removed " + user.getUsername() + " from " + unit.getUnitName(), "Please try again");
     }
 
     public void viewNewUserDialog() {
-        NewUserDTO dto = new NewUserDTO(null, null, null);
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newUserDialog.fxml"));
-            loader.setControllerFactory(c -> new NewUserDialogController(super.clientController, dto));
+            loader.setControllerFactory(c -> new NewUserDialogController(super.clientController));
             Parent parent = loader.load();
 
             Scene scene = new Scene(parent);
@@ -332,19 +381,6 @@ public class ManageUsersController extends Controller implements Initializable {
             dialog.showAndWait();
         } catch (IOException e) {
             AlertDialog.fileError();
-        }
-
-        if (dto.getUsername() == null || dto.getPassword() == null || dto.isAdmin() == null) {
-            AlertDialog.error("Could not create user", "Please try again");
-            return;
-        }
-
-        sendObject(dto);
-        try {
-            User user = readObject();
-            AlertDialog.info("Successfully created user " + user.getUsername(), "They can now log in with the password you just entered");
-        } catch (NullResultException e) {
-            AlertDialog.error("Could not create user", "Please try again");
         }
 
         populateUsersTable();

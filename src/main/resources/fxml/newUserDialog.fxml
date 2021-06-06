@@ -10,7 +10,7 @@
       <TextField fx:id="usernameTextField" layoutX="20.0" layoutY="25.0" prefHeight="26.0" prefWidth="180.0" promptText="Username" />
       <TextField fx:id="passwordTextField" layoutX="20.0" layoutY="64.0" prefHeight="26.0" prefWidth="180.0" promptText="Password">
       </TextField>
-      <Button fx:id="createButton" layoutX="146.0" layoutY="150.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="56.0" text="OK" onAction="#clickCreate" />
+      <Button fx:id="" layoutX="146.0" layoutY="150.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="56.0" text="OK" onAction="#clickCreate" />
       <Button fx:id="cancelButton" layoutX="83.0" layoutY="150.0" mnemonicParsing="false" onAction="#clickCancel" text="Cancel" />
       <CheckBox fx:id="isAdminCheckbox" layoutX="20.0" layoutY="102.0" mnemonicParsing="false" text="Admin" />
    </children>
