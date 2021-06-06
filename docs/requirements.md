@@ -38,7 +38,7 @@ Should Have
   - Users can change their own password.
   - Users are presented with helpful and informative error messages when the system is unable to perform their desired action.
   - Large numbers (ie quantities and unit prices) are comma-formatted (eg: 10,000,00) for easier reading.
-  - Empty states (ie no trades, no units, etc) are presented nicely to the user and the user is informed of these gracefully.
+  - Empty states (ie no trades, no units, etc) are communicated to the user.
   - Intuitive handling for users who may be a part of one or more units.
   - Visual confirmations that require an extra user input for destructive actions like deletions.
 
@@ -47,11 +47,8 @@ Nice to Have
 - Client
   - Users:
     - Can see the graphical price history (date on the X axis and price on the Y axis) of an asset when they go to list a BUY or SELL offer.
-    - Are immediately notified when a trade involving their organisational unit is fulfilled. 
     - Ability to filter trade history and current active trades.
     - Ability to sort trade history and current active trades.
-    - Helpful tool tips on various GUI elements to guide and provide additional context for users.
-    - Appropriate iconography to assist those who may find text too overwhelming - push for accessibility.
     - Notifications when trades within their unit(s) have been reconciled.
   - Admins:
     - Can remove assets if they are unused.
