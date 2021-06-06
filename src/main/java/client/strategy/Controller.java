@@ -28,7 +28,7 @@ public class Controller {
     }
 
     /**
-     * Read the current object the input stream
+     * Read the current object from the input stream
      *
      * @param <T> Type to be returned
      * @return Object of type T
@@ -46,6 +46,8 @@ public class Controller {
     }
 
     /**
+     * Generic interface to read objects from the input stream without complex casting
+     *
      * @throws IOException            Any of the usual Input/Output related exceptions
      * @throws ClassNotFoundException Class of a serialized object cannot be found
      */
@@ -53,6 +55,7 @@ public class Controller {
     private <T> T readObject_() throws NullResultException, IOException, ClassNotFoundException {
         ObjectInputStream inputStream = clientController.getInputStream();
         T object = (T) inputStream.readObject();
+        // Treat null responses from the server as errors
         if (object == null) {
             throw new NullResultException();
         }

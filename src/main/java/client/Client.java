@@ -18,6 +18,7 @@ public class Client extends Application {
      */
     @Override
     public void start(Stage stage) {
+        // Attempt to load image, soft fail if unable
         try {
             stage.getIcons().add(new Image("img/icon.png"));
         } catch (Exception e) {

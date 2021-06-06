@@ -15,6 +15,7 @@ public class GetTradesHandler extends Handler<ArrayList<Trade>, GetTradesDTO> {
     public ArrayList<Trade> handle(GetTradesDTO dto) {
         ArrayList<Trade> trades = dbStatements.getActiveTrades();
 
+        // Return null if no trades are returned
         return (trades.size() != 0) ? trades : null;
     }
 }

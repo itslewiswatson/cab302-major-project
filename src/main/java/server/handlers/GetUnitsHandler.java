@@ -16,11 +16,13 @@ public class GetUnitsHandler extends Handler<ArrayList<Unit>, GetUnitsDTO> {
     public ArrayList<Unit> handle(GetUnitsDTO dto) {
         @Nullable String userId = dto.getUserId();
 
+        // If the optional userId is present, we can fetch for units that user belongs to
         if (userId != null) {
             User user = dbStatements.findUserById(userId);
             return dbStatements.findUserUnits(user);
         }
 
+        // No userId present, fetch all
         return dbStatements.findUnits();
     }
 }

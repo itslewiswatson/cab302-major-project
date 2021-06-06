@@ -15,6 +15,7 @@ public class GetHistoricTradesHandler extends Handler<ArrayList<Trade>, GetHisto
     public ArrayList<Trade> handle(GetHistoricTradesDTO dto) {
         ArrayList<Trade> trades = dbStatements.fetchHistoricTrades();
 
+        // Return null if no trades are returned
         return (trades.size() != 0) ? trades : null;
     }
 }

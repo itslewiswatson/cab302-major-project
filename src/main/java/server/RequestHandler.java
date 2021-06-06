@@ -90,6 +90,7 @@ public class RequestHandler extends Thread {
             throw new IOException();
         }
 
+        // Interpret incoming request and write result to stream
         try {
             Object result = requestInterpreter.interpret((DTO) object);
             sendOutput(result);

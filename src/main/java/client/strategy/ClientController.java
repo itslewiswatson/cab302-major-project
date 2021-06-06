@@ -16,6 +16,9 @@ import java.net.*;
 import java.nio.file.Paths;
 import java.util.Properties;
 
+/**
+ * Abstract and strengthen access for common controller components
+ */
 public class ClientController {
 
     private User user;
@@ -61,16 +64,20 @@ public class ClientController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + page.path));
 
         try {
+            // Retrieve page's controller class
             Constructor<?> controller = (page.namespace).getConstructor(ClientController.class);
+
+            // Set a factory to be run to pass in a ClientController
             loader.setControllerFactory(Controller -> {
                 try {
-                    return controller.newInstance(this);
+                    return controller.newInstance(this); // Dependency inject this into every controller
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                    AlertDialog.fileError();
+                    AlertDialog.fileError(); // Alert user if this fails
                 }
                 return null;
             });
 
+            // Load page in a new scene
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
