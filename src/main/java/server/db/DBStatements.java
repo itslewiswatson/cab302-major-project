@@ -400,7 +400,6 @@ public class DBStatements implements DBStrategy {
             }
             return trades;
         } catch (SQLException exception) {
-            exception.printStackTrace();
             System.err.println("Access to the database was denied. Ensure MySQL server is running.");
         } catch (Exception exception) {
             exception.printStackTrace();
