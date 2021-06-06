@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Abstracted controller with common functionality
+ */
 public class Controller {
     protected final ClientController clientController;
 

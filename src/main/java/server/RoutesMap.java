@@ -5,6 +5,9 @@ import server.handlers.*;
 
 import java.util.HashMap;
 
+/**
+ * The routes map of all requests the server is supported to handle
+ */
 public class RoutesMap implements RoutesMapStrategy {
     private final HashMap<Class<? extends DTO>, Class<? extends Handler<?, ?>>> routesMap = new HashMap<>();
 

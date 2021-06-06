@@ -16,7 +16,7 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
     }
 
     /**
-     * @param dto New trade dto
+     * @param dto Information from client request
      * @return Newly constructed trade offer.
      */
     @Override

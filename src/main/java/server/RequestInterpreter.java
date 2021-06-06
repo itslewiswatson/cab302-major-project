@@ -6,6 +6,9 @@ import server.handlers.strategy.HandlerResolver;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * Interpret a request at the highest level by delegating subtasks
+ */
 public class RequestInterpreter {
     private final HandlerResolver handlerResolver;
 

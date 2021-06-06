@@ -13,6 +13,10 @@ public class GetUnitsHandler extends Handler<ArrayList<Unit>, GetUnitsDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return List of all units, or a list of units the specified user is part of
+     */
     public ArrayList<Unit> handle(GetUnitsDTO dto) {
         @Nullable String userId = dto.getUserId();
 

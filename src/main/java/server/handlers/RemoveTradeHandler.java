@@ -16,6 +16,10 @@ public class RemoveTradeHandler extends Handler<Boolean, RemoveTradeDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return Boolean indicating success
+     */
     @Override
     public Boolean handle(RemoveTradeDTO dto) {
         try {

@@ -3,6 +3,9 @@ package server;
 import common.dto.DTO;
 import server.handlers.Handler;
 
+/**
+ * Executes a request handler and its associated DTO
+ */
 public class RequestExecutor {
     /**
      * @param handler The handler instance to use.
