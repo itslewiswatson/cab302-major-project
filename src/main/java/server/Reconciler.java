@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 
+/**
+ * The raw reconciler timer task
+ */
 class Reconciler extends TimerTask {
 
     /**
@@ -23,10 +26,18 @@ class Reconciler extends TimerTask {
 
     private ArrayList<Trade> sellTrades;
 
+    /**
+     * Creates a new instance of the reconciler
+     *
+     * @param dbStatements DB strategy to use
+     */
     public Reconciler(DBStatements dbStatements) {
         this.dbStatements = dbStatements;
     }
 
+    /**
+     * Runs the reconciler
+     */
     @Override
     public void run() {
         getBuySellTrades();
