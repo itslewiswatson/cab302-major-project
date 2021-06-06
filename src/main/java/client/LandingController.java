@@ -42,6 +42,12 @@ public class LandingController extends Controller implements Initializable {
     private PasswordField newPasswordField;
 
     @FXML
+    private Button unitTrades;
+
+    @FXML
+    private Button newTrade;
+
+    @FXML
     private Button manageAssetsButton;
 
     @FXML
@@ -54,6 +60,8 @@ public class LandingController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User user = getUser();
         displayWelcomeMessage(user.getUsername());
+        unitTrades.setDisable(user.isAdmin());
+        newTrade.setDisable(user.isAdmin());
         manageAssetsButton.setVisible(user.isAdmin());
         manageUnitsButton.setVisible(user.isAdmin());
         manageUsersButton.setVisible(user.isAdmin());
