@@ -1,9 +1,9 @@
 package common.dto;
 
 public class NewUserDTO extends DTO {
-    private String username;
-    private String password;
-    private Boolean admin;
+    private final String username;
+    private final String password;
+    private final Boolean admin;
 
     public NewUserDTO(String username, String password, Boolean admin) {
         this.username = username;
@@ -23,15 +23,4 @@ public class NewUserDTO extends DTO {
         return admin;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
 }

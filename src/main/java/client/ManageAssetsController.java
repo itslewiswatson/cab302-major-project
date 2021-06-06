@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 
 public class ManageAssetsController extends Controller implements Initializable {
 
-    Timeline refresher;
+    private Timeline refresher;
 
     @FXML
     private TableView<FullAsset> tableView;

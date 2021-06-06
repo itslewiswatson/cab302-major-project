@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 
-public class Reconciler extends TimerTask {
+class Reconciler extends TimerTask {
 
     /**
      * The database controller.

@@ -3,7 +3,7 @@ package client;
 /**
  * Main class.
  */
-public class Main {
+class Main {
     /**
      * Main method.
      *

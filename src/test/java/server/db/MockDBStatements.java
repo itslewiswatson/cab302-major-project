@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class MockDBStatements implements DBStrategy {
-    public ArrayList<User> users;
-    public ArrayList<Trade> trades;
-    public ArrayList<Asset> assets;
-    public ArrayList<FullAsset> fullAssets;
-    public ArrayList<Unit> units;
-    public ArrayList<UnitAsset> unitAssets;
+    private ArrayList<User> users;
+    private ArrayList<Trade> trades;
+    private ArrayList<Asset> assets;
+    private ArrayList<FullAsset> fullAssets;
+    private ArrayList<Unit> units;
+    private ArrayList<UnitAsset> unitAssets;
 
     public MockDBStatements() {
         this.users = new ArrayList<>();
@@ -278,12 +278,7 @@ public class MockDBStatements implements DBStrategy {
         return unit.getUsers();
     }
 
-    @Override
-    public void updateTrade(Trade trade) {
-
-    }
-
-    @Override
+        @Override
     public ArrayList<User> fetchUsers() {
         return users;
     }

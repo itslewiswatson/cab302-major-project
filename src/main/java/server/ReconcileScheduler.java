@@ -5,7 +5,7 @@ import server.db.DBStatements;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ReconcileScheduler extends Thread {
+class ReconcileScheduler extends Thread {
 
     /**
      * The database controller.

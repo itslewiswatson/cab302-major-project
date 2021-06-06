@@ -10,14 +10,12 @@ public class Unit extends Entity implements Comparable<Unit> {
     private final String unitId;
     private final String unitName;
     private int credits;
-    private final ArrayList<UnitAsset> unitAssets;
     private final ArrayList<User> users;
 
     public Unit(String unitId, String unitName, int credits) {
         this.unitId = unitId;
         this.unitName = unitName;
         this.credits = credits;
-        this.unitAssets = new ArrayList<>();
         this.users = new ArrayList<>();
     }
 
@@ -43,10 +41,6 @@ public class Unit extends Entity implements Comparable<Unit> {
 
     public void subtractCredits(int credits) {
         this.credits -= credits;
-    }
-
-    public ArrayList<UnitAsset> getUnitAssets() {
-        return unitAssets;
     }
 
     public ArrayList<User> getUsers() {

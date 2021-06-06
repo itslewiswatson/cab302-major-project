@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Interpret a request at the highest level by delegating subtasks
  */
-public class RequestInterpreter {
+class RequestInterpreter {
     private final HandlerResolver handlerResolver;
 
     public RequestInterpreter(HandlerResolver handlerResolver) {
