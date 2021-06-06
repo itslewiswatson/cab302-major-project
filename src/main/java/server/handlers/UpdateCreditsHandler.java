@@ -5,6 +5,9 @@ import common.dto.UpdateCreditsDTO;
 import common.exceptions.NullResultException;
 import server.db.DBStrategy;
 
+/**
+ * This class represents the update credits logic
+ */
 public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
     public UpdateCreditsHandler(DBStrategy dbStatements) {
         super(dbStatements);

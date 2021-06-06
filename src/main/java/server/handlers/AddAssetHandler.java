@@ -9,6 +9,9 @@ import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the add asset logic
+ */
 public class AddAssetHandler extends Handler<ArrayList<FullAsset>, AddAssetDTO> {
     public AddAssetHandler(DBStrategy dbStatements) {
         super(dbStatements);

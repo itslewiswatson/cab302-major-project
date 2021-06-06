@@ -8,6 +8,9 @@ import server.db.DBStrategy;
 
 import java.sql.SQLException;
 
+/**
+ * This class represents the add user to unit logic
+ */
 public class AddUserToUnitHandler extends Handler<Boolean, AddUserToUnitDTO> {
     public AddUserToUnitHandler(DBStrategy dbStatements) {
         super(dbStatements);

@@ -1,5 +1,8 @@
 package common.domain;
 
+/**
+ * This class represents an asset
+ */
 public class Asset extends Entity {
     private final String assetId;
     private final String assetName;

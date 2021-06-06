@@ -4,6 +4,9 @@ import common.domain.User;
 import common.dto.LoginDTO;
 import server.db.DBStrategy;
 
+/**
+ * This class represents the login logic
+ */
 public class LoginHandler extends Handler<User, LoginDTO> {
 
     public LoginHandler(DBStrategy dbStatements) {

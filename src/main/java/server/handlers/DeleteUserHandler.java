@@ -7,6 +7,9 @@ import server.db.DBStrategy;
 
 import java.sql.SQLException;
 
+/**
+ * This class represents the delete user logic
+ */
 public class DeleteUserHandler extends Handler<Boolean, DeleteUserDTO> {
     public DeleteUserHandler(DBStrategy dbStatements) {
         super(dbStatements);

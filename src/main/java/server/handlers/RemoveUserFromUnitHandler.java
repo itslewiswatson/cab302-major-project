@@ -8,6 +8,9 @@ import server.db.DBStrategy;
 
 import java.sql.SQLException;
 
+/**
+ * This class represents the remove user from unit logic
+ */
 public class RemoveUserFromUnitHandler extends Handler<Boolean, RemoveUserFromUnitDTO> {
     public RemoveUserFromUnitHandler(DBStrategy dbStatements) {
         super(dbStatements);

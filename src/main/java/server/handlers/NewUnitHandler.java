@@ -8,6 +8,9 @@ import server.db.DBStrategy;
 
 import java.sql.SQLException;
 
+/**
+ * This class represents the new unit logic
+ */
 public class NewUnitHandler extends Handler<Unit, NewUnitDTO> {
     public NewUnitHandler(DBStrategy dbStatements) {
         super(dbStatements);

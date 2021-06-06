@@ -7,6 +7,9 @@ import server.db.DBStrategy;
 
 import java.sql.SQLException;
 
+/**
+ * This class represents the remove unit asset logic
+ */
 public class RemoveUnitAssetHandler extends Handler<Boolean, RemoveUnitAssetDTO> {
     public RemoveUnitAssetHandler(DBStrategy dbStatements) {
         super(dbStatements);

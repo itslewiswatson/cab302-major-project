@@ -168,6 +168,11 @@ public class Trade extends Entity {
         return quantityFilled;
     }
 
+    /**
+     * Sets the date when the instance was filled
+     *
+     * @param dateFilled The date the trade was filled
+     */
     public void setDateFilled(@Nullable LocalDate dateFilled) {
         this.dateFilled = dateFilled;
     }
@@ -181,10 +186,20 @@ public class Trade extends Entity {
         return dateFilled;
     }
 
+    /**
+     * Set the quantity of the trade that has been filled
+     *
+     * @param quantityFilled Integer representing how many assets have been filled
+     */
     public void setQuantityFilled(int quantityFilled) {
         this.quantityFilled = quantityFilled;
     }
 
+    /**
+     * Adds to the quantity filled balance
+     *
+     * @param quantity Integer representing how many assets to add to the filled quantity
+     */
     public void addQuantityFilled(int quantity) {
         quantityFilled += quantity;
     }

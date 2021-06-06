@@ -9,9 +9,20 @@ import common.exceptions.NullResultException;
 import org.jetbrains.annotations.Nullable;
 import server.db.DBStrategy;
 
+/**
+ * Contains business logic for requests
+ *
+ * @param <T> Object to be returned from handler
+ * @param <U> DTO to pass to handler
+ */
 abstract public class Handler<T, U extends DTO> {
     final DBStrategy dbStatements;
 
+    /**
+     * Creates an instance of a handler
+     *
+     * @param dbStatements The DB strategy to utilise
+     */
     public Handler(DBStrategy dbStatements) {
         this.dbStatements = dbStatements;
     }

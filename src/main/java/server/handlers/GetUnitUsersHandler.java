@@ -8,6 +8,9 @@ import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the get unit users logic
+ */
 public class GetUnitUsersHandler extends Handler<ArrayList<User>, GetUnitUsersDTO> {
     public GetUnitUsersHandler(DBStrategy dbStatements) {
         super(dbStatements);
