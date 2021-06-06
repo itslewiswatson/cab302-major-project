@@ -10,6 +10,10 @@ public class UpdatePasswordHandler extends Handler<User, UpdatePasswordDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return The updated user or null
+     */
     @Override
     public User handle(UpdatePasswordDTO dto) {
         try {

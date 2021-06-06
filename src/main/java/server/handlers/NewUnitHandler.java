@@ -13,6 +13,10 @@ public class NewUnitHandler extends Handler<Unit, NewUnitDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return Newly created unit or null
+     */
     @Override
     public Unit handle(NewUnitDTO dto) {
         try {

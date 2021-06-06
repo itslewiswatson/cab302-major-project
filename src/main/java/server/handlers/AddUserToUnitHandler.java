@@ -13,6 +13,10 @@ public class AddUserToUnitHandler extends Handler<Boolean, AddUserToUnitDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return Boolean indicating success
+     */
     @Override
     public Boolean handle(AddUserToUnitDTO dto) {
         try {

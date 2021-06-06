@@ -13,6 +13,10 @@ public class GetUnitTradesHandler extends Handler<ArrayList<Trade>, GetUnitTrade
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return List of all trades from a unit
+     */
     @Override
     public ArrayList<Trade> handle(GetUnitTradesDTO dto) {
         try {

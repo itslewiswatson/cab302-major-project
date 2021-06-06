@@ -1,6 +1,5 @@
 package server.handlers;
 
-import common.domain.Asset;
 import common.domain.FullAsset;
 import common.domain.Unit;
 import common.domain.UnitAsset;
@@ -16,6 +15,12 @@ public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>
         super(dbStatements);
     }
 
+    /**
+     * Update or create a unit asset
+     *
+     * @param dto Information from client request
+     * @return List of all unit assets
+     */
     @Override
     public ArrayList<UnitAsset> handle(CreateOrUpdateUnitAssetDTO dto) {
 

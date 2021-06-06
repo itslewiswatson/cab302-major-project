@@ -10,6 +10,10 @@ public class UpdateCreditsHandler extends Handler<Unit, UpdateCreditsDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return The updated unit or null
+     */
     @Override
     public Unit handle(UpdateCreditsDTO dto) {
         try {

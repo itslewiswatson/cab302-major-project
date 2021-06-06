@@ -3,6 +3,9 @@ package client.config;
 import client.*;
 import client.strategy.Controller;
 
+/**
+ * Hold a registry of pages, their file paths and their respective controllers for dynamic runtime instantiation
+ */
 public enum Page {
     myAccount("landing.fxml", LandingController.class),
     login("login.fxml", LoginController.class),

@@ -12,6 +12,10 @@ public class NewUserHandler extends Handler<User, NewUserDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return Newly created user or null
+     */
     @Override
     public User handle(NewUserDTO dto) {
         try {

@@ -13,6 +13,10 @@ public class RemoveUserFromUnitHandler extends Handler<Boolean, RemoveUserFromUn
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return Boolean indicating success
+     */
     @Override
     public Boolean handle(RemoveUserFromUnitDTO dto) {
         try {

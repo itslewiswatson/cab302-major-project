@@ -10,6 +10,10 @@ public class UpdateUserPermissionsHandler extends Handler<User, UpdateUserPermis
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return Updated user or null
+     */
     @Override
     public User handle(UpdateUserPermissionsDTO dto) {
         try {

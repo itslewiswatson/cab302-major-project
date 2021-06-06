@@ -13,6 +13,10 @@ public class GetUnitUsersHandler extends Handler<ArrayList<User>, GetUnitUsersDT
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return List of all users in a unit
+     */
     @Override
     public ArrayList<User> handle(GetUnitUsersDTO dto) {
         try {

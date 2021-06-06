@@ -14,6 +14,10 @@ public class AddAssetHandler extends Handler<ArrayList<FullAsset>, AddAssetDTO> 
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return List of all assets
+     */
     @Override
     public ArrayList<FullAsset> handle(AddAssetDTO dto) {
         Asset newAsset = new Asset(UuidGenerator.generateUuid(), dto.getAssetName());

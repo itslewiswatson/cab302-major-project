@@ -11,6 +11,10 @@ public class GetAssetsHandler extends Handler<ArrayList<FullAsset>, GetAssetsDTO
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return List of all assets
+     */
     @Override
     public ArrayList<FullAsset> handle(GetAssetsDTO dto) {
         return dbStatements.findAssets();

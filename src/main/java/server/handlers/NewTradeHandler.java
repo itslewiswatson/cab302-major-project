@@ -16,7 +16,7 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
     }
 
     /**
-     * @param dto New trade dto
+     * @param dto Information from client request
      * @return Newly constructed trade offer.
      */
     @Override
@@ -31,6 +31,7 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
                 return null;
             }
 
+            // Check conditions for each type of trade
             if (dto.getType() == TradeType.BUY) {
                 int totalPrice = dto.getPrice() * dto.getQuantity();
                 int unitCredits = unit.getCredits();
@@ -64,6 +65,7 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
 
             dbStatements.createTrade(newTrade);
 
+            // Hold credits in use for the trade, and set quantities as appropriate
             if (newTrade.getType() == TradeType.BUY) {
                 unit.subtractCredits(newTrade.getQuantity() * newTrade.getPrice());
                 dbStatements.updateUnitCredits(unit);

@@ -13,6 +13,10 @@ public class GetUnitAssetsHandler extends Handler<ArrayList<UnitAsset>, GetUnitA
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return List of all units or null
+     */
     @Override
     public ArrayList<UnitAsset> handle(GetUnitAssetsDTO dto) {
         try {

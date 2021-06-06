@@ -11,6 +11,10 @@ public class GetUsersHandler extends Handler<ArrayList<User>, GetUsersDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return List of all users
+     */
     @Override
     public ArrayList<User> handle(GetUsersDTO dto) {
         return dbStatements.fetchUsers();

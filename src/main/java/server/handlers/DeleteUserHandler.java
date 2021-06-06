@@ -12,6 +12,10 @@ public class DeleteUserHandler extends Handler<Boolean, DeleteUserDTO> {
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return Boolean indicating success
+     */
     @Override
     public Boolean handle(DeleteUserDTO dto) {
         try {

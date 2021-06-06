@@ -11,10 +11,15 @@ public class GetHistoricTradesHandler extends Handler<ArrayList<Trade>, GetHisto
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return List of historic trades or null
+     */
     @Override
     public ArrayList<Trade> handle(GetHistoricTradesDTO dto) {
         ArrayList<Trade> trades = dbStatements.fetchHistoricTrades();
 
+        // Return null if no trades are returned
         return (trades.size() != 0) ? trades : null;
     }
 }

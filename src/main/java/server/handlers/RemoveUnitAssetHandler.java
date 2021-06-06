@@ -12,6 +12,10 @@ public class RemoveUnitAssetHandler extends Handler<Boolean, RemoveUnitAssetDTO>
         super(dbStatements);
     }
 
+    /**
+     * @param dto Information from client request
+     * @return Boolean indicating success
+     */
     @Override
     public Boolean handle(RemoveUnitAssetDTO dto) {
         String unitId = dto.getUnitId();
