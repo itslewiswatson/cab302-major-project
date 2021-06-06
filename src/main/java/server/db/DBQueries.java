@@ -61,7 +61,7 @@ public class DBQueries {
     /**
      * SQL statement to retrieve an asset by its ID.
      */
-    public static final String GET_ASSET_BY_ID = "SELECT * FROM assets WHERE id = ?";
+    public static final String GET_ASSET_BY_ID = "SELECT A.id, A.name, A.date_added, COALESCE(SUM(quantity), 0) AS qty FROM assets A LEFT JOIN unitassets u on A.id = u.asset_id WHERE A.id = ? GROUP BY A.id;";
 
     /**
      * SQL statement to retrieve an asset by its name.
@@ -117,33 +117,72 @@ public class DBQueries {
      */
     public static final String REMOVE_UNIT_ASSET = "DELETE FROM unitassets WHERE unit_id = ? AND asset_id = ?";
 
+    /**
+     * SQL statement to update an existing unit asset.
+     */
     public static final String UPDATE_UNIT_ASSET = "UPDATE unitassets SET quantity = ? WHERE unit_id = ? AND asset_id = ?";
 
+    /**
+     * SQL statement to create a new unit asset.
+     */
     public static final String ADD_UNIT_ASSET = "INSERT INTO unitassets (unit_id, asset_id, quantity) VALUES (?, ?, ?)";
 
+    /**
+     * SQL statement to retrieve all trades that have been filled.
+     */
     public static final String GET_HISTORIC_TRADES = "SELECT * FROM trades " +
             "INNER JOIN assets ON asset_id = assets.id " +
             "INNER JOIN users ON users.id = user_id " +
             "INNER JOIN units ON units.id = unit_id " +
             "WHERE date_filled IS NOT NULL";
 
+    /**
+     * SQL statement to retrieve all users within a particular unit.
+     */
     public static final String GET_UNIT_USERS = "SELECT * FROM users WHERE id IN (SELECT user_id FROM unitusers WHERE unit_id = ?)";
 
+    /**
+     * SQL statement to update a trade in the case it is partially or fully filled.
+     */
     public static final String UPDATE_TRADE = "UPDATE trades SET quantity_filled = ?, date_filled = ? WHERE id = ?";
 
+    /**
+     * SQL statement to retrieve all users.
+     */
     public static final String GET_USERS = "SELECT * FROM users";
 
+    /**
+     * SQL statement to update whether a user is an admin or not.
+     */
     public static final String UPDATE_USER_PERMISSION = "UPDATE users SET admin = ? WHERE id = ?";
 
+    /**
+     * SQL statement to delete an asset from the platform.
+     */
     public static final String DELETE_ASSET = "DELETE FROM assets WHERE id = ?";
 
+    /**
+     * SQL statement to delete a user from the platform entirely.
+     */
     public static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
 
+    /**
+     * SQL statement to add a user to a specified unit.
+     */
     public static final String ADD_USER_TO_UNIT = "INSERT INTO unitusers (user_id, unit_id) VALUES (?, ?)";
 
+    /**
+     * SQL statement to remove a user from a single specified unit.
+     */
     public static final String REMOVE_USER_FROM_UNIT = "DELETE FROM unitusers WHERE user_id = ? AND unit_id = ?";
 
+    /**
+     * SQL statement to find a unit by its name.
+     */
     public static final String FIND_UNIT_BY_NAME = "SELECT * FROM units WHERE name = ?";
 
+    /**
+     * SQL statement to create a new unit.
+     */
     public static final String NEW_UNIT = "INSERT INTO units (id, name, credits) VALUES (?, ?, ?)";
 }

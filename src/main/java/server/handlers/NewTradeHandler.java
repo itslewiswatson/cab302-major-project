@@ -24,8 +24,12 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
 
         try {
             Unit unit = resolveUnit(dto.getUnitId());
-            Asset asset = resolveAsset(dto.getAssetId());
+            FullAsset asset = resolveAsset(dto.getAssetId());
             User user = resolveUser(dto.getUserId());
+
+            if (dto.getPrice() < 0 || dto.getQuantity() < 0) {
+                return null;
+            }
 
             if (dto.getType() == TradeType.BUY) {
                 int totalPrice = dto.getPrice() * dto.getQuantity();
@@ -60,12 +64,10 @@ public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
 
             dbStatements.createTrade(newTrade);
 
-            if (newTrade.getType() == TradeType.BUY)
-            {
+            if (newTrade.getType() == TradeType.BUY) {
                 unit.subtractCredits(newTrade.getQuantity() * newTrade.getPrice());
                 dbStatements.updateUnitCredits(unit);
-            }
-            else {
+            } else {
                 UnitAsset unitAsset = resolveUnitAsset(unit.getUnitId(), asset.getAssetId());
                 unitAsset.subtractQuantity(newTrade.getQuantity());
                 dbStatements.updateUnitAsset(unitAsset);

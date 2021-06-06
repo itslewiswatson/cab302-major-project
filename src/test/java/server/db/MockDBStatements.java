@@ -37,6 +37,7 @@ public class MockDBStatements implements DBStrategy {
         this.fullAssets.add(new FullAsset("ID7", "Lettuce", LocalDate.EPOCH, 80));
         this.fullAssets.add(new FullAsset("ID8", "Staplers", LocalDate.EPOCH, 80));
         this.fullAssets.add(new FullAsset("ID9", "Pencils", LocalDate.EPOCH, 80));
+        this.fullAssets.add(new FullAsset("ID404", "Pencils", LocalDate.EPOCH, 0));
 
         this.units = new ArrayList<>();
         units.add(new Unit("ID10", "Engineering", 120));
@@ -241,8 +242,8 @@ public class MockDBStatements implements DBStrategy {
     }
 
     @Override
-    public @Nullable Asset findAssetById(@NotNull String assetId) {
-        for (Asset asset : assets) {
+    public @Nullable FullAsset findAssetById(@NotNull String assetId) {
+        for (FullAsset asset : fullAssets) {
             if (asset.getAssetId().equals(assetId)) {
                 return asset;
             }

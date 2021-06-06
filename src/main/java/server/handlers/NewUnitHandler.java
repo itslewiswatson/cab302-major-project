@@ -17,7 +17,7 @@ public class NewUnitHandler extends Handler<Unit, NewUnitDTO> {
     public Unit handle(NewUnitDTO dto) {
         try {
             @Nullable Unit existingUnit = dbStatements.findUnitByName(dto.getUnitName());
-            if (existingUnit != null) {
+            if (existingUnit != null || dto.getCredits() == null || dto.getCredits() < 0) {
                 return null;
             }
 

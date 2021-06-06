@@ -34,6 +34,11 @@ public class RoutesMap implements RoutesMapStrategy {
         routesMap.put(NewUnitDTO.class, NewUnitHandler.class);
     }
 
+    /**
+     * Public accessor for the internally-stored routes hash map
+     *
+     * @return The class-stored routes hash map
+     */
     @Override
     public HashMap<Class<? extends DTO>, Class<? extends Handler<?, ?>>> getMap() {
         return routesMap;

@@ -13,6 +13,10 @@ public class RequestInterpreter {
         this.handlerResolver = handlerResolver;
     }
 
+    /**
+     * @param object DTO object to pass into handler.
+     * @return Result derived from the executor
+     */
     public Object interpret(DTO object) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         RequestExecutor executor = new RequestExecutor();
         Handler<Object, DTO> handler = handlerResolver.resolveHandler(object);

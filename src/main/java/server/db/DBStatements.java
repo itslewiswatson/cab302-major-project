@@ -286,17 +286,14 @@ public class DBStatements implements DBStrategy {
      */
     @Override
     public User findUserByUsername(String username) {
-        User user = null;
-        ResultSet userResultSet;
-
         try {
             getUserByUsername.setString(1, username);
-            userResultSet = getUserByUsername.executeQuery();
+            ResultSet userResultSet = getUserByUsername.executeQuery();
 
             if (userResultSet.isBeforeFirst()) {
                 userResultSet.next();
 
-                user = new User(
+                User user = new User(
                         userResultSet.getString("id"),
                         userResultSet.getString("username"),
                         userResultSet.getString("password"),
@@ -315,7 +312,7 @@ public class DBStatements implements DBStrategy {
         } catch (Exception ignored) {
         }
 
-        return user;
+        return null;
     }
 
     /**
@@ -341,12 +338,11 @@ public class DBStatements implements DBStrategy {
      * @return A list of units the user is part of.
      */
     private String[] findUserUnitIds(User user) {
-        ResultSet unitResultSet;
         ArrayList<String> unitsList = new ArrayList<>();
 
         try {
             getUserUnits.setString(1, user.getUserId());
-            unitResultSet = getUserUnits.executeQuery();
+            ResultSet unitResultSet = getUserUnits.executeQuery();
             while (unitResultSet.next()) {
                 unitsList.add(unitResultSet.getString(1));
             }
@@ -365,11 +361,10 @@ public class DBStatements implements DBStrategy {
 
     @Override
     public ArrayList<Trade> getActiveTrades() {
-        ResultSet tradeResultSet;
         ArrayList<Trade> trades = new ArrayList<>();
 
         try {
-            tradeResultSet = getActiveTrades.executeQuery();
+            ResultSet tradeResultSet = getActiveTrades.executeQuery();
 
             while (tradeResultSet.next()) {
                 Trade trade = new Trade(
@@ -459,12 +454,11 @@ public class DBStatements implements DBStrategy {
      */
     @Override
     public ArrayList<Unit> findUserUnits(User user) {
-        ResultSet unitResultSet;
         ArrayList<Unit> units = new ArrayList<>();
 
         try {
             getUnitsByIds.setString(1, user.getUserId());
-            unitResultSet = getUnitsByIds.executeQuery();
+            ResultSet unitResultSet = getUnitsByIds.executeQuery();
 
             while (unitResultSet.next()) {
                 Unit unit = new Unit(
@@ -514,12 +508,11 @@ public class DBStatements implements DBStrategy {
 
     @Override
     public ArrayList<Trade> findUnitTrades(String unitId) {
-        ResultSet tradeResultSet;
         ArrayList<Trade> trades = new ArrayList<>();
 
         try {
             getUnitTrades.setString(1, unitId);
-            tradeResultSet = getUnitTrades.executeQuery();
+            ResultSet tradeResultSet = getUnitTrades.executeQuery();
 
             while (tradeResultSet.next()) {
                 Trade trade = new Trade(
@@ -654,23 +647,18 @@ public class DBStatements implements DBStrategy {
 
     @Override
     public Unit findUnitById(String unitId) {
-        ResultSet unitResultSet;
-        Unit unit;
-
         try {
             getUnitById.setString(1, unitId);
-            unitResultSet = getUnitById.executeQuery();
+            ResultSet unitResultSet = getUnitById.executeQuery();
 
             if (unitResultSet.isBeforeFirst()) {
                 unitResultSet.next();
 
-                unit = new Unit(
+                return new Unit(
                         unitResultSet.getString("id"),
                         unitResultSet.getString("name"),
                         unitResultSet.getInt("credits")
                 );
-
-                return unit;
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -747,7 +735,7 @@ public class DBStatements implements DBStrategy {
     }
 
     @Override
-    public Asset findAssetById(String assetId) {
+    public FullAsset findAssetById(String assetId) {
         ResultSet assetResultSet;
 
         try {
@@ -757,9 +745,11 @@ public class DBStatements implements DBStrategy {
             if (assetResultSet.isBeforeFirst()) {
                 assetResultSet.next();
 
-                return new Asset(
+                return new FullAsset(
                         assetResultSet.getString("id"),
-                        assetResultSet.getString("name")
+                        assetResultSet.getString("name"),
+                        assetResultSet.getDate("A.date_added").toLocalDate(),
+                        assetResultSet.getInt("qty")
                 );
             }
 
