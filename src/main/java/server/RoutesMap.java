@@ -11,6 +11,9 @@ import java.util.HashMap;
 public class RoutesMap implements RoutesMapStrategy {
     private final HashMap<Class<? extends DTO>, Class<? extends Handler<?, ?>>> routesMap = new HashMap<>();
 
+    /**
+     * Establishes all the routes
+     */
     public RoutesMap() {
         routesMap.put(AddAssetDTO.class, AddAssetHandler.class);
         routesMap.put(CreateOrUpdateUnitAssetDTO.class, CreateOrUpdateUnitAssetHandler.class);

@@ -7,10 +7,19 @@ import server.handlers.Handler;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * This class represents the runtime instantiation of specific route handlers
+ */
 public class HandlerResolver {
     private final RoutesMapStrategy routesMap;
     private final DBStrategy dbStatements;
 
+    /**
+     * Creates an instance of a handler resolver
+     *
+     * @param routesMap    Routes map to use
+     * @param dbStatements DB strategy to use
+     */
     public HandlerResolver(RoutesMapStrategy routesMap, DBStrategy dbStatements) {
         this.routesMap = routesMap;
         this.dbStatements = dbStatements;

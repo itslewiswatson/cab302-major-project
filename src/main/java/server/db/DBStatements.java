@@ -121,24 +121,54 @@ public class DBStatements implements DBStrategy {
      */
     private PreparedStatement deleteUnitAsset;
 
+    /**
+     * A precompiled statement to create a unit asset.
+     */
     private PreparedStatement createUnitAsset;
 
+    /**
+     * A precompiled statement to update unit asset quantity.
+     */
     private PreparedStatement updateUnitAssetQuantity;
 
+    /**
+     * A precompiled statement to get unit users.
+     */
     private PreparedStatement getUnitUsers;
 
+    /**
+     * A precompiled statement to update a trade.
+     */
     private PreparedStatement updateTrade;
 
+    /**
+     * A precompiled statement to get users.
+     */
     private PreparedStatement getUsers;
 
+    /**
+     * A precompiled statement to update user permissions.
+     */
     private PreparedStatement updateUserPermissions;
 
+    /**
+     * A precompiled statement to delete an asset.
+     */
     private PreparedStatement deleteAsset;
 
+    /**
+     * A precompiled statement to delete a user.
+     */
     private PreparedStatement deleteUser;
 
+    /**
+     * A precompiled statement to add a user to a unit.
+     */
     private PreparedStatement addUserToUnit;
 
+    /**
+     * A precompiled statement to remove a user from a unit.
+     */
     private PreparedStatement removeUserFromUnit;
 
     /**
@@ -146,6 +176,9 @@ public class DBStatements implements DBStrategy {
      */
     private PreparedStatement getUnitByName;
 
+    /**
+     * A precompiled SQL statement to create a new unit.
+     */
     private PreparedStatement newUnit;
 
     /**
