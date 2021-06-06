@@ -25,9 +25,11 @@ import javafx.util.StringConverter;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -78,6 +80,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
         setupUnitComboBox();
         setupTradeTypeComboBox();
         setupAssetComboBox();
+        setupPriceHistoryLineChart();
     }
 
     private void setupUnitComboBox() {
@@ -117,6 +120,22 @@ public class NewTradeDialogController extends Controller implements Initializabl
 
             @Override
             public Asset fromString(String s) {
+                return null;
+            }
+        });
+    }
+
+    private void setupPriceHistoryLineChart() {
+        xAxis.setTickLabelFormatter(new StringConverter<>() {
+            @Override
+            public String toString(Number number) {
+                number = Math.floor((Double) number);
+                long epoch = number.longValue();
+                return new SimpleDateFormat("yyyy-MM-dd").format(new Date(epoch));
+            }
+
+            @Override
+            public Number fromString(String s) {
                 return null;
             }
         });
@@ -249,8 +268,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
         String quantityString = quantityTextField.getText();
         String priceString = priceTextField.getText();
 
-        if (unit == null || tradeType == null || asset == null)
-        {
+        if (unit == null || tradeType == null || asset == null) {
             AlertDialog.info("Incomplete new trade form.", "Please enter any empty fields and try again.");
             return;
         }
