@@ -27,11 +27,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class UnitTradesController extends Controller implements Initializable {
 
@@ -85,7 +87,6 @@ public class UnitTradesController extends Controller implements Initializable {
         try {
             return readObject();
         } catch (NullResultException e) {
-            AlertDialog.info("You are not part of any unit", "Contact an IT admin to be placed in a unit.");
             return new ArrayList<>();
         }
     }
@@ -102,7 +103,10 @@ public class UnitTradesController extends Controller implements Initializable {
         refresher = new Timeline(
                 new KeyFrame(
                         Duration.seconds(refreshPeriod),
-                        event -> populateTable()
+                        event -> {
+                            populateTable();
+                            displayNotification();
+                        }
                 )
         );
 
@@ -246,5 +250,38 @@ public class UnitTradesController extends Controller implements Initializable {
     public void goBack() {
         refresher.stop();
         switchToPage(Page.myAccount);
+    }
+
+    private void displayNotification() {
+        ArrayList<Trade> allUnitTrades = new ArrayList<>();
+        ArrayList<Unit> userUnits = fetchUserUnits();
+
+        for (Unit unit: userUnits) {
+            ArrayList<Trade> unitTrades = fetchUnitTrades(unit.getUnitId());
+            allUnitTrades.addAll(unitTrades);
+        }
+
+        ArrayList<Trade> newFulfilledTrades = allUnitTrades.stream()
+                .filter(allUnitTrade -> allUnitTrade.getDateFilled() != null)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+
+        if (!previousFulfilledTradesInitialised)
+        {
+            previousFulfilledTrades = newFulfilledTrades;
+            previousFulfilledTradesInitialised = true;
+            return;
+        }
+
+
+        if (newFulfilledTrades.size() > previousFulfilledTrades.size())
+        {
+            Notifications.create()
+                    .title("Trade/s Reconciled")
+                    .text("Trade/s listed by one of your units has been reconciled.")
+                    .showInformation();
+        }
+
+        previousFulfilledTrades = newFulfilledTrades;
     }
 }

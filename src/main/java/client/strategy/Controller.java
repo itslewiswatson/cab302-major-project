@@ -2,6 +2,7 @@ package client.strategy;
 
 import client.alert.AlertDialog;
 import client.config.Page;
+import common.domain.Trade;
 import common.domain.User;
 import common.exceptions.NullResultException;
 import javafx.stage.Stage;
@@ -9,9 +10,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class Controller {
     protected final ClientController clientController;
+
+    protected static ArrayList<Trade> previousFulfilledTrades = new ArrayList<>();
+
+    protected static Boolean previousFulfilledTradesInitialised = false;
 
     public Controller(ClientController clientController) {
         this.clientController = clientController;

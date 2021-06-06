@@ -5,7 +5,10 @@ import client.dialog.TradeInfoDialogController;
 import client.strategy.ClientController;
 import client.strategy.Controller;
 import common.domain.Trade;
+import common.domain.Unit;
 import common.dto.GetTradesDTO;
+import common.dto.GetUnitTradesDTO;
+import common.dto.GetUnitsDTO;
 import common.exceptions.NullResultException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,11 +27,13 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class AllTradesController extends Controller implements Initializable {
 
@@ -76,7 +81,10 @@ public class AllTradesController extends Controller implements Initializable {
         refresher = new Timeline(
                 new KeyFrame(
                         Duration.seconds(refreshPeriod),
-                        event -> populateTable()
+                        event -> {
+                            populateTable();
+                            displayNotification();
+                        }
                 )
         );
 
@@ -143,6 +151,57 @@ public class AllTradesController extends Controller implements Initializable {
             dialog.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void displayNotification() {
+        ArrayList<Trade> allUnitTrades = new ArrayList<>();
+        ArrayList<Unit> userUnits = fetchUserUnits();
+
+        for (Unit unit: userUnits) {
+            ArrayList<Trade> unitTrades = fetchUnitTrades(unit.getUnitId());
+            allUnitTrades.addAll(unitTrades);
+        }
+
+        ArrayList<Trade> newFulfilledTrades = allUnitTrades.stream()
+                .filter(allUnitTrade -> allUnitTrade.getDateFilled() != null)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+
+        if (!previousFulfilledTradesInitialised)
+        {
+            previousFulfilledTrades = newFulfilledTrades;
+            previousFulfilledTradesInitialised = true;
+            return;
+        }
+
+
+        if (newFulfilledTrades.size() > previousFulfilledTrades.size())
+        {
+            Notifications.create()
+                    .title("Trade/s Reconciled")
+                    .text("Trade/s listed by one of your units has been reconciled.")
+                    .showInformation();
+        }
+
+        previousFulfilledTrades = newFulfilledTrades;
+    }
+
+    private ArrayList<Unit> fetchUserUnits() {
+        sendObject(new GetUnitsDTO(getUser().getUserId()));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private ArrayList<Trade> fetchUnitTrades(String unitId) {
+        sendObject(new GetUnitTradesDTO(unitId));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            return new ArrayList<>();
         }
     }
 }

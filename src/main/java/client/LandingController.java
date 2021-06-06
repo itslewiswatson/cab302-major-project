@@ -5,9 +5,16 @@ import client.config.Page;
 import client.dialog.NewTradeDialogController;
 import client.strategy.ClientController;
 import client.strategy.Controller;
+import common.domain.Trade;
+import common.domain.Unit;
 import common.domain.User;
+import common.dto.GetUnitTradesDTO;
+import common.dto.GetUnitsDTO;
 import common.dto.UpdatePasswordDTO;
+import common.exceptions.NullResultException;
 import common.services.PasswordHasher;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,10 +25,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * This class is the My Account GUI controller.
@@ -31,6 +42,8 @@ public class LandingController extends Controller implements Initializable {
     public LandingController(ClientController clientController) {
         super(clientController);
     }
+
+    private Timeline notifier;
 
     @FXML
     private Label welcomeMessageLabel;
@@ -58,6 +71,7 @@ public class LandingController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        int notifyPeriod = 5;
         User user = getUser();
         displayWelcomeMessage(user.getUsername());
         unitTrades.setDisable(user.isAdmin());
@@ -65,6 +79,16 @@ public class LandingController extends Controller implements Initializable {
         manageAssetsButton.setVisible(user.isAdmin());
         manageUnitsButton.setVisible(user.isAdmin());
         manageUsersButton.setVisible(user.isAdmin());
+
+        notifier = new Timeline(
+                new KeyFrame(
+                        Duration.seconds(notifyPeriod),
+                        event -> displayNotification()
+                )
+        );
+
+        notifier.setCycleCount(Timeline.INDEFINITE);
+        notifier.play();
     }
 
     public void changePassword() {
@@ -111,22 +135,27 @@ public class LandingController extends Controller implements Initializable {
     }
 
     public void logout() {
+        notifier.stop();
         switchToPage(Page.login);
     }
 
     public void allTrades() {
+        notifier.stop();
         switchToPage(Page.allTrades);
     }
 
     public void tradeHistory() {
+        notifier.stop();
         switchToPage(Page.tradeHistory);
     }
 
     public void assets() {
+        notifier.stop();
         switchToPage(Page.assets);
     }
 
     public void unitTrades() {
+        notifier.stop();
         switchToPage(Page.unitTrades);
     }
 
@@ -149,14 +178,67 @@ public class LandingController extends Controller implements Initializable {
     }
 
     public void manageUnits() {
+        notifier.stop();
         switchToPage(Page.manageUnits);
     }
 
     public void manageUsers() {
+        notifier.stop();
         switchToPage(Page.manageUsers);
     }
 
     private void displayWelcomeMessage(String username) {
         welcomeMessageLabel.setText("Welcome, " + username + "!");
+    }
+
+    private void displayNotification() {
+        ArrayList<Trade> allUnitTrades = new ArrayList<>();
+        ArrayList<Unit> userUnits = fetchUserUnits();
+
+        for (Unit unit: userUnits) {
+            ArrayList<Trade> unitTrades = fetchUnitTrades(unit.getUnitId());
+            allUnitTrades.addAll(unitTrades);
+        }
+
+        ArrayList<Trade> newFulfilledTrades = allUnitTrades.stream()
+                .filter(allUnitTrade -> allUnitTrade.getDateFilled() != null)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+
+        if (!previousFulfilledTradesInitialised)
+        {
+            previousFulfilledTrades = newFulfilledTrades;
+            previousFulfilledTradesInitialised = true;
+            return;
+        }
+
+
+        if (newFulfilledTrades.size() > previousFulfilledTrades.size())
+        {
+            Notifications.create()
+                    .title("Trade/s Reconciled")
+                    .text("Trade/s listed by one of your units has been reconciled.")
+                    .showInformation();
+        }
+
+        previousFulfilledTrades = newFulfilledTrades;
+    }
+
+    private ArrayList<Unit> fetchUserUnits() {
+        sendObject(new GetUnitsDTO(getUser().getUserId()));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private ArrayList<Trade> fetchUnitTrades(String unitId) {
+        sendObject(new GetUnitTradesDTO(unitId));
+        try {
+            return readObject();
+        } catch (NullResultException e) {
+            return new ArrayList<>();
+        }
     }
 }
