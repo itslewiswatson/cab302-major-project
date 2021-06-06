@@ -40,6 +40,18 @@ The new trade dialog has a simple graph which illustrates asset price history ov
 
 ![New Trade](/docs/images/gui-new-trade.png)
 
+Once administrators log in, they are taken to the same landing page but with a couple extra buttons.
+
+![Landing - Admin](/docs/images/gui-landing-admin.png)
+
+![Manage Assets](/docs/images/gui-manage-assets.png)
+
+![Manage Units](/docs/images/gui-manage-units.png)
+![New Unit](/docs/images/gui-new-unit.png)
+
+![Manage Users](/docs/images/gui-manage-users.png)
+![New User](/docs/images/gui-new-user.png)
+
 Database Schema
 ---------------
 ### Database Choice
