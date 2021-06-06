@@ -38,6 +38,9 @@ public class ClientController {
         this.user = user;
     }
 
+    /**
+     * Initialise the client controller when opening the program
+     */
     public void initialise() {
         openSocket();
         switchToPage(Page.login);
