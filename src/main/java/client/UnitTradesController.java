@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 
 public class UnitTradesController extends Controller implements Initializable {
 
-    Timeline refresher;
+    private Timeline refresher;
 
     @FXML
     private ComboBox<Unit> unitComboBox;

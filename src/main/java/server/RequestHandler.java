@@ -11,7 +11,7 @@ import java.net.Socket;
 /**
  * This class represents a request handler.
  */
-public class RequestHandler extends Thread {
+class RequestHandler extends Thread {
 
     /**
      * The client socket.

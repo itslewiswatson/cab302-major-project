@@ -868,7 +868,6 @@ public class DBStatements implements DBStrategy {
         return users;
     }
 
-    @Override
     public void updateTrade(Trade trade) {
         try {
             updateTrade.setInt(1, trade.getQuantityFilled());

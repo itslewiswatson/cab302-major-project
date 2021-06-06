@@ -130,8 +130,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
             @Override
             public String toString(Number number) {
                 long myLong = number.longValue();
-                String a = new SimpleDateFormat("yyyy-MM-dd").format(new Date(myLong * 1000));
-                return a;
+                return new SimpleDateFormat("yyyy-MM-dd").format(new Date(myLong * 1000));
             }
 
             @Override
@@ -258,6 +257,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
         for (Trade trade : historicTradesByAsset) {
             long dateListedEpoch = trade.getDateListed().toEpochSecond(LocalTime.NOON, ZoneOffset.MIN);
             int value = Math.toIntExact(dateListedEpoch);
+            //noinspection unchecked,rawtypes
             series.getData().add(new XYChart.Data(value, trade.getPrice()));
         }
 

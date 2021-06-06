@@ -24,17 +24,17 @@ public class ClientController {
     private User user;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
-    protected final Stage stage;
+    private final Stage stage;
 
     public ClientController(Stage stage) {
         this.stage = stage;
     }
 
-    protected User getUser() {
+    User getUser() {
         return user;
     }
 
-    protected void setUser(User user) {
+    void setUser(User user) {
         this.user = user;
     }
 
@@ -46,15 +46,15 @@ public class ClientController {
         switchToPage(Page.login);
     }
 
-    protected ObjectOutputStream getOutputStream() {
+    ObjectOutputStream getOutputStream() {
         return outputStream;
     }
 
-    protected ObjectInputStream getInputStream() {
+    ObjectInputStream getInputStream() {
         return inputStream;
     }
 
-    protected Stage getStage() {
+    Stage getStage() {
         return stage;
     }
 
@@ -63,7 +63,7 @@ public class ClientController {
      *
      * @param page The page to switch to
      */
-    protected void switchToPage(Page page) {
+    void switchToPage(Page page) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + page.path));
 
         try {

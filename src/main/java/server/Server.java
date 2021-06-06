@@ -11,7 +11,7 @@ import java.util.Properties;
 /**
  * This class is the server application.
  */
-public class Server {
+class Server {
 
     /**
      * Main method.

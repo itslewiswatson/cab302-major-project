@@ -16,7 +16,7 @@ import server.db.DBStrategy;
  * @param <U> DTO to pass to handler
  */
 abstract public class Handler<T, U extends DTO> {
-    protected final DBStrategy dbStatements;
+    final DBStrategy dbStatements;
 
     /**
      * Creates an instance of a handler
@@ -35,7 +35,7 @@ abstract public class Handler<T, U extends DTO> {
      * @param unitId Unit ID to resolve.
      * @return Unit corresponding to the given ID.
      */
-    protected Unit resolveUnit(String unitId) throws NullResultException {
+    Unit resolveUnit(String unitId) throws NullResultException {
         @Nullable Unit unit = dbStatements.findUnitById(unitId);
         if (unit == null) throw new NullResultException();
         return unit;
@@ -47,7 +47,7 @@ abstract public class Handler<T, U extends DTO> {
      * @param assetId Asset ID to resolve.
      * @return FullAsset corresponding to the given ID.
      */
-    protected FullAsset resolveAsset(String assetId) throws NullResultException {
+    FullAsset resolveAsset(String assetId) throws NullResultException {
         @Nullable FullAsset asset = dbStatements.findAssetById(assetId);
         if (asset == null) throw new NullResultException();
         return asset;
@@ -59,7 +59,7 @@ abstract public class Handler<T, U extends DTO> {
      * @param userId User ID to resolve.
      * @return User corresponding to the given ID.
      */
-    protected User resolveUser(String userId) throws NullResultException {
+    User resolveUser(String userId) throws NullResultException {
         @Nullable User user = dbStatements.findUserById(userId);
         if (user == null) throw new NullResultException();
         return user;
@@ -72,7 +72,7 @@ abstract public class Handler<T, U extends DTO> {
      * @param assetId Asset ID to resolve.
      * @return UnitAsset corresponding to the given IDs.
      */
-    protected UnitAsset resolveUnitAsset(String unitId, String assetId) throws NullResultException {
+    UnitAsset resolveUnitAsset(String unitId, String assetId) throws NullResultException {
         @Nullable UnitAsset unitAsset = dbStatements.findUnitAsset(unitId, assetId);
         if (unitAsset == null) throw new NullResultException();
         return unitAsset;

@@ -6,7 +6,7 @@ import server.handlers.Handler;
 /**
  * Executes a request handler and its associated DTO
  */
-public class RequestExecutor {
+class RequestExecutor {
     /**
      * @param handler The handler instance to use.
      * @param dto     The DTO to pass into the handler.

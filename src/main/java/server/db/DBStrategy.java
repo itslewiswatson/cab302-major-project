@@ -55,8 +55,6 @@ public interface DBStrategy {
 
     ArrayList<User> fetchUnitUsers(String unitId);
 
-    void updateTrade(Trade trade);
-
     ArrayList<User> fetchUsers();
 
     void updateUserPermissions(User user);

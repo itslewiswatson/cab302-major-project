@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TradeHistoryController extends Controller implements Initializable {
-    Timeline refresher;
+    private Timeline refresher;
 
     @FXML
     private TableView<Trade> tableView;

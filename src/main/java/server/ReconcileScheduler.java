@@ -8,7 +8,7 @@ import java.util.TimerTask;
 /**
  * This class represents the scheduler of the reconciler
  */
-public class ReconcileScheduler extends Thread {
+class ReconcileScheduler extends Thread {
 
     /**
      * The database controller.

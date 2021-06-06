@@ -1,6 +1,6 @@
 package server.db;
 
-public class DBQueries {
+class DBQueries {
     /**
      * SQL statement to retrieve a user by their username
      */

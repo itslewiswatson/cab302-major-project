@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * The raw reconciler timer task
  */
-public class Reconciler extends TimerTask {
+class Reconciler extends TimerTask {
 
     /**
      * The database controller.
