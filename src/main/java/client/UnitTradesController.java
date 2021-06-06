@@ -127,6 +127,13 @@ public class UnitTradesController extends Controller implements Initializable {
     public void populateUnitComboBox() {
         ArrayList<Unit> userUnits = fetchUserUnits();
 
+        if (userUnits.isEmpty())
+        {
+            AlertDialog.info("You currently don't belong to any units.",
+                    "Contact an IT admin to be added to one.");
+            return;
+        }
+
         userUnits.sort(Unit::compareTo);
 
         unitComboBox.setItems(FXCollections.observableArrayList(userUnits));

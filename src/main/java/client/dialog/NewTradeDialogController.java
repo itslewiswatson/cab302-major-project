@@ -114,6 +114,14 @@ public class NewTradeDialogController extends Controller implements Initializabl
         priceTextField.setText("");
 
         ArrayList<Unit> userUnits = fetchUserUnits();
+
+        if (userUnits.isEmpty())
+        {
+            AlertDialog.info("You currently don't belong to any units.",
+                    "Contact an IT admin to be added to one.");
+            return;
+        }
+
         unitComboBox.setItems(FXCollections.observableArrayList(userUnits));
         if (userUnits.size() == 1) {
             unitComboBox.setValue(userUnits.get(0));
@@ -121,10 +129,42 @@ public class NewTradeDialogController extends Controller implements Initializabl
     }
 
     public void populateTradeTypeComboBox() {
+        if (unitComboBox.getValue() == null)
+        {
+            AlertDialog.info("Unit not selected.", "Please select a unit before selecting a trade type.");
+            return;
+        }
+
         assetComboBox.setValue(null);
         creditsQuantityLabel.setText("");
         quantityTextField.setText("");
         priceTextField.setText("");
+
+        Unit unit = fetchUnit(unitComboBox.getValue().getUnitId());
+
+        if (unit == null) {
+            AlertDialog.serverCommunication();
+            return;
+        }
+
+        if (unit.getCredits() == 0 && fetchUnitAssets().isEmpty())
+        {
+            AlertDialog.info("Unit " + unit.getUnitName() + " does not have any credits or assets.",
+                    "Please select another unit.");
+            return;
+        }
+
+        if (unit.getCredits() == 0)
+        {
+            tradeTypeComboBox.setValue(TradeType.SELL);
+            return;
+        }
+
+        if (fetchUnitAssets().isEmpty())
+        {
+            tradeTypeComboBox.setValue(TradeType.BUY);
+            return;
+        }
 
         tradeTypeComboBox.setItems(FXCollections.observableArrayList(TradeType.values()));
     }
@@ -169,16 +209,25 @@ public class NewTradeDialogController extends Controller implements Initializabl
     public void listTrade() {
         Stage stage = (Stage) listButton.getScene().getWindow();
 
+        Unit unit = unitComboBox.getValue();
+        TradeType tradeType = tradeTypeComboBox.getValue();
+        Asset asset = assetComboBox.getValue();
         String quantityString = quantityTextField.getText();
         String priceString = priceTextField.getText();
+
+        if (unit == null || tradeType == null || asset == null)
+        {
+            AlertDialog.info("Incomplete new trade form.", "Please enter any empty fields and try again.");
+            return;
+        }
 
         if (textFieldsValid(quantityString, priceString))
         {
             sendObject(new NewTradeDTO(
-                    assetComboBox.getValue().getAssetId(),
-                    unitComboBox.getValue().getUnitId(),
+                    asset.getAssetId(),
+                    unit.getUnitId(),
                     getUser().getUserId(),
-                    tradeTypeComboBox.getValue(),
+                    tradeType,
                     Integer.parseInt(quantityString),
                     Integer.parseInt(priceString)
                     ));
@@ -275,6 +324,15 @@ public class NewTradeDialogController extends Controller implements Initializabl
             AlertDialog.info("You are not part of any unit", "Contact an IT admin to be placed in a unit.");
             return new ArrayList<>();
         }
+    }
+
+    private Unit fetchUnit(String unitId) {
+        ArrayList<Unit> units = fetchUserUnits();
+
+        return units.stream()
+                .filter(u -> u.getUnitId().equals(unitId))
+                .findFirst()
+                .orElse(null);
     }
 
     private ArrayList<Asset> fetchAssets() {

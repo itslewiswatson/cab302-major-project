@@ -130,7 +130,7 @@ public class ManageUsersController extends Controller implements Initializable {
                 .filter(unit -> units.stream()
                         .filter(a -> a.getUnitId().equals(unit.getUnitId()))
                         .collect(Collectors.toCollection(ArrayList::new))
-                        .size() == 0)
+                        .isEmpty())
                 .collect(Collectors.toCollection(ArrayList::new));
 
         unitComboBox.setItems(FXCollections.observableArrayList(unitsNotIn));
