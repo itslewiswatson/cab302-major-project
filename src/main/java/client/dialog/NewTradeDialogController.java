@@ -129,9 +129,9 @@ public class NewTradeDialogController extends Controller implements Initializabl
         xAxis.setTickLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Number number) {
-                number = Math.floor((Double) number);
-                long epoch = number.longValue();
-                return new SimpleDateFormat("yyyy-MM-dd").format(new Date(epoch));
+                long myLong = number.longValue();
+                String a = new SimpleDateFormat("yyyy-MM-dd").format(new Date(myLong * 1000));
+                return a;
             }
 
             @Override
@@ -139,6 +139,9 @@ public class NewTradeDialogController extends Controller implements Initializabl
                 return null;
             }
         });
+        xAxis.setAnimated(false);
+        xAxis.setCache(false);
+        xAxis.setAutoRanging(true);
     }
 
     public void populateUnitComboBox() {
@@ -253,7 +256,8 @@ public class NewTradeDialogController extends Controller implements Initializabl
 
         for (Trade trade : historicTradesByAsset) {
             long dateListedEpoch = trade.getDateListed().toEpochSecond(LocalTime.NOON, ZoneOffset.MIN);
-            series.getData().add(new XYChart.Data(Math.toIntExact(dateListedEpoch), trade.getPrice()));
+            int value = Math.toIntExact(dateListedEpoch);
+            series.getData().add(new XYChart.Data(value, trade.getPrice()));
         }
 
         historyLineChart.getData().add(series);
