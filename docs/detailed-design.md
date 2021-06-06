@@ -13,8 +13,23 @@ GUI Design
 ----------
 [Fluid UI](https://www.fluidui.com/editor/live/preview/cF9KRlduQ2xMSEoxREpxdHZUNm9wV3N5S3ZwT2MydFJHNQ==)
 
+The GUI was designed with the user in mind. It was important to restrict access to the platform from as early as possible, for security and for the sake of keeping accurate transactional logs. As such, the decision was made for the first screen to be a log in screen.
+
+Upon successful login, the user is taken to the landing page. Here they have a complete overview of everything they can access in the program. It is important for these to be quickly identifiable, so they are all buttons in a vertical line. They are split where necessary to minimize mental overhead.
+
+The all trades screen is a simple table. This provides all information needed in a clear manner. The ability to sort trades by any of the column fields means the user has all the power for which trades are more important to them. To find out more information about a trade, it is available by double-clicking the table row, which will open a dialog. A helper label is included to assist first-time users.
+
+The trades history page follows a very similar structure for the sake of familiarity.
+
+The my unit's trades page also includes a table view of trades. However, because the domain has support for multiple unit users (users can be in 1 or many units, and units can contain 1 or many users), we include a combo box of the user's enrolled units. This allows them to filter on a per-unit basis.
+
+The new trade dialog has a simple graph which illustrates asset price history over time. This is achieved through a line graph which appears front and centre in the dialog. It populates onces a specific asset has been selected. This helps users in making trading decisions on which assets to buy or sell by allowing them to easily identify visual trends.
+
 Database Schema
 ---------------
+### Database Choice
+The project uses MariaDB for storage of all its relational data. This is because MariaDB is open-source and complies with all requirements. However, another relational database can be substituted provided the same schema is followed. See below for this schema.
+
 ### Entity Relationship Diagram
 ![Entity Relationship Diagram](/docs/images/erd.png)
 ### Tables & Columns
