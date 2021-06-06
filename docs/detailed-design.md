@@ -7,23 +7,38 @@ Java Classes
 
 Class Diagram
 -------------
-![UML Class Diagram](/docs/images/uml-class-diagram.png)
 
 GUI Design
 ----------
-[Fluid UI](https://www.fluidui.com/editor/live/preview/cF9KRlduQ2xMSEoxREpxdHZUNm9wV3N5S3ZwT2MydFJHNQ==)
+Initial GUI design mockups can be viewed on [Fluid UI](https://www.fluidui.com/editor/live/preview/cF9KRlduQ2xMSEoxREpxdHZUNm9wV3N5S3ZwT2MydFJHNQ==).
+
 
 The GUI was designed with the user in mind. It was important to restrict access to the platform from as early as possible, for security and for the sake of keeping accurate transactional logs. As such, the decision was made for the first screen to be a log in screen.
 
+![Login - Standard](/docs/images/gui-login-standard.png)
+
 Upon successful login, the user is taken to the landing page. Here they have a complete overview of everything they can access in the program. It is important for these to be quickly identifiable, so they are all buttons in a vertical line. They are split where necessary to minimize mental overhead.
+
+![Landing - Standard](/docs/images/gui-landing-standard.png)
 
 The all trades screen is a simple table. This provides all information needed in a clear manner. The ability to sort trades by any of the column fields means the user has all the power for which trades are more important to them. To find out more information about a trade, it is available by double-clicking the table row, which will open a dialog. A helper label is included to assist first-time users.
 
+![All Trades](/docs/images/gui-all-trades.png)
+![All Trades Trade Information](/docs/images/gui-all-trades-trade-information.png)
+
 The trades history page follows a very similar structure for the sake of familiarity.
+
+![Trade History](/docs/images/gui-trade-history.png)
+![Trade History Trade Information](/docs/images/gui-trade-history-trade-information.png)
 
 The my unit's trades page also includes a table view of trades. However, because the domain has support for multiple unit users (users can be in 1 or many units, and units can contain 1 or many users), we include a combo box of the user's enrolled units. This allows them to filter on a per-unit basis.
 
+![Unit Trades](/docs/images/gui-unit-trades.png)
+![Unit Trades Trade Information](/docs/images/gui-unit-trades-trade-information.png)
+
 The new trade dialog has a simple graph which illustrates asset price history over time. This is achieved through a line graph which appears front and centre in the dialog. It populates onces a specific asset has been selected. This helps users in making trading decisions on which assets to buy or sell by allowing them to easily identify visual trends.
+
+![New Trade](/docs/images/gui-new-trade.png)
 
 Database Schema
 ---------------
