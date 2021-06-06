@@ -5,24 +5,28 @@ import client.strategy.ClientController;
 import client.strategy.Controller;
 import common.dataTypes.TradeType;
 import common.domain.Asset;
+import common.domain.Trade;
 import common.domain.Unit;
 import common.domain.UnitAsset;
-import common.dto.GetAssetsDTO;
-import common.dto.GetUnitAssetsDTO;
-import common.dto.GetUnitsDTO;
-import common.dto.NewTradeDTO;
+import common.dto.*;
 import common.exceptions.NullResultException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -52,6 +56,18 @@ public class NewTradeDialogController extends Controller implements Initializabl
 
     @FXML
     private Button cancelButton;
+
+    @FXML
+    private Label headerLabel;
+
+    @FXML
+    private LineChart<Integer, Integer> historyLineChart;
+
+    @FXML
+    private NumberAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
 
     public NewTradeDialogController(ClientController clientController) {
         super(clientController);
@@ -115,8 +131,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
 
         ArrayList<Unit> userUnits = fetchUserUnits();
 
-        if (userUnits.isEmpty())
-        {
+        if (userUnits.isEmpty()) {
             AlertDialog.info("You currently don't belong to any units.",
                     "Contact an IT admin to be added to one.");
             return;
@@ -129,8 +144,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
     }
 
     public void populateTradeTypeComboBox() {
-        if (unitComboBox.getValue() == null)
-        {
+        if (unitComboBox.getValue() == null) {
             AlertDialog.info("Unit not selected.", "Please select a unit before selecting a trade type.");
             return;
         }
@@ -147,21 +161,18 @@ public class NewTradeDialogController extends Controller implements Initializabl
             return;
         }
 
-        if (unit.getCredits() == 0 && fetchUnitAssets().isEmpty())
-        {
+        if (unit.getCredits() == 0 && fetchUnitAssets().isEmpty()) {
             AlertDialog.info("Unit " + unit.getUnitName() + " does not have any credits or assets.",
                     "Please select another unit.");
             return;
         }
 
-        if (unit.getCredits() == 0)
-        {
+        if (unit.getCredits() == 0) {
             tradeTypeComboBox.setValue(TradeType.SELL);
             return;
         }
 
-        if (fetchUnitAssets().isEmpty())
-        {
+        if (fetchUnitAssets().isEmpty()) {
             tradeTypeComboBox.setValue(TradeType.BUY);
             return;
         }
@@ -179,14 +190,11 @@ public class NewTradeDialogController extends Controller implements Initializabl
 
         if (selectedTradeType == TradeType.BUY) {
             assets = fetchAssets();
-        }
-        else if (selectedTradeType == TradeType.SELL)
-        {
+        } else if (selectedTradeType == TradeType.SELL) {
             ArrayList<UnitAsset> unitAssets = fetchUnitAssets();
             assets = unitAssets.stream()
                     .map(UnitAsset::getAsset).collect(Collectors.toCollection(ArrayList::new));
-        }
-        else {
+        } else {
             AlertDialog.info("Trade type not selected.", "Please select a trade type before selecting an asset.");
             return;
         }
@@ -197,13 +205,39 @@ public class NewTradeDialogController extends Controller implements Initializabl
         }
     }
 
-    public void setCreditsQuantityLabel() {
+    public void updateDisplays() {
         if (tradeTypeComboBox.getValue() == TradeType.BUY) {
             creditsQuantityLabel.setText("Available Credits: " + unitComboBox.getValue().getCredits());
-        }
-        else {
+        } else {
             creditsQuantityLabel.setText("Available Quantity: " + fetchUnitAssetQuantity());
         }
+
+        Asset selectedAsset = assetComboBox.getValue();
+        if (selectedAsset != null) {
+            headerLabel.setText("Viewing price history for " + selectedAsset.getAssetName());
+        } else {
+            headerLabel.setText("Select an asset to view its price history");
+        }
+        priceHistory(selectedAsset);
+    }
+
+    private void priceHistory(@Nullable Asset asset) {
+        if (asset == null) {
+            historyLineChart.setUserData(null);
+            return;
+        }
+
+        historyLineChart.getData().clear();
+
+        ArrayList<Trade> historicTradesByAsset = fetchHistoricTradesByAsset(asset);
+        XYChart.Series<Integer, Integer> series = new XYChart.Series<>();
+
+        for (Trade trade : historicTradesByAsset) {
+            long dateListedEpoch = trade.getDateListed().toEpochSecond(LocalTime.NOON, ZoneOffset.MIN);
+            series.getData().add(new XYChart.Data(Math.toIntExact(dateListedEpoch), trade.getPrice()));
+        }
+
+        historyLineChart.getData().add(series);
     }
 
     public void listTrade() {
@@ -215,14 +249,12 @@ public class NewTradeDialogController extends Controller implements Initializabl
         String quantityString = quantityTextField.getText();
         String priceString = priceTextField.getText();
 
-        if (unit == null || tradeType == null || asset == null)
-        {
+        if (unit == null || tradeType == null || asset == null) {
             AlertDialog.info("Incomplete new trade form.", "Please enter any empty fields and try again.");
             return;
         }
 
-        if (textFieldsValid(quantityString, priceString))
-        {
+        if (textFieldsValid(quantityString, priceString)) {
             sendObject(new NewTradeDTO(
                     asset.getAssetId(),
                     unit.getUnitId(),
@@ -230,7 +262,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
                     tradeType,
                     Integer.parseInt(quantityString),
                     Integer.parseInt(priceString)
-                    ));
+            ));
 
             try {
                 if (readObject() == null) throw new NullResultException();
@@ -267,8 +299,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
             }
 
             if (tradeTypeComboBox.getValue() == TradeType.SELL) {
-                if (quantity > fetchUnitAssetQuantity())
-                {
+                if (quantity > fetchUnitAssetQuantity()) {
                     AlertDialog.info("Unit " + unitComboBox.getValue().getUnitName()
                             + " has insufficient quantity of asset " + assetComboBox.getValue().getAssetName()
                             + " to list trade!", "Please enter a quantity less than "
@@ -298,8 +329,7 @@ public class NewTradeDialogController extends Controller implements Initializabl
                     return false;
                 }
 
-                if (quantity * price > unitComboBox.getValue().getCredits())
-                {
+                if (quantity * price > unitComboBox.getValue().getCredits()) {
                     AlertDialog.info("Unit " + unitComboBox.getValue().getUnitName()
                             + " has insufficient credits to list trade!", "Please enter a quantity and price"
                             + " combination that results in a total price less than "
@@ -374,9 +404,21 @@ public class NewTradeDialogController extends Controller implements Initializabl
             return asset.getQuantity();
         } catch (NullResultException e) {
             AlertDialog.info("Unit " + unitComboBox.getValue().getUnitName()
-                    + " no longer has any of asset " + assetComboBox.getValue().getAssetName() + ".",
+                            + " no longer has any of asset " + assetComboBox.getValue().getAssetName() + ".",
                     "Try buying some or contacting an IT admin to add some.");
             return 0;
+        }
+    }
+
+    private ArrayList<Trade> fetchHistoricTradesByAsset(Asset asset) {
+        sendObject(new GetHistoricTradesDTO());
+        try {
+            ArrayList<Trade> historicTrades = readObject();
+            return historicTrades.stream()
+                    .filter(trade -> trade.getAsset().getAssetId().equals(asset.getAssetId()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } catch (NullResultException e) {
+            return new ArrayList<>();
         }
     }
 }
