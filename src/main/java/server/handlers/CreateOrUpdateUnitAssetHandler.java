@@ -10,6 +10,9 @@ import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the create or update unit asset logic
+ */
 public class CreateOrUpdateUnitAssetHandler extends Handler<ArrayList<UnitAsset>, CreateOrUpdateUnitAssetDTO> {
     public CreateOrUpdateUnitAssetHandler(DBStrategy dbStatements) {
         super(dbStatements);

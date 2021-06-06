@@ -11,6 +11,9 @@ import server.db.DBStrategy;
 
 import java.sql.SQLException;
 
+/**
+ * This class represents the remove trade logic
+ */
 public class RemoveTradeHandler extends Handler<Boolean, RemoveTradeDTO> {
     public RemoveTradeHandler(DBStrategy dbStatements) {
         super(dbStatements);

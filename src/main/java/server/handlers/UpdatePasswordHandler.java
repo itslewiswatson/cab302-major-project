@@ -5,6 +5,9 @@ import common.dto.UpdatePasswordDTO;
 import common.exceptions.NullResultException;
 import server.db.DBStrategy;
 
+/**
+ * This class represents the update password logic
+ */
 public class UpdatePasswordHandler extends Handler<User, UpdatePasswordDTO> {
     public UpdatePasswordHandler(DBStrategy dbStatements) {
         super(dbStatements);

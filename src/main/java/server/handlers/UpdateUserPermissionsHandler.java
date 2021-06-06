@@ -5,6 +5,9 @@ import common.dto.UpdateUserPermissionsDTO;
 import common.exceptions.NullResultException;
 import server.db.DBStrategy;
 
+/**
+ * This class represents the update user permissions logic
+ */
 public class UpdateUserPermissionsHandler extends Handler<User, UpdateUserPermissionsDTO> {
     public UpdateUserPermissionsHandler(DBStrategy dbStatements) {
         super(dbStatements);

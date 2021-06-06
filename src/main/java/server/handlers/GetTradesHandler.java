@@ -6,6 +6,9 @@ import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the get trades logic
+ */
 public class GetTradesHandler extends Handler<ArrayList<Trade>, GetTradesDTO> {
     public GetTradesHandler(DBStrategy dbStatements) {
         super(dbStatements);

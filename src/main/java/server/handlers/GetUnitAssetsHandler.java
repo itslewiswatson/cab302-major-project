@@ -8,6 +8,9 @@ import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the get unit assets logic
+ */
 public class GetUnitAssetsHandler extends Handler<ArrayList<UnitAsset>, GetUnitAssetsDTO> {
     public GetUnitAssetsHandler(DBStrategy dbStatements) {
         super(dbStatements);

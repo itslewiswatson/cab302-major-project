@@ -6,6 +6,9 @@ import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the get historic trades logic
+ */
 public class GetHistoricTradesHandler extends Handler<ArrayList<Trade>, GetHistoricTradesDTO> {
     public GetHistoricTradesHandler(DBStrategy dbStatements) {
         super(dbStatements);

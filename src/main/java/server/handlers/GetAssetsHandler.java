@@ -6,6 +6,9 @@ import server.db.DBStrategy;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the get assets logic
+ */
 public class GetAssetsHandler extends Handler<ArrayList<FullAsset>, GetAssetsDTO> {
     public GetAssetsHandler(DBStrategy dbStatements) {
         super(dbStatements);

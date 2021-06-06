@@ -7,6 +7,9 @@ import server.db.DBStrategy;
 
 import java.sql.SQLException;
 
+/**
+ * This class represents the delete asset logic
+ */
 public class DeleteAssetHandler extends Handler<Boolean, DeleteAssetDTO> {
     public DeleteAssetHandler(DBStrategy dbStatements) {
         super(dbStatements);

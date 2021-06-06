@@ -7,6 +7,9 @@ import server.db.DBStrategy;
 
 import java.sql.SQLException;
 
+/**
+ * This class represents the new user logic
+ */
 public class NewUserHandler extends Handler<User, NewUserDTO> {
     public NewUserHandler(DBStrategy dbStatements) {
         super(dbStatements);

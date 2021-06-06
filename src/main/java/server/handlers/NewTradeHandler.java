@@ -9,6 +9,9 @@ import server.db.DBStrategy;
 
 import java.time.LocalDate;
 
+/**
+ * This class represents the new trade logic
+ */
 public class NewTradeHandler extends Handler<Trade, NewTradeDTO> {
 
     public NewTradeHandler(DBStrategy dbStatements) {
