@@ -17,11 +17,14 @@ Then enter the following (where `%sql_file%` is the absolute file path to the `d
     
 Press `Enter` when prompted for the password.
     
-### Server
+### Server (IDE)
 To run the server, open the project in IntelliJ and go to `Run` &rarr; `Run 'Server'`.
 
-### Client
+### Client (IDE)
 To run the client, open the project in IntelliJ and go to the `Maven Tool Window` on the right-hand side. If it's not open, go to `View` &rarr; `Tool Windows` &rarr; `Maven`. Within the `Maven Tool Window` open the `cab302-major-project` dropdown, go to `Lifecycle` &rarr; `compile`. Once compilation is complete, click on `Reload All Maven Projects` at the top left of the window. Then go to `Plugins` &rarr; `javafx` &rarr; `javafx:run`.
+
+### Server & Client (Deployment)
+Within the `Maven Tool Window` open the `cab302-major-project` dropdown, go to `Lifecycle` &rarr; `package`. Once the packaging process is complete, the executable jars and their properties files can be found in the target directory in the project root.
 
 Documentation
 -------------
