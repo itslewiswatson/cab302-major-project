@@ -37,7 +37,7 @@ public class EditUnitAssetDialogController extends Controller implements Initial
     public void clickCreate() {
         String textQuantity = newQtyTextField.getText();
         if (!textQuantity.matches("[0-9]+")) {
-            AlertDialog.error("Quantity invalid", "Quantity may only be a numeric value");
+            AlertDialog.error("Quantity invalid", "Quantity may only be a positive numeric value");
             return;
         }
 
