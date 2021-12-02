@@ -31,7 +31,6 @@ Documentation
 - [Requirements](/docs/requirements.md)  
 - [Detailed Design](/docs/detailed-design.md)
 - [Sprint Planning](/docs/sprint-planning.md)
-- [Video](https://youtu.be/wF8sC_2rYsc)
 
 Milestones
 ----------
@@ -39,10 +38,8 @@ Milestones
 - [Requirements](/docs/milestone-one/requirements.md)  
 - [Detailed Design](/docs/milestone-one/detailed-design.md)
 - [Sprint Planning](/docs/milestone-one/sprint-planning.md)
-- [Video](https://youtu.be/3HGGa-gk6uI)
 
 ### Milestone 2
 - [Requirements](/docs/milestone-two/requirements.md)
 - [Detailed Design](/docs/milestone-two/detailed-design.md)
 - [Sprint Planning](/docs/milestone-two/sprint-planning.md)
-- [Video](https://youtu.be/sJfcgYVdTmI)
